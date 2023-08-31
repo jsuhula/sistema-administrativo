@@ -21,7 +21,7 @@
                     <div class="d-sm-flex justify-content-between w-100">
                         <div class="navbar-nav">
                             <a class="nav-link" href="#">Usuarios</a>
-                            <a class="nav-link" href="/views/menu.html">Menu</a>
+                            <a class="nav-link" href="/views/menu.php">Menu</a>
                             <a class="nav-link" href="#">Mesas</a>
                             <a class="nav-link" href="#">Informes</a>
                         </div>
