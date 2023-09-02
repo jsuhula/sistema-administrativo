@@ -25,6 +25,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <span class="nav-link"><i class="fas fa-user"></i> User</span>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#caja">Caja</a>
                     </li>
                     <li class="nav-item">
@@ -43,9 +46,6 @@
             </div>
             <div class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <span class="nav-link">Josias Suhul</span>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#salir">
                         <i class="fas fa-sign-out-alt"></i> Salir
                     </a>
@@ -55,9 +55,9 @@
     </nav>
 
     <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4">
-        <h2 class="text-center">Estadisticas del mes</h2>
+        <h2 class="text-center pt-3">Estadisticas del mes</h2>
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-6 p-2">
                 <div class="card h-100">
                     <div class="card-body">
                         <h2 class="card-title">Detalles de Ventas</h2>
@@ -82,10 +82,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 p-2">
                 <div class="card h-100">
                     <div class="card-body lh-sm">
-                        <h2 class="card-title">Platillo Más Vendido</h2>
+                        <h2 class="card-title">Platillos Más Vendido</h2>
                         <p>Los platillos más vendidos este mes:</p>
                         <p><strong>Pizza de Pepperoni</strong></p>
                         <p><strong>Pizza de Pepperoni</strong></p>
@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="row mt-4 justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-10 pb-3">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Gráfica de Ventas Mensuales</h2>
