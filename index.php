@@ -11,8 +11,8 @@
 
 <body>
 
-    <header class="bg-dark text-white text-center py-4">
-        <h1 class="display-4">Administración Restaurante</h1>
+    <header class="bg-dark text-white text-center">
+        <span class="display-4">Administración Restaurante</span>
     </header>
 
     <!-- Barra de navegación -->
@@ -31,7 +31,7 @@
                         <a class="nav-link" href="#caja">Caja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#usuarios">Usuarios</a>
+                        <a class="nav-link" href="views/gestion-usuarios.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/gestion-platillos.php">Platillos</a>
