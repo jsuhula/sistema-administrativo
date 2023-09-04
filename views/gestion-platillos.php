@@ -13,7 +13,12 @@
     </header>
     <!-- Barra de navegación con estilos de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li>
                     <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i> Regresar</a>
@@ -25,8 +30,8 @@
                     <a class="nav-link" href="#agregar-nuevo">Agregar Nuevo</a>
                 </li>
             </ul>
-        </div>
-    </nav>
+    </div>
+</nav>
     <main class="container mt-4">
         <!-- Lista de Platillos -->
         <section id="lista-platillos" class="bg-white rounded-4 shadow p-4">
