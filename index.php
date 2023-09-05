@@ -40,7 +40,7 @@
                         <a class="nav-link" href="#reportes">Reportes</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="views/menu.php">Menú</a>
+                        <a class="nav-link" href="views/menu.php" target="_blank">Menú</a>
                     </li>
                 </ul>
             </div>
