@@ -18,8 +18,7 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,7 +36,7 @@
                         <a class="nav-link" href="views/gestion-platillos.php">Platillos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#reportes">Reportes</a>
+                        <a class="nav-link" href="views/reportes.php">Reportes</a>
                     </li>
                     <li class="nav-item text-white">
                         <a class="nav-link" href="views/menu.php" target="_blank">Menú</a>
@@ -117,47 +116,47 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+    <!-- Configura la gráfica de ventas mensuales -->
+    <script>
+        var ctx = document.getElementById('ventasMensuales').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Ventas Mensuales',
+                    data: [1200, 1400, 1600, 1800, 2000, 2200],
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > headerHeight) {
+                    navbar.classList.add('fixed-top');
+                } else {
+                    navbar.classList.remove('fixed-top');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-
-<!-- Configura la gráfica de ventas mensuales -->
-<script>
-    var ctx = document.getElementById('ventasMensuales').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-            datasets: [{
-                label: 'Ventas Mensuales',
-                data: [1200, 1400, 1600, 1800, 2000, 2200],
-                fill: false,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        const navbar = document.querySelector('.navbar');
-        const header = document.querySelector('header');
-        const headerHeight = header.offsetHeight;
-
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > headerHeight) {
-                navbar.classList.add('fixed-top');
-            } else {
-                navbar.classList.remove('fixed-top');
-            }
-        });
-    });
-</script>
