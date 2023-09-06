@@ -27,9 +27,6 @@
                         <span class="nav-link"><i class="fas fa-user"></i> User</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#caja">Caja</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="views/gestion-usuarios.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
