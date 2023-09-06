@@ -16,8 +16,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -46,8 +45,7 @@
             <h3>Lista de Usuarios</h3>
             <div class="form-group">
                 <div class="input-group mb-3">
-                    <input name="busqueda-usuario" type="text" class="form-control" placeholder="Nombre de Usuario" aria-label="Buscar Usuario"
-                        aria-describedby="button-addon2">
+                    <input name="busqueda-usuario" type="text" class="form-control" placeholder="Nombre de Usuario" aria-label="Buscar Usuario" aria-describedby="button-addon2">
                 </div>
             </div>
             <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
@@ -69,7 +67,7 @@
                             <td>Administrador</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
-                                    <i class="fas fa-edit"></i> 
+                                    <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal">
                                     <i class="fas fa-trash"></i>
@@ -83,7 +81,7 @@
                             <td>Administrador</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
-                                    <i class="fas fa-edit"></i> 
+                                    <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal">
                                     <i class="fas fa-trash"></i>
@@ -97,7 +95,7 @@
                             <td>Administrador</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
-                                    <i class="fas fa-edit"></i> 
+                                    <i class="fas fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal">
                                     <i class="fas fa-trash"></i>
@@ -231,8 +229,7 @@
     </div>
 
     <!-- Modal de Edición de Usuario -->
-    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -265,85 +262,85 @@
     </div>
 
     <!-- Modal de Eliminación de Usuario -->
-<div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eliminarUsuarioModalLabel">Eliminar Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarUsuarioModalLabel">Eliminar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const regresarLink = document.getElementById('regresar');
+
+            // Función para ocultar todas las secciones excepto la lista de usuarios
+            function hideAllSectionsExceptListaUsuarios() {
+                contentSections.forEach(section => {
+                    if (section.id === 'lista-usuarios') {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+
+            // Al cargar la página, muestra solo la lista de usuarios
+            hideAllSectionsExceptListaUsuarios();
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    // Oculta todas las secciones
+                    contentSections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    // Muestra la sección correspondiente a la opción seleccionada
+                    const targetSectionId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetSectionId);
+                    if (targetSection) {
+                        targetSection.style.display = 'block';
+                    }
+                });
+            });
+
+            const fechaSeleccion = document.getElementById('fecha-seleccion');
+            const fechaInicioContainer = document.getElementById('fecha-inicio-container');
+            const fechaFinContainer = document.getElementById('fecha-fin-container');
+
+            fechaSeleccion.addEventListener('change', function() {
+                const seleccion = fechaSeleccion.value;
+
+                fechaInicioContainer.style.display = 'none';
+                fechaFinContainer.style.display = 'none';
+
+                if (seleccion === 'personalizado') {
+                    fechaInicioContainer.style.display = 'block';
+                    fechaFinContainer.style.display = 'block';
+                }
+            });
+
+            regresarLink.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                window.location.href = '../index.php';
+            });
+        });
+    </script>
 </body>
 
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
-        const contentSections = document.querySelectorAll('.content-section');
-        const regresarLink = document.getElementById('regresar');
-
-        // Función para ocultar todas las secciones excepto la lista de usuarios
-        function hideAllSectionsExceptListaUsuarios() {
-            contentSections.forEach(section => {
-                if (section.id === 'lista-usuarios') {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        }
-
-        // Al cargar la página, muestra solo la lista de usuarios
-        hideAllSectionsExceptListaUsuarios();
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-
-                // Oculta todas las secciones
-                contentSections.forEach(section => {
-                    section.style.display = 'none';
-                });
-
-                // Muestra la sección correspondiente a la opción seleccionada
-                const targetSectionId = this.getAttribute('data-section');
-                const targetSection = document.getElementById(targetSectionId);
-                if (targetSection) {
-                    targetSection.style.display = 'block';
-                }
-            });
-        });
-
-        const fechaSeleccion = document.getElementById('fecha-seleccion');
-        const fechaInicioContainer = document.getElementById('fecha-inicio-container');
-        const fechaFinContainer = document.getElementById('fecha-fin-container');
-
-        fechaSeleccion.addEventListener('change', function () {
-            const seleccion = fechaSeleccion.value;
-
-            fechaInicioContainer.style.display = 'none';
-            fechaFinContainer.style.display = 'none';
-
-            if (seleccion === 'personalizado') {
-                fechaInicioContainer.style.display = 'block';
-                fechaFinContainer.style.display = 'block';
-            }
-        });
-
-        regresarLink.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            window.location.href = '/index.php'; // 
-        });
-    });
-</script>
