@@ -30,13 +30,13 @@
                         <a class="nav-link" href="views/gestion-usuarios.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-platillos.php">Platillos</a>
+                        <a class="nav-link" href="views/gestion-platillos.php">Menú</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/reportes.php">Reportes</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="views/menu.php" target="_blank">Menú</a>
+                        <a class="nav-link" href="views/menu.php" target="_blank">Ver Menú</a>
                     </li>
                 </ul>
             </div>
