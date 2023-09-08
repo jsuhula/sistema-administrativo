@@ -56,21 +56,21 @@
             <div class="col-md-6 p-2">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h2 class="card-title">Detalles de Ventas</h2>
+                        <h2 class="card-title">Comparativa de Ventas</h2>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
+                                    <th>Periodo</th>
                                     <th>Total de Ventas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>01/09/2023</td>
+                                    <td>Este Mes</td>
                                     <td>Q.1200</td>
                                 </tr>
                                 <tr>
-                                    <td>02/09/2023</td>
+                                    <td>Mes Pasado</td>
                                     <td>Q.1400</td>
                                 </tr>
                             </tbody>
