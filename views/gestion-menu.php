@@ -136,7 +136,7 @@
             </div>
         </section>
         <!-- Agregar Nuevo Platillo -->
-        <section id="agregar-nuevo" class="bg-white rounded-4 shadow mt-5 mb-5 p-4" hidden>
+        <section id="agregar-nuevo" class="bg-white rounded-4 shadow p-4" hidden>
             <h2 class="mb-4">Agregar Nuevo</h2>
             <form>
                 <div class="row mb-3">
