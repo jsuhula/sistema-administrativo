@@ -21,7 +21,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">9
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <span class="nav-link"><i class="fas fa-user"></i> User</span>
@@ -51,26 +51,36 @@
     </nav>
 
     <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4">
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-10 pb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Gráfica de Ventas Mensuales</h2>
+                        <canvas id="ventasMensuales"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2 class="text-center pt-3">Estadisticas del mes</h2>
         <div class="row mt-4">
             <div class="col-md-6 p-2">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h2 class="card-title">Detalles de Ventas</h2>
+                        <h2 class="card-title">Comparativa de Ventas</h2>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
+                                    <th>Periodo</th>
                                     <th>Total de Ventas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>01/09/2023</td>
+                                    <td>Este Mes</td>
                                     <td>Q.1200</td>
                                 </tr>
                                 <tr>
-                                    <td>02/09/2023</td>
+                                    <td>Mes Pasado</td>
                                     <td>Q.1400</td>
                                 </tr>
                             </tbody>
@@ -82,24 +92,14 @@
                 <div class="card h-100">
                     <div class="card-body lh-sm">
                         <h2 class="card-title">Platillos Más Vendido</h2>
-                        <p>Los platillos más vendidos este mes:</p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
+                        <p>Platillo mas Vendido del Mes e Historicamente:</p>
+                        <p><strong>Platillo del Mes: ----------</strong></p>
+                        <p><strong>Platillo Historico: --------</strong></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mt-4 justify-content-center">
-            <div class="col-md-10 pb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title">Gráfica de Ventas Mensuales</h2>
-                        <canvas id="ventasMensuales"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
     <footer class="bg-dark text-white text-center">
         <div class="container">
