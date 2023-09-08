@@ -82,10 +82,9 @@
                 <div class="card h-100">
                     <div class="card-body lh-sm">
                         <h2 class="card-title">Platillos Más Vendido</h2>
-                        <p>Los platillos más vendidos este mes:</p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
+                        <p>Platillo mas Vendido del Mes e Historicamente:</p>
+                        <p><strong>Platillo del Mes: ----------</strong></p>
+                        <p><strong>Platillo Historico: --------</strong></p>
                     </div>
                 </div>
             </div>
