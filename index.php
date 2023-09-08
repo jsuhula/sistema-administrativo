@@ -51,45 +51,7 @@
     </nav>
 
     <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4">
-        <h2 class="text-center pt-3">Estadisticas del mes</h2>
-        <div class="row mt-4">
-            <div class="col-md-6 p-2">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Detalles de Ventas</h2>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Total de Ventas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>01/09/2023</td>
-                                    <td>Q.1200</td>
-                                </tr>
-                                <tr>
-                                    <td>02/09/2023</td>
-                                    <td>Q.1400</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 p-2">
-                <div class="card h-100">
-                    <div class="card-body lh-sm">
-                        <h2 class="card-title">Platillos Más Vendido</h2>
-                        <p>Los platillos más vendidos este mes:</p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                        <p><strong>Pizza de Pepperoni</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2 class="text-center pt-3">Estadisticas del Mes</h2>
         <div class="row mt-4 justify-content-center">
             <div class="col-md-10 pb-3">
                 <div class="card">
@@ -100,6 +62,44 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-md-6 p-2">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Comparativa de Ventas</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Periodo</th>
+                                    <th>Total de Ventas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Este Mes</td>
+                                    <td>Q.1200</td>
+                                </tr>
+                                <tr>
+                                    <td>Mes Pasado</td>
+                                    <td>Q.1400</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 p-2">
+                <div class="card h-100">
+                    <div class="card-body lh-sm">
+                        <h2 class="card-title">Platillos Más Vendidos</h2>
+                        <p>Historicamente:</p>
+                        <p><strong>Pato al Horno</strong></p>
+                        <p>Mes Actual:</p>
+                        <p><strong>Hamburguesa Monster</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
     <footer class="bg-dark text-white text-center">
         <div class="container">
