@@ -11,7 +11,7 @@
 
 <body class="bg-light">
     <header class="bg-dark text-white text-center">
-        <span class="display-4">Gestión de Platillos</span>
+        <span class="display-4">Gestión Menú</span>
     </header>
     <!-- Barra de navegación con estilos de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,9 +43,9 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-            <div class="menu-container" style="max-height: 300px; overflow-y: auto;">
-                <table class="table">
-                    <thead>
+            <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
+                <table class="table table-striped">
+                    <thead class="sticky-top">
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
@@ -59,28 +59,78 @@
                             <td>Descripción del platillo 1</td>
                             <td>Q10.99</td>
                             <td>
-                                <button class="btn btn-link" data-toggle="modal" data-target="#editarModal" data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="btn btn-link" data-toggle="modal" data-target="#eliminarModal" data-nombre="Platillo 1">
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
-                        </tr>
-                        <tr data-nombre="Platillo 2" data-descripcion="Descripción del platillo 2" data-precio="$12.99">
-                            <td>Platillo 2</td>
-                            <td>Descripción del platillo 2</td>
-                            <td>Q.12.99</td>
+                        </tr><tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>Platillo 1</td>
+                            <td>Descripción del platillo 1</td>
+                            <td>Q10.99</td>
                             <td>
-                                <button class="btn btn-link" data-toggle="modal" data-target="#editarModal" data-nombre="Platillo 2" data-descripcion="Descripción del platillo 2" data-precio="$12.99">
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="btn btn-link" data-toggle="modal" data-target="#eliminarModal" data-nombre="Platillo 2">
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>
-
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>Platillo 1</td>
+                            <td>Descripción del platillo 1</td>
+                            <td>Q10.99</td>
+                            <td>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>Platillo 1</td>
+                            <td>Descripción del platillo 1</td>
+                            <td>Q10.99</td>
+                            <td>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>Platillo 1</td>
+                            <td>Descripción del platillo 1</td>
+                            <td>Q10.99</td>
+                            <td>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>Platillo 1</td>
+                            <td>Descripción del platillo 1</td>
+                            <td>Q10.99</td>
+                            <td>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -95,13 +145,13 @@
                         <input type="file" class="form-control" id="imagen" accept="image/*">
                     </div>
                     <div class="col-md-6">
-                        <label for="precio" class="form-label">Precio:</label>
+                        <label for="precio" class="form-label">Precio Q:</label>
                         <input type="number" class="form-control" id="precio" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="nombre" class="form-label">Nombre del Platillo:</label>
+                        <label for="nombre" class="form-label">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" required>
                     </div>
                     <div class="col-md-6">
@@ -121,12 +171,62 @@
                         <textarea class="form-control" id="descripcion" rows="2" required></textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar Platillo</button>
+                <button type="submit" class="btn btn-success">Agregar</button>
             </form>
         </section>
+    <!-- Modal para Editar -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Platillo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí puedes agregar los campos de edición, como nombre, descripción y precio -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="editarNombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="editarNombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarDescripcion" class="form-label">Descripción:</label>
+                            <textarea class="form-control" id="editarDescripcion" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editarPrecio" class="form-label">Precio Q:</label>
+                            <input type="number" class="form-control" id="editarPrecio">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar -->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Platillo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de que desea eliminar este platillo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
