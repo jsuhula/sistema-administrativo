@@ -51,6 +51,7 @@
     </nav>
 
     <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4">
+        <h2 class="text-center pt-3">Estadisticas del mes</h2>
         <div class="row mt-4 justify-content-center">
             <div class="col-md-10 pb-3">
                 <div class="card">
@@ -61,7 +62,6 @@
                 </div>
             </div>
         </div>
-        <h2 class="text-center pt-3">Estadisticas del mes</h2>
         <div class="row mt-4">
             <div class="col-md-6 p-2">
                 <div class="card h-100">
@@ -92,14 +92,14 @@
                 <div class="card h-100">
                     <div class="card-body lh-sm">
                         <h2 class="card-title">Platillos Más Vendido</h2>
-                        <p>Platillo mas Vendido del Mes e Historicamente:</p>
-                        <p><strong>Platillo del Mes: ----------</strong></p>
-                        <p><strong>Platillo Historico: --------</strong></p>
+                        <p>Historicamente:</p>
+                        <p><strong>Pato al Horno</strong></p>
+                        <p>Mes Actual:</p>
+                        <p><strong>Hamburguesa Monster</strong></p>
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div>  
     </div>
     <footer class="bg-dark text-white text-center">
         <div class="container">
