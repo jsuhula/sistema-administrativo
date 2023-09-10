@@ -13,7 +13,6 @@
     <header class="bg-dark text-white text-center">
         <span class="display-4">Gestión Menú</span>
     </header>
-    <!-- Barra de navegación con estilos de Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -183,7 +182,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Aquí puedes agregar los campos de edición, como nombre, descripción y precio -->
                     <form>
                         <div class="mb-3">
                             <label for="editarNombre" class="form-label">Nombre:</label>
