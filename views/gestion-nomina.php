@@ -28,7 +28,7 @@
                             <a class="nav-link" href="#empleados" data-section="empleados">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#informes" data-section="informes">Informes</a>
+                            <a class="nav-link" href="#salarios" data-section="resumen">Salarios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
@@ -36,6 +36,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="#liquidacion" data-section="liquidacion">Liquidacion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#informes" data-section="informes">Informes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#resumen" data-section="resumen">Resumen</a>
@@ -49,7 +52,7 @@
     <main class="container mt-4">
 
         <!-- Empleados -->
-        <section id="empleados" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4">
+        <section id="empleados" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Empleados</h2>
             <div class="input-group mb-3">
                 <input id="nombre-empleado" type="text" class="form-control" placeholder="Buscar por Nombre"
@@ -78,7 +81,7 @@
                         <td>Empleado 1</td>
                         <td>empleado@email.com</td>
                         <td>Contabilidad</td>
-                        <td>$2500.00</td>
+                        <td>Q.2500.00</td>
                         <td>Activo</td>
                         <td>
                             <button class="btn btn-sm btn-success" data-bs-toggle="modal"
@@ -96,7 +99,7 @@
                         <td>Empleado 1</td>
                         <td>empleado@email.com</td>
                         <td>Contabilidad</td>
-                        <td>$2500.00</td>
+                        <td>Q.2500.00</td>
                         <td>Activo</td>
                         <td>
                             <button class="btn btn-sm btn-success" data-bs-toggle="modal"
@@ -117,7 +120,7 @@
         </section>
 
         <!-- Cálculo de Salarios -->
-        <section id="salarios" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4" hidden>
+        <section id="salarios" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Cálculo de Salarios</h2>
             <form>
                 <div class="mb-3">
@@ -142,37 +145,20 @@
                 <tbody>
                     <tr>
                         <td>Empleado 1</td>
-                        <td>$2500.00</td>
-                        <td>$2500.00</td>
+                        <td>Q.2500.00</td>
+                        <td>Q.2500.00</td>
                     </tr>
                     <tr>
                         <td>Empleado 2</td>
-                        <td>$3000.00</td>
-                        <td>$3000.00</td>
+                        <td>Q.3000.00</td>
+                        <td>Q.3000.00</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Generación de Informe de Nómina -->
-        <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4" hidden>
-            <h2>Generación de Informe de Nómina</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
-                    <select class="form-select" id="mesInforme">
-                        <option value="enero">Enero</option>
-                        <option value="febrero">Febrero</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success">Generar Informe</button>
-            </form>
-            <h3>Descargar Informe de Nómina</h3>
-            <a href="#" class="btn bg-danger bg-opacity-75"><i class="fas fa-download"></i> Descargar Informe</a>
-        </section>
-
         <!-- Calculo de liquidacion -->
-        <section id="liquidacion" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4" hidden>
+        <section id="liquidacion" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Cálculo de Liquidación</h2>
 
             <div class="mb-4">
@@ -235,7 +221,58 @@
             </div>
             <button class="btn btn-success" id="generar-liquidacion">Generar Liquidación</button>
         </section>
-        <section id="resumen" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4" hidden>
+
+        <!-- Seccion de Comisiones -->
+        <section id="comisiones" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+            <h2>Comisiones de Meseros y Chefs</h2>
+
+            <div class="mb-3">
+                <label for="tipoComision" class="form-label">Selecciona el tipo de comisión:</label>
+                <select class="form-select" id="tipoComision" onchange="mostrarComisiones()">
+                    <option value="mesero">Mesero</option>
+                    <option value="chef">Chef</option>
+                </select>
+            </div>
+
+            <table class="table table-striped" id="tablaComisiones">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mesero/Chef</td>
+                        <td>Q.1,100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mesero/Chef</td>
+                        <td>Q.1,120.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Generación de Informe de Nómina -->
+        <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+            <h2>Generación de Informe de Nómina</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
+                    <select class="form-select" id="mesInforme">
+                        <option value="enero">Enero</option>
+                        <option value="febrero">Febrero</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Generar Informe</button>
+            </form>
+            <h3>Descargar Informe de Nómina</h3>
+            <a href="#" class="btn bg-danger bg-opacity-75"><i class="fas fa-download"></i> Descargar Informe</a>
+        </section>
+
+        <!-- Seccion de Resumen -->
+        <section id="resumen" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Resumen por Conceptos</h2>
             <table class="table table-striped">
                 <thead class="sticky-top">
@@ -274,36 +311,6 @@
                 </tbody>
             </table>
         </section>
-        <section id="comisiones" class="container bg-white shadow-lg mt-5 mb-5 p-md-5 rounded-4" hidden>
-            <h2>Comisiones de Meseros y Chefs</h2>
-
-            <div class="mb-3">
-                <label for="tipoComision" class="form-label">Selecciona el tipo de comisión:</label>
-                <select class="form-select" id="tipoComision" onchange="mostrarComisiones()">
-                    <option value="mesero">Mesero</option>
-                    <option value="chef">Chef</option>
-                </select>
-            </div>
-
-            <table class="table table-striped" id="tablaComisiones">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Monto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mesero/Chef</td>
-                        <td>Q.1,100.00</td>
-                    </tr>
-                    <tr>
-                        <td>Mesero/Chef</td>
-                        <td>Q.1,120.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
     </main>
 
     <!-- Modal para editar empleado -->
@@ -316,7 +323,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Formulario para editar empleados -->
                     <form>
                         <div class="row mb-3">
                             <div class="col-md-6">
@@ -410,8 +416,6 @@
                             </div>
                         </div>
                     </form>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -447,6 +451,7 @@
         const header = document.querySelector('header');
         const headerHeight = header.offsetHeight;
         const empleados = document.getElementById('empleados');
+        const salarios = document.getElementById('salarios');
         const informes = document.getElementById('informes');
         const liquidaciones = document.getElementById('liquidacion');
         const resumen = document.getElementById('resumen');
@@ -462,33 +467,57 @@
 
                 if (targetId === 'empleados') {
                     empleados.removeAttribute('hidden');
+
                     informes.setAttribute('hidden', 'true');
                     liquidaciones.setAttribute('hidden', 'true');
                     comisiones.setAttribute('hidden', 'true');
+                    salarios.setAttribute('hidden', 'true');
+                    resumen.setAttribute('hidden', 'true');
+
                 } else if (targetId === 'informes') {
                     informes.removeAttribute('hidden');
+
                     empleados.setAttribute('hidden', 'true');
                     liquidaciones.setAttribute('hidden', 'true');
                     resumen.setAttribute('hidden', 'true');
                     comisiones.setAttribute('hidden', 'true');
+                    salarios.setAttribute('hidden', 'true');
+
                 } else if (targetId === 'liquidacion') {
                     liquidaciones.removeAttribute('hidden');
+
                     informes.setAttribute('hidden', 'true');
                     empleados.setAttribute('hidden', 'true');
                     resumen.setAttribute('hidden', 'true');
                     comisiones.setAttribute('hidden', 'true');
+                    salarios.setAttribute('hidden', 'true');
+
                 } else if (targetId === 'resumen') {
+                    resumen.removeAttribute('hidden');
+
                     informes.setAttribute('hidden', 'true');
                     empleados.setAttribute('hidden', 'true');
                     liquidaciones.setAttribute('hidden', 'true');
-                    resumen.removeAttribute('hidden');
                     comisiones.setAttribute('hidden', 'true');
+                    salarios.setAttribute('hidden', 'true');
+
                 } else if (targetId === 'comisiones') {
+                    comisiones.removeAttribute('hidden');
+
                     informes.setAttribute('hidden', 'true');
                     empleados.setAttribute('hidden', 'true');
                     liquidaciones.setAttribute('hidden', 'true');
                     resumen.setAttribute('hidden', 'true');
-                    comisiones.removeAttribute('hidden');
+                    salarios.setAttribute('hidden', 'true');
+
+                } else if (targetId === 'salarios') {
+                    salarios.removeAttribute('hidden');
+
+                    informes.setAttribute('hidden', 'true');
+                    empleados.setAttribute('hidden', 'true');
+                    liquidaciones.setAttribute('hidden', 'true');
+                    resumen.setAttribute('hidden', 'true');
+                    comisiones.setAttribute('hidden', 'true');
                 }
             });
         });
