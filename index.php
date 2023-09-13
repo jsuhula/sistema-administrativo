@@ -30,7 +30,7 @@
                         <a class="nav-link" href="views/gestion-nomina.php">Nómina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-usuarios.php">Usuarios</a>
+                        <a class="nav-link" href="views/gestion-empleados.php">Empleados</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/gestion-menu.php">Menú</a>
