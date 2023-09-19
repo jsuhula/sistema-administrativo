@@ -13,7 +13,7 @@
     <header class="bg-dark text-white text-center">
         <span class="display-4">Gestión Menú</span>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-start">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
     </nav>
     <main class="container mt-4">
         <!-- Lista de Platillos -->
-        <section id="lista-platillos" class="bg-white rounded-4 shadow p-4">
+        <section id="lista-platillos" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2 class="mb-4">Menú Actual</h2>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Buscar platillo" aria-label="Buscar platillo" aria-describedby="button-addon2">
@@ -135,7 +135,7 @@
             </div>
         </section>
         <!-- Agregar Nuevo Platillo -->
-        <section id="agregar-nuevo" class="bg-white rounded-4 shadow p-4" hidden>
+        <section id="agregar-nuevo" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2 class="mb-4">Agregar Nuevo</h2>
             <form>
                 <div class="row mb-3">
