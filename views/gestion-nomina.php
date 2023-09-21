@@ -25,10 +25,10 @@
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#salarios" data-section="resumen">Pago Salarios</a>
+                        <a class="nav-link" href="#salarios" data-section="salarios">Pago Salarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bonificaciones" data-section="resumen">Pago Bonificacion</a>
+                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones">Pago Bonificacion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
@@ -53,17 +53,18 @@
         <section id="salarios" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Cálculo de Salarios</h2>
             <form>
-                <div class="mb-3">
-                    <label for="mes" class="form-label">Selecciona el Mes:</label>
-                    <select class="form-select" id="mes">
-                        <option value="enero">Enero</option>
-                        <option value="febrero">Febrero</option>
-                    </select>
+                <div class="row align-items-center justify-content-between">
+                    <label for="mes_calculo" class="form-label">Mes:</label>
+                    <div class="col-md-6">
+                        <input type="month" class="form-control" id="mes_calculo">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-secondary">Calcular</button>
             </form>
             <!-- Resultado del cálculo de salarios -->
-            <h3>Resultado del Cálculo:</h3>
+            <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
                 <table class="table table-striped">
                     <thead class="sticky-top">
@@ -84,16 +85,69 @@
                             <td>Empleado 1</td>
                             <td>Q.3500.00</td>
                             <td>Q.278.00</td>
-                            <td>Q.225.00</td>
+                            <td>Q.150.00</td>
                             <td>Q.125.00</td>
                             <td>Q.150</td>
-                            <td>Q.2500.00</td>
+                            <td>Q.3500.00</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
+            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
                 REALIZAR PAGO DE NOMINA
+            </button>
+        </section>
+
+        <!-- Cálculo de Bonificaciones -->
+        <section id="bonificaciones" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+            <h2>Cálculo de Bonificaciones</h2>
+            <form>
+                <div class="row align-items-center justify-content-between">
+                    <label for="tipo_bonificacion" class="form-label">Tipo Bonificacion:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="tipo_bonificacion">
+                            <option value="1">Bono 14</option>
+                            <option value="2">Aguinaldo</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Resultado del cálculo de bonificaciones -->
+            <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
+            <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
+                <table class="table table-striped">
+                    <thead class="sticky-top">
+                        <tr>
+                            <th>Código</th>
+                            <th>Empleado</th>
+                            <th>Salario</th>
+                            <th>Comisiones</th>
+                            <th>IGSS</th>
+                            <th>IRTRA</th>
+                            <th>ISR</th>
+                            <th>Total Liquido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EMP01</td>
+                            <td>Empleado 1</td>
+                            <td>Q.3500.00</td>
+                            <td>Q.278.00</td>
+                            <td>Q.150.00</td>
+                            <td>Q.125.00</td>
+                            <td>Q.150</td>
+                            <td>Q.3500.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
+                REALIZAR PAGO
             </button>
         </section>
 
@@ -174,73 +228,79 @@
         <section id="liquidacion" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Cálculo de Liquidación</h2>
 
-            <div class="mb-4">
-                <label for="empleados-inactivos" class="form-label">Selecciona un empleado:</label>
-                <select class="form-select" id="empleados-inactivos">
-                    <option value="1">Empleado 1</option>
-                    <option value="2">Empleado 2</option>
-                    <option value="3">Empleado 3</option>
-                </select>
-            </div>
+            <form>
+                <div class="row align-items-center justify-content-between">
+                    <label for="empleado_liquidacion" class="form-label">Nombre de Empleado:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="empleado_liquidacion">
+                            <option value="1">Empleado 1</option>
+                            <option value="2">Empleado 2</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                    </div>
+                </div>
+            </form>
 
             <h3 class="caption-top mt-4 text-secondary">General</h3>
-            <div class="table-resposive" style="max-height: 10em; overflow-y: auto;">
+            <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
                 <table class="table table-striped" id="tabla-general">
                     <thead>
                         <tr>
-                            <th>Empleado</th>
-                            <th>Fecha de Ingreso</th>
-                            <th>Fecha de Retiro</th>
-                            <th>Sueldo Mensual</th>
-                            <th>Indemnización</th>
+                            <th>Razon</th>
+                            <th>Articulo C.T</th>
+                            <th>De Fecha</th>
+                            <th>A Fecha</th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Empleado 1</td>
+                            <td>Indemnización</td>
+                            <td>Articulo 82</td>
                             <td>01/01/2010</td>
                             <td>15/08/2023</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.2500.00</td>
-                            <td>Q.5500.00</td>
+                            <td>Q.10,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Aguinaldo</td>
+                            <td>Articulo 130</td>
+                            <td>01/01/2010</td>
+                            <td>15/08/2023</td>
+                            <td>Q.1,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Bono 14</td>
+                            <td>Articulo 82</td>
+                            <td>01/01/2010</td>
+                            <td>15/08/2023</td>
+                            <td>Q.2,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Vacaciones</td>
+                            <td>Articulo 8</td>
+                            <td>01/01/2010</td>
+                            <td>15/08/2023</td>
+                            <td>Q.1,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Horas Extras Pendientes</td>
+                            <td>Articulo 11</td>
+                            <td>01/01/2010</td>
+                            <td>15/08/2023</td>
+                            <td>Q.500.00</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <h3 class="caption-top mt-4 text-secondary">Vacaciones</h3>
-            <div class="table-resposive" style="max-height: 10em; overflow-y: auto;">
-                <table class="table table-striped" id="tabla-vacaciones">
-                    <thead>
-                        <tr>
-                            <th>Empleado</th>
-                            <th>Fecha de Ingreso</th>
-                            <th>Fecha de Retiro</th>
-                            <th>Total Dias</th>
-                            <th>Dias pendientes</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Empleado 1</td>
-                            <td>01/01/2010</td>
-                            <td>15/08/2023</td>
-                            <td>25</td>
-                            <td>10</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-success">
+            <table class="table table-success">
                     <tfoot>
                         <tr>
-                            <td class="fw-bold">Total Liquido: Q.<span>12000.00</span></td>
+                            <td class="fw-bold">TOTAL A LIQUIDAR: Q.<span>22,000.00</span></td>
                         </tr>
                     </tfoot>
-                </table>
-            </div>
+            </table>
             <button class="btn btn-success" id="generar-liquidacion">Generar Liquidación</button>
         </section>
 
@@ -248,21 +308,54 @@
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Generación de Informes</h2>
             <form>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="tipoNomina" class="form-label">Tipo de Nomina:</label>
-                    <select class="form-select" id="tipoNomina">
-                        <option value="1">Pago Salarios</option>
-                        <option value="2">Pago Bonificaciones</option>
-                    </select>
+                <div class="row mb-3 align-items-end">
+                    <div class="col-md-3 pb-2">
+                        <label for="tipo_bonificacion" class="form-label">Bonificaciones:</label>
+                        <select class="form-select" id="tipoNotipo_bonificacionmina">
+                            <option value="1">Bono 14</option>
+                            <option value="2">Aguinaldo</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <label for="mesInforme" class="form-label">Mes:</label>
+                        <input type="month" class="form-control" id="mesInforme">
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <button type="submit" class="btn btn-success">Generar Informe</button>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
-                    <input type="month" class="form-control" id="mesInforme">
+                <div class="row mb-3 align-items-end">
+                    <div class="col-md-3 pb-2">
+                        <label for="tipo_liquidacion" class="form-label">Liquidaciones:</label>
+                        <select class="form-select" id="tipo_liquidacion">
+                            <option value="1">Por Fecha</option>
+                            <option value="2">Empleado Especifico</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <label for="mesInforme" class="form-label">Mes:</label>
+                        <input type="month" class="form-control" id="mesInforme">
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <button type="submit" class="btn btn-success">Generar Informe</button>
+                    </div>
                 </div>
+                <div class="row mb-3 align-items-end">
+                    <div class="col-md-3 pb-2">
+                        <label for="tipo_liquidacion" class="form-label">Nomina:</label>
+                        <select class="form-select" id="tipo_liquidacion">
+                            <option value="1">Ultima Nomina</option>
+                            <option value="2">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <label for="mesInforme" class="form-label">Mes:</label>
+                        <input type="month" class="form-control" id="mesInforme">
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <button type="submit" class="btn btn-success">Generar Informe</button>
+                    </div>
                 </div>
-            </div>
-                <button type="submit" class="btn btn-success">Generar Informe</button>
             </form>
         </section>
 
@@ -315,6 +408,7 @@
             const header = document.querySelector('header');
             const headerHeight = header.offsetHeight;
             const salarios = document.getElementById('salarios');
+            const bonificaciones = document.getElementById('bonificaciones');
             const informes = document.getElementById('informes');
             const liquidaciones = document.getElementById('liquidacion');
             const resumen = document.getElementById('resumen');
@@ -335,6 +429,17 @@
                         liquidaciones.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
                         comisiones.setAttribute('hidden', 'true');
+                        bonificaciones.setAttribute('hidden', true);
+
+                    } else if(targetId === 'bonificaciones'){
+                        bonificaciones.removeAttribute('hidden');
+
+                        informes.setAttribute('hidden', 'true');
+                        liquidaciones.setAttribute('hidden', 'true');
+                        resumen.setAttribute('hidden', 'true');
+                        comisiones.setAttribute('hidden', 'true');
+                        salarios.setAttribute('hidden', 'true');
+
                     } else if (targetId === 'informes') {
                         informes.removeAttribute('hidden');
 
@@ -342,6 +447,7 @@
                         resumen.setAttribute('hidden', 'true');
                         comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
+                        bonificaciones.setAttribute('hidden', true);
 
                     } else if (targetId === 'liquidacion') {
                         liquidaciones.removeAttribute('hidden');
@@ -350,6 +456,7 @@
                         resumen.setAttribute('hidden', 'true');
                         comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
+                        bonificaciones.setAttribute('hidden', true);
 
                     } else if (targetId === 'resumen') {
                         resumen.removeAttribute('hidden');
@@ -358,6 +465,7 @@
                         liquidaciones.setAttribute('hidden', 'true');
                         comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
+                        bonificaciones.setAttribute('hidden', true);
 
                     } else if (targetId === 'comisiones') {
                         comisiones.removeAttribute('hidden');
@@ -366,6 +474,7 @@
                         liquidaciones.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
+                        bonificaciones.setAttribute('hidden', true);
 
                     }
                 });
