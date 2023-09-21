@@ -24,7 +24,7 @@
                         <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i> Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#lista-platillos">Menú Actual</a>
+                        <a class="nav-link" href="#lista-menu">Menú Actual</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#agregar-nuevo">Agregar Nuevo</a>
@@ -33,11 +33,16 @@
             </div>
     </nav>
     <main class="container mt-4">
-        <!-- Lista de Platillos -->
-        <section id="lista-platillos" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <!-- Lista de Menu -->
+        <section id="lista-menu" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2 class="mb-4">Menú Actual</h2>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar platillo" aria-label="Buscar platillo" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Nombre del Item" aria-label="Buscar Articulo" aria-describedby="button-addon2">
+                <select class="form-select" aria-label="Seleccionar Categoría">
+                    <option value="">Todas las Categorías</option>
+                    <option value="categoria1">Categoría 1</option>
+                    <option value="categoria2">Categoría 2</option>
+                </select>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
                 </button>
@@ -46,17 +51,21 @@
                 <table class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
+                            <th>Codigo</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Precio</th>
+                            <th>Categoría</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>PLA01</td>
                             <td>Platillo 1</td>
                             <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
+                            <td>Q35.99</td>
+                            <td>Hamburguesas</td>
                             <td>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
@@ -65,10 +74,13 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
-                        </tr><tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                        </tr>
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción de la bebida 1" data-precio="$10.99">
+                            <td>BEBI01</td>
                             <td>Platillo 1</td>
-                            <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
+                            <td>Descripción de la bebida 1</td>
+                            <td>Q7.99</td>
+                            <td>Bebidas</td>
                             <td>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
@@ -79,9 +91,26 @@
                             </td>
                         </tr>
                         <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>PLA01</td>
                             <td>Platillo 1</td>
                             <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
+                            <td>Q35.99</td>
+                            <td>Hamburguesas</td>
+                            <td>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción de la bebida 1" data-precio="$10.99">
+                            <td>BEBI01</td>
+                            <td>Platillo 1</td>
+                            <td>Descripción de la bebida 1</td>
+                            <td>Q7.99</td>
+                            <td>Bebidas</td>
                             <td>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
@@ -92,9 +121,11 @@
                             </td>
                         </tr>
                         <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                            <td>PLA01</td>
                             <td>Platillo 1</td>
                             <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
+                            <td>Q35.99</td>
+                            <td>Hamburguesas</td>
                             <td>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
@@ -104,23 +135,12 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
+                        <tr data-nombre="Platillo 1" data-descripcion="Descripción de la bebida 1" data-precio="$10.99">
+                            <td>BEBI01</td>
                             <td>Platillo 1</td>
-                            <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr data-nombre="Platillo 1" data-descripcion="Descripción del platillo 1" data-precio="$10.99">
-                            <td>Platillo 1</td>
-                            <td>Descripción del platillo 1</td>
-                            <td>Q10.99</td>
+                            <td>Descripción de la bebida 1</td>
+                            <td>Q7.99</td>
+                            <td>Bebidas</td>
                             <td>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarModal">
                                     <i class="fas fa-edit"></i>
@@ -134,7 +154,7 @@
                 </table>
             </div>
         </section>
-        <!-- Agregar Nuevo Platillo -->
+        <!-- Agregar Nuevo Item -->
         <section id="agregar-nuevo" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2 class="mb-4">Agregar Nuevo</h2>
             <form>
@@ -178,7 +198,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarModalLabel">Editar Platillo</h5>
+                    <h5 class="modal-title" id="editarModalLabel">Editar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -195,6 +215,16 @@
                             <label for="editarPrecio" class="form-label">Precio Q:</label>
                             <input type="number" class="form-control" id="editarPrecio">
                         </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría:</label>
+                            <select class="form-select" id="categoria" required>
+                                <option value="" disabled selected>Seleccione una categoría</option>
+                                <option value="Entrada">Entrada</option>
+                                <option value="Plato principal">Plato principal</option>
+                                <option value="Postre">Postre</option>
+                                <option value="Bebida">Bebida</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -210,11 +240,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Platillo</h5>
+                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Está seguro de que desea eliminar este platillo?
+                    ¿Está seguro de que desea eliminar este Item?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -230,8 +260,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.querySelector('header');
             const headerHeight = header.offsetHeight;
-            const listaPlatillosSection = document.getElementById('lista-platillos');
-            const agregarNuevoSection = document.getElementById('agregar-nuevo');
+            const listaMenuSeccion = document.getElementById('lista-menu');
+            const agregarNuevoSeccion = document.getElementById('agregar-nuevo');
             const regresarLink = document.getElementById('regresar');
 
             const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
@@ -241,12 +271,12 @@
                     event.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
 
-                    if (targetId === 'lista-platillos') {
-                        listaPlatillosSection.removeAttribute('hidden');
-                        agregarNuevoSection.setAttribute('hidden', 'true');
+                    if (targetId === 'lista-menu') {
+                        listaMenuSeccion.removeAttribute('hidden');
+                        agregarNuevoSeccion.setAttribute('hidden', 'true');
                     } else if (targetId === 'agregar-nuevo') {
-                        listaPlatillosSection.setAttribute('hidden', 'true');
-                        agregarNuevoSection.removeAttribute('hidden');
+                        listaMenuSeccion.setAttribute('hidden', 'true');
+                        agregarNuevoSeccion.removeAttribute('hidden');
                     }
                 });
             });
