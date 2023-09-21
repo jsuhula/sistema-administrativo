@@ -50,7 +50,6 @@
                 </button>
             </div>
 
-            <h3>Lista de Empleados</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
                 <table class="table table-striped">
                     <thead class="sticky-top">
@@ -177,22 +176,6 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>EM001A</td>
-                            <td>Empleado 1</td>
-                            <td>empleado@email.com</td>
-                            <td>Contabilidad</td>
-                            <td>Q.2500.00</td>
-                            <td>Activo</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarEmpleadoModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -203,8 +186,8 @@
         </section>
 
         <!-- Lista de Usuarios -->
-        <section id="lista-usuarios" class="content-section rounded-4 shadow-lg p-4">
-            <h3>Lista de Usuarios</h3>
+        <section id="lista-usuarios" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+            <h2>Usuarios</h2>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Buscar Empleado" aria-label="Buscar Usuario" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
@@ -344,25 +327,29 @@
         </section>
 
         <!-- Asistencia -->
-        <section id="asistencia" class="content-section rounded-4 shadow-lg p-4">
-            <h3>Asistencia</h3>
+        <section id="asistencia" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+            <h2>Asistencia</h2>
             <div class="row">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar Empleado" aria-label="Buscar Usuario" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="fecha-seleccion" class="form-label">Fecha</label>
-                    <select class="form-select" id="fecha-seleccion">
-                        <option value="hoy">Hoy</option>
-                        <option value="semana">Esta Semana</option>
-                        <option value="mes-actual">Mes Actual</option>
-                        <option value="mes-pasado">Mes Pasado</option>
-                        <option value="personalizado">Personalizado</option>
-                    </select>
-                </div>
+            <div class="col-md-6 mb-3">
+            <label for="select-empleado" class="form-label">Seleccionar Empleado</label>
+            <select class="form-select" aria-label="Seleccionar Empleado" id="select-empleado">
+                <option selected disabled>---</option>
+                <option value="empleado1">Empleado 1</option>
+                <option value="empleado2">Empleado 2</option>
+                <option value="empleado3">Empleado 3</option>
+                <!-- Agrega más opciones de empleados según sea necesario -->
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="fecha-seleccion" class="form-label">Seleccionar Fecha</label>
+            <select class="form-select" id="fecha-seleccion">
+                <option value="hoy">Hoy</option>
+                <option value="semana">Esta Semana</option>
+                <option value="mes-actual">Mes Actual</option>
+                <option value="mes-pasado">Mes Pasado</option>
+                <option value="personalizado">Personalizado</option>
+            </select>
+        </div>
                 <div class="col-md-2 mb-3" id="fecha-inicio-container" style="display: none;">
                     <label for="fecha-inicio" class="form-label">Fecha Inicio</label>
                     <input type="date" class="form-control" id="fecha-inicio">
