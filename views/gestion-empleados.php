@@ -45,6 +45,11 @@
             <h2>Empleados</h2>
             <div class="input-group mb-3">
                 <input id="nombre-empleado" type="text" class="form-control" placeholder="Buscar por Nombre" aria-label="Buscar Empleado" aria-describedby="button-addon2">
+                <select class="form-select" aria-label="Seleccionar Categoría">
+                    <option value="">Todos los Departamentos</option>
+                    <option value="categoria1">Departamento 1</option>
+                    <option value="categoria2">Departamento 2</option>
+                </select>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
                 </button>
@@ -189,7 +194,12 @@
         <section id="lista-usuarios" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Usuarios</h2>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar Empleado" aria-label="Buscar Usuario" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Buscar Usuario" aria-label="Buscar Usuario" aria-describedby="button-addon2">
+                <select class="form-select" aria-label="Seleccionar Categoría">
+                    <option value="">Todos los Roles</option>
+                    <option value="categoria1">Rol 1</option>
+                    <option value="categoria2">Rol 2</option>
+                </select>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
                 </button>
@@ -198,7 +208,7 @@
                 <table class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
-                            <th>ID</th>
+                            <th>Código</th>
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
