@@ -12,38 +12,40 @@
 <body class="bg-light">
     <header class="bg-dark text-white text-center">
         <span class="display-4">Gestión de Nómina</span>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li>
-                            <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i>
-                                Regresar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#salarios" data-section="resumen">Salarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#liquidacion" data-section="liquidacion">Liquidacion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#informes" data-section="informes">Informes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#resumen" data-section="resumen">Resumen</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
     </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li>
+                        <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i>
+                            Regresar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#salarios" data-section="resumen">Pago Salarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bonificaciones" data-section="resumen">Pago Bonificacion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#liquidacion" data-section="liquidacion">Liquidacion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#informes" data-section="informes">Informes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resumen" data-section="resumen">Resumen</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <main class="container mt-4">
 
@@ -58,86 +60,59 @@
                         <option value="febrero">Febrero</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Calcular Salarios</button>
+                <button type="submit" class="btn btn-secondary">Calcular</button>
             </form>
             <!-- Resultado del cálculo de salarios -->
-            <h3>Resultado del Cálculo</h3>
+            <h3>Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
                 <table class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
+                            <th>Código</th>
                             <th>Empleado</th>
                             <th>Salario</th>
-                            <th>Total</th>
+                            <th>Comisiones</th>
+                            <th>IGSS</th>
+                            <th>IRTRA</th>
+                            <th>ISR</th>
+                            <th>Total Liquido</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>EMP01</td>
                             <td>Empleado 1</td>
+                            <td>Q.3500.00</td>
+                            <td>Q.278.00</td>
+                            <td>Q.225.00</td>
+                            <td>Q.125.00</td>
+                            <td>Q.150</td>
                             <td>Q.2500.00</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 2</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.3000.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 1</td>
-                            <td>Q.2500.00</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 2</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.3000.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 1</td>
-                            <td>Q.2500.00</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 2</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.3000.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 1</td>
-                            <td>Q.2500.00</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 2</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.3000.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 1</td>
-                            <td>Q.2500.00</td>
-                            <td>Q.2500.00</td>
-                        </tr>
-                        <tr>
-                            <td>Empleado 2</td>
-                            <td>Q.3000.00</td>
-                            <td>Q.3000.00</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
+                REALIZAR PAGO DE NOMINA
+            </button>
         </section>
 
         <!-- Seccion de Comisiones -->
         <section id="comisiones" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Comisiones de Meseros y Chefs</h2>
 
-            <div class="mb-3">
-                <label for="tipoComision" class="form-label">Selecciona el tipo de comisión:</label>
-                <select class="form-select" id="tipoComision" onchange="mostrarComisiones()">
-                    <option value="mesero">Mesero</option>
-                    <option value="chef">Chef</option>
-                </select>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="tipoNomina" class="form-label">Seleccione:</label>
+                    <select class="form-select" id="tipoNomina">
+                        <option value="1">Chef/Cocinero (a)</option>
+                        <option value="2">Mesero (a)</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
+                    <input type="month" class="form-control" id="mesInforme">
+                </div>
             </div>
 
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
@@ -207,9 +182,10 @@
                     <option value="3">Empleado 3</option>
                 </select>
             </div>
-            <div>
-                <caption class="caption-top">General</caption>
-                <table class="table table-striped mt-4" id="tabla-liquidacion">
+
+            <h3 class="caption-top mt-4 text-secondary">General</h3>
+            <div class="table-resposive" style="max-height: 10em; overflow-y: auto;">
+                <table class="table table-striped" id="tabla-general">
                     <thead>
                         <tr>
                             <th>Empleado</th>
@@ -217,7 +193,7 @@
                             <th>Fecha de Retiro</th>
                             <th>Sueldo Mensual</th>
                             <th>Indemnización</th>
-                            <th>Total de Liquidación</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -232,9 +208,10 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <caption class="caption-top">Vacaciones</caption>
-                <table class="table table-striped mt-4" id="tabla-liquidacion">
+
+            <h3 class="caption-top mt-4 text-secondary">Vacaciones</h3>
+            <div class="table-resposive" style="max-height: 10em; overflow-y: auto;">
+                <table class="table table-striped" id="tabla-vacaciones">
                     <thead>
                         <tr>
                             <th>Empleado</th>
@@ -242,7 +219,7 @@
                             <th>Fecha de Retiro</th>
                             <th>Total Dias</th>
                             <th>Dias pendientes</th>
-                            <th>Total de Liquidación</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -256,25 +233,37 @@
                         </tr>
                     </tbody>
                 </table>
+                <table class="table table-success">
+                    <tfoot>
+                        <tr>
+                            <td class="fw-bold">Total Liquido: Q.<span>12000.00</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
             <button class="btn btn-success" id="generar-liquidacion">Generar Liquidación</button>
         </section>
 
         <!-- Generación de Informe de Nómina -->
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
-            <h2>Generación de Informe de Nómina</h2>
+            <h2>Generación de Informes</h2>
             <form>
-                <div class="mb-3">
-                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
-                    <select class="form-select" id="mesInforme">
-                        <option value="enero">Enero</option>
-                        <option value="febrero">Febrero</option>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="tipoNomina" class="form-label">Tipo de Nomina:</label>
+                    <select class="form-select" id="tipoNomina">
+                        <option value="1">Pago Salarios</option>
+                        <option value="2">Pago Bonificaciones</option>
                     </select>
                 </div>
+                <div class="col-md-6">
+                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
+                    <input type="month" class="form-control" id="mesInforme">
+                </div>
+                </div>
+            </div>
                 <button type="submit" class="btn btn-success">Generar Informe</button>
             </form>
-            <h3>Descargar Informe de Nómina</h3>
-            <a href="#" class="btn bg-danger bg-opacity-75"><i class="fas fa-download"></i> Descargar Informe</a>
         </section>
 
         <!-- Seccion de Resumen -->
