@@ -310,47 +310,22 @@
             <form>
                 <div class="row mb-3 align-items-end">
                     <div class="col-md-3 pb-2">
-                        <label for="tipo_bonificacion" class="form-label">Bonificaciones:</label>
-                        <select class="form-select" id="tipoNotipo_bonificacionmina">
-                            <option value="1">Bono 14</option>
-                            <option value="2">Aguinaldo</option>
+                        <label for="tipo_informe" class="form-label">Tipo:</label>
+                        <select class="form-select" id="tipo_informe">
+                            <option value="1">Pago Nomina</option>
+                            <option value="2">Pago Bonificaion</option>
+                            <option value="3">Pago Comisiones</option>
+                            <option value="4">Liquidacion</option>
                         </select>
                     </div>
                     <div class="col-md-3 pb-2">
-                        <label for="mesInforme" class="form-label">Mes:</label>
-                        <input type="month" class="form-control" id="mesInforme">
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <button type="submit" class="btn btn-success">Generar Informe</button>
-                    </div>
-                </div>
-                <div class="row mb-3 align-items-end">
-                    <div class="col-md-3 pb-2">
-                        <label for="tipo_liquidacion" class="form-label">Liquidaciones:</label>
-                        <select class="form-select" id="tipo_liquidacion">
-                            <option value="1">Por Fecha</option>
-                            <option value="2">Empleado Especifico</option>
+                        <label for="filtro_informe" class="form-label">Tipo de Filtro:</label>
+                        <select class="form-select" id="filtro_informe">
+                            <option value="1">Pago Nomina</option>
+                            <option value="2">Pago Bonificaion</option>
+                            <option value="3">Pago Comisiones</option>
+                            <option value="4">Liquidacion</option>
                         </select>
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <label for="mesInforme" class="form-label">Mes:</label>
-                        <input type="month" class="form-control" id="mesInforme">
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <button type="submit" class="btn btn-success">Generar Informe</button>
-                    </div>
-                </div>
-                <div class="row mb-3 align-items-end">
-                    <div class="col-md-3 pb-2">
-                        <label for="tipo_liquidacion" class="form-label">Nomina:</label>
-                        <select class="form-select" id="tipo_liquidacion">
-                            <option value="1">Ultima Nomina</option>
-                            <option value="2">Personalizado</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <label for="mesInforme" class="form-label">Mes:</label>
-                        <input type="month" class="form-control" id="mesInforme">
                     </div>
                     <div class="col-md-3 pb-2">
                         <button type="submit" class="btn btn-success">Generar Informe</button>
