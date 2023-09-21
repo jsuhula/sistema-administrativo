@@ -176,22 +176,6 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>EM001A</td>
-                            <td>Empleado 1</td>
-                            <td>empleado@email.com</td>
-                            <td>Contabilidad</td>
-                            <td>Q.2500.00</td>
-                            <td>Activo</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editarEmpleadoModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
