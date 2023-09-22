@@ -15,7 +15,8 @@
     </header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -31,13 +32,13 @@
                         <a class="nav-link" href="#bonificaciones" data-section="bonificaciones">Pago Bonificacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#liquidacion" data-section="liquidacion">Liquidacion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#informes" data-section="informes">Informes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#resumen" data-section="resumen">Resumen</a>
@@ -93,7 +94,8 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
+            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
+                data-bs-target="#editarUsuarioModal" disabled>
                 REALIZAR PAGO DE NOMINA
             </button>
         </section>
@@ -146,7 +148,8 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal" disabled>
+            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
+                data-bs-target="#editarUsuarioModal" disabled>
                 REALIZAR PAGO
             </button>
         </section>
@@ -295,43 +298,77 @@
                 </table>
             </div>
             <table class="table table-success">
-                    <tfoot>
-                        <tr>
-                            <td class="fw-bold">TOTAL A LIQUIDAR: Q.<span>22,000.00</span></td>
-                        </tr>
-                    </tfoot>
+                <tfoot>
+                    <tr>
+                        <td class="fw-bold">TOTAL A LIQUIDAR: Q.<span>22,000.00</span></td>
+                    </tr>
+                </tfoot>
             </table>
             <button class="btn btn-success" id="generar-liquidacion">Generar Liquidación</button>
         </section>
 
-        <!-- Generación de Informe de Nómina -->
+        <!-- Generación de Informes -->
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Generación de Informes</h2>
-            <form>
-                <div class="row mb-3 align-items-end">
-                    <div class="col-md-3 pb-2">
-                        <label for="tipo_informe" class="form-label">Tipo:</label>
-                        <select class="form-select" id="tipo_informe">
-                            <option value="1">Pago Nomina</option>
-                            <option value="2">Pago Bonificaion</option>
-                            <option value="3">Pago Comisiones</option>
-                            <option value="4">Liquidacion</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <label for="filtro_informe" class="form-label">Tipo de Filtro:</label>
-                        <select class="form-select" id="filtro_informe">
-                            <option value="1">Pago Nomina</option>
-                            <option value="2">Pago Bonificaion</option>
-                            <option value="3">Pago Comisiones</option>
-                            <option value="4">Liquidacion</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 pb-2">
-                        <button type="submit" class="btn btn-success">Generar Informe</button>
-                    </div>
+
+            <!-- Sección de Pago de Nómina -->
+            <hr class="my-4">
+            <div class="row mb-3 align-items-end">
+                <h3 class="text-secondary pt-2">Pago Nómina</h3>
+                <div class="col-md-6 mb-2">
+                    <label for="tipo_informe_nomina" class="form-label">Tipo:</label>
+                    <select class="form-select" id="tipo_informe_nomina">
+                        <option value="1">Mensual</option>
+                    </select>
                 </div>
-            </form>
+                <div class="col-md-3 mb-2">
+                    <label for="fecha_informe_nomina" class="form-label">Fecha:</label>
+                    <input type="month" class="form-control" id="fecha_informe_nomina">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                </div>
+            </div>
+
+            <!-- Sección de Pago de Bonificaciones -->
+            <hr class="my-4">
+            <div class="row mb-3 align-items-end">
+                <h3 class="text-secondary pt-2">Pago Bonificaciones</h3>
+                <div class="col-md-6 mb-2">
+                    <label for="tipo_informe_bonificacion" class="form-label">Tipo:</label>
+                    <select class="form-select" id="tipo_informe_bonificacion">
+                        <option value="1">Pago Bono 14</option>
+                        <option value="2">Pago Aguinaldo</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label for="fecha_informe_bonificacion" class="form-label">Fecha:</label>
+                    <input type="month" class="form-control" id="fecha_informe_bonificacion">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                </div>
+            </div>
+
+            <!-- Sección de Liquidaciones -->
+            <hr class="my-4">
+            <div class="row mb-3 align-items-end">
+                <h3 class="text-secondary pt-2">Liquidaciones</h3>
+                <div class="col-md-3 mb-2">
+                    <label for="fecha_despido" class="form-label">Fecha Despido (Mes):</label>
+                    <input type="month" class="form-control" id="fecha_despido">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label for="tipo_informe_liquidacion" class="form-label">Empleado:</label>
+                    <select class="form-select" id="tipo_informe_liquidacion">
+                        <option value="1">Empleado 1</option>
+                        <option value="2">Empleado 2</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                </div>
+            </div>
         </section>
 
         <!-- Seccion de Resumen -->
@@ -379,7 +416,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const header = document.querySelector('header');
             const headerHeight = header.offsetHeight;
             const salarios = document.getElementById('salarios');
@@ -393,7 +430,7 @@
             const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
 
             navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
+                link.addEventListener('click', function (event) {
                     event.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
 
@@ -406,7 +443,7 @@
                         comisiones.setAttribute('hidden', 'true');
                         bonificaciones.setAttribute('hidden', true);
 
-                    } else if(targetId === 'bonificaciones'){
+                    } else if (targetId === 'bonificaciones') {
                         bonificaciones.removeAttribute('hidden');
 
                         informes.setAttribute('hidden', 'true');
@@ -455,7 +492,7 @@
                 });
             });
 
-            regresarLink.addEventListener('click', function(event) {
+            regresarLink.addEventListener('click', function (event) {
                 event.preventDefault();
 
                 window.location.href = '../index.php';
