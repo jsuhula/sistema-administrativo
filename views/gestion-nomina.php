@@ -77,7 +77,7 @@
                             <th>IGSS</th>
                             <th>IRTRA</th>
                             <th>ISR</th>
-                            <th>Total Liquido</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +96,7 @@
             </div>
             <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
                 data-bs-target="#editarUsuarioModal" disabled>
-                REALIZAR PAGO DE NOMINA
+                CONFIRMAR OPERACION
             </button>
         </section>
 
@@ -126,12 +126,9 @@
                         <tr>
                             <th>Código</th>
                             <th>Empleado</th>
-                            <th>Salario</th>
-                            <th>Comisiones</th>
-                            <th>IGSS</th>
-                            <th>IRTRA</th>
-                            <th>ISR</th>
-                            <th>Total Liquido</th>
+                            <th>Bonificacion</th>
+                            <th>Descuentos</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -139,10 +136,7 @@
                             <td>EMP01</td>
                             <td>Empleado 1</td>
                             <td>Q.3500.00</td>
-                            <td>Q.278.00</td>
-                            <td>Q.150.00</td>
-                            <td>Q.125.00</td>
-                            <td>Q.150</td>
+                            <td>Q.0.00</td>
                             <td>Q.3500.00</td>
                         </tr>
                     </tbody>
@@ -150,7 +144,7 @@
             </div>
             <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
                 data-bs-target="#editarUsuarioModal" disabled>
-                REALIZAR PAGO
+                CONFIRMAR OPERACION
             </button>
         </section>
 
