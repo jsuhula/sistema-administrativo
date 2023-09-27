@@ -19,9 +19,9 @@ function cargarUsuarios() {
             var tabla = document.getElementById("tablaUsuarios").getElementsByTagName("tbody")[0];
 
             /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
-            borrarContenidoTabla();
+            borrarContenidoTabla("tablaUsuarios");
 
-            data.forEach(function (usuario, index) {
+            data.forEach(function (usuario) {
                 var row = tabla.insertRow();
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
@@ -89,7 +89,7 @@ function cargarUsuarios() {
 
 function cargarRoles() {
 
-    var selectIds = ["selectUsuarioBusqueda", "selectUsuario"];
+    let selectIds = ["selectUsuarioBusqueda", "selectUsuario", "tablaRoles"];
 
     selectIds.forEach(function (selectId) {
         var xhr = new XMLHttpRequest();
@@ -101,14 +101,51 @@ function cargarRoles() {
         xhr.onload = function () {
             if (xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText);
-                var select = document.getElementById(selectId);
+                borrarContenidoTabla("tablaRoles");
+                if(selectId !== "tablaRoles"){
+                    var select = document.getElementById(selectId);
 
-                data.forEach(function (item) {
-                    var option = document.createElement("option");
-                    option.value = item.CodigoRol;
-                    option.text = item.Nombre;
-                    select.appendChild(option);
-                });
+                    data.forEach(function (rol) {
+                        var option = document.createElement("option");
+                        option.value = rol.CodigoRol;
+                        option.text = rol.Nombre;
+                        select.appendChild(option);
+                    });
+                }
+
+                if(selectId === "tablaRoles"){
+                    let tabla = document.getElementById("tablaRoles").getElementsByTagName("tbody")[0];
+                    data.forEach(function (rol) {
+                        var row = tabla.insertRow();
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
+                        var cell8 = row.insertCell(7);
+                        var cell9 = row.insertCell(8);
+
+                        cell1.innerHTML = rol.CodigoRol;
+                        cell2.innerHTML = rol.Nombre;
+                        cell3.innerHTML = rol.GestionaNomina;
+                        cell4.innerHTML = rol.GestionaEmpleados;
+                        cell5.innerHTML = rol.GestionaMenu;
+                        cell6.innerHTML = rol.GestionaReportes;
+                        cell7.innerHTML = rol.GestionaCaja;
+                        cell8.innerHTML = rol.Asistencia;
+                        cell9.innerHTML = '<td>' +
+                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button" data-bs-toggle="modal" data-bs-target="#modalRol">' +
+                            '<i class="fas fa-edit"></i>' +
+                            '</button>' +
+                            '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button" data-bs-toggle="modal" data-bs-target="#eliminar">' +
+                            '<i class="fas fa-trash"></i>' +
+                            '</button>' +
+                            '</td>';
+                    });
+                }
+                
             } else {
                 alert("Error al cargar los datos.");
             }
@@ -118,8 +155,8 @@ function cargarRoles() {
     });
 }
 
-function borrarContenidoTabla() {
-    var tabla = document.getElementById("tablaUsuarios");
+function borrarContenidoTabla(nombreTabla) {
+    var tabla = document.getElementById(""+nombreTabla+"");
     var tbody = tabla.getElementsByTagName("tbody")[0];
 
     // Borra todas las filas del cuerpo de la tabla
