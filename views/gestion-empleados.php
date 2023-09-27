@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li>
-                        <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i>
+                        <a id="regresar" class="nav-link" href="../index.php"><i class="fas fa-arrow-left"></i>
                             Regresar</a>
                     </li>
                     <li class="nav-item">
@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#" data-section="lista-usuarios">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="asistencia">Asistencia</a>
+                        <a class="nav-link" href="#" data-section="roles">Roles</a>
                     </li>
                 </ul>
             </div>
@@ -122,89 +122,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editarUsuarioModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
             <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#usuarioModal" onclick="nuevoUsuario()">
                 Nuevo Usuario
             </button>
-            <button class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#modalRol">
-                Nuevo Rol
-            </button>
         </section>
 
         <!-- Asistencia -->
-        <section id="asistencia" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
-            <h2>Asistencia</h2>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="select-empleado" class="form-label">Seleccionar Empleado</label>
-                    <select class="form-select" aria-label="Seleccionar Empleado" id="select-empleado">
-                        <option selected disabled>---</option>
-                        <option value="empleado1">Empleado 1</option>
-                        <option value="empleado2">Empleado 2</option>
-                        <option value="empleado3">Empleado 3</option>
-                        <!-- Agrega más opciones de empleados según sea necesario -->
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="fecha-seleccion" class="form-label">Seleccionar Fecha</label>
-                    <select class="form-select" id="fecha-seleccion">
-                        <option value="hoy">Hoy</option>
-                        <option value="semana">Esta Semana</option>
-                        <option value="mes-actual">Mes Actual</option>
-                        <option value="mes-pasado">Mes Pasado</option>
-                        <option value="personalizado">Personalizado</option>
-                    </select>
-                </div>
-                <div class="col-md-2 mb-3" id="fecha-inicio-container" style="display: none;">
-                    <label for="fecha-inicio" class="form-label">Fecha Inicio</label>
-                    <input type="date" class="form-control" id="fecha-inicio">
-                </div>
-                <div class="col-md-2 mb-3" id="fecha-fin-container" style="display: none;">
-                    <label for="fecha-fin" class="form-label">Fecha Fin</label>
-                    <input type="date" class="form-control" id="fecha-fin">
-                </div>
-            </div>
-            <button class="btn btn-success mb-3" id="buscar-asistencia">Buscar</button>
-
-            <!-- Historial de asistencia -->
+        <section id="roles" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+            <h2>Roles</h2>
+            <!-- Lista de Roles-->
             <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
-                <table class="table table-striped">
+                <table id="tablaRoles" class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
-                            <th>Nombre de Usuario</th>
-                            <th>Fecha</th>
-                            <th>Entrada</th>
-                            <th>Salida</th>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Nomina</th>
+                            <th>Empleados</th>
+                            <th>Menu</th>
+                            <th>Reportes</th>
+                            <th>Caja</th>
+                            <th>Asistencia</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Juan Pérez</td>
-                            <td>2023-09-01</td>
-                            <td>09:00 AM</td>
-                            <td>05:00 PM</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-
         </section>
     </div>
 
@@ -369,7 +317,7 @@
                             <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="ejemplo@email.com" required>
                         </div>
                         <div class="mb-3">
-                            <label id="lblClave" for="clave" class="form-label">Clave</label>
+                            <label id="lblClave" for="claveUsuario" class="form-label">Clave</label>
                             <input type="password" class="form-control" id="claveUsuario" name="clave" placeholder="********">
                         </div>
                         <div class="mb-3">
@@ -400,7 +348,7 @@
                             <input type="text" class="form-control" id="nombreRol" name="nombreRol" placeholder="Nombre" required>
                         </div>
                         <div class="mb-3">
-                            <label for="permisos" class="form-label">Permisos</label>
+                            <label class="form-label">Permisos</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="gestiona-nomina" name="permiso[]"
                                     value="gestiona-nomina">
@@ -469,25 +417,7 @@
                 });
             });
 
-            const fechaSeleccion = document.getElementById('fecha-seleccion');
-            const fechaInicioContainer = document.getElementById('fecha-inicio-container');
-            const fechaFinContainer = document.getElementById('fecha-fin-container');
-
-            fechaSeleccion.addEventListener('change', function () {
-                const seleccion = fechaSeleccion.value;
-
-                fechaInicioContainer.style.display = 'none';
-                fechaFinContainer.style.display = 'none';
-
-                if (seleccion === 'personalizado') {
-                    fechaInicioContainer.style.display = 'block';
-                    fechaFinContainer.style.display = 'block';
-                }
-            });
-
             regresarLink.addEventListener('click', function (event) {
-                event.preventDefault();
-
                 window.location.href = '../index.php';
             });
         });
