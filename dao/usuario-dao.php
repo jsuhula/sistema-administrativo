@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/db-connector.php");
-class UserDAO
+class UsuarioDAO
 {
     private $connection;
 
@@ -17,7 +17,8 @@ class UserDAO
                             , RO.Nombre AS Rol
                             , RO.CodigoRol
                     FROM `UsuarioSistema` AS US
-                    INNER JOIN Rol AS RO ON RO.CodigoRol = US.CodigoRol";
+                    INNER JOIN Rol AS RO ON RO.CodigoRol = US.CodigoRol
+                    ORDER BY Codigo ASC";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
         return $prpstmt;
@@ -54,11 +55,11 @@ class UserDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-    public function eliminarUsuario(int $codigoUsuarioSistema)
+    public function eliminarUsuario(int $codigoUsuario)
     {
         $query = "DELETE FROM UsuarioSistema WHERE CodigoUsuarioSistema = ?";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $codigoUsuarioSistema);
+        $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->execute();
         return $prpstmt;
     }
@@ -66,13 +67,14 @@ class UserDAO
     public function listarRoles()
     {
         $query = "SELECT CodigoRol, Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia
-                FROM Rol";
+                FROM Rol
+                ORDER BY CodigoRol ASC";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaCaja, int $asistencia){
+    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes,  int $gestionaCaja, int $asistencia){
         $query = "INSERT INTO Rol (Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia) 
                     VALUES(?, ?, ?, ?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
@@ -80,13 +82,14 @@ class UserDAO
         $prpstmt->bindParam(2, $gestionaNomina);
         $prpstmt->bindParam(3, $gestionaEmpleados);
         $prpstmt->bindParam(4, $gestionaMenu);
-        $prpstmt->bindParam(5, $gestionaCaja);
-        $prpstmt->bindParam(6, $asistencia);
+        $prpstmt->bindParam(5, $gestionaReportes);
+        $prpstmt->bindParam(6, $gestionaCaja);
+        $prpstmt->bindParam(7, $asistencia);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaCaja, int $asistencia)
+    public function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia)
     {
         $query = "UPDATE Rol SET Nombre = ?, GestionaNomina = ?, GestionaEmpleados = ?, GestionaMenu = ?, GestionaReportes = ?, GestionaCaja = ?,  Asistencia = ?
                 WHERE CodigoRol = ?";
@@ -95,9 +98,10 @@ class UserDAO
         $prpstmt->bindParam(2, $gestionaNomina);
         $prpstmt->bindParam(3, $gestionaEmpleados);
         $prpstmt->bindParam(4, $gestionaMenu);
-        $prpstmt->bindParam(5, $gestionaCaja);
-        $prpstmt->bindParam(6, $asistencia);
-        $prpstmt->bindParam(7, $codigoRol);
+        $prpstmt->bindParam(5, $gestionaReportes);
+        $prpstmt->bindParam(6, $gestionaCaja);
+        $prpstmt->bindParam(7, $asistencia);
+        $prpstmt->bindParam(8, $codigoRol);
         $prpstmt->execute();
         return $prpstmt;
     }
