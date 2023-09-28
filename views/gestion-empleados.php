@@ -59,7 +59,7 @@
             </div>
 
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table class="table table-striped">
+                <table id="tablaEmpleados" class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
                             <th>Código</th>
@@ -72,28 +72,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>EM001A</td>
-                            <td>Empleado 1</td>
-                            <td>empleado@email.com</td>
-                            <td>Contabilidad</td>
-                            <td>Q.2500.00</td>
-                            <td>Activo</td>
-                            <td>
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#editarEmpleadoModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#editarEmpleadoModal">
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#empleadoModal">
                 Nuevo Empleado
             </button>
         </section>
@@ -104,8 +87,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Buscar Usuario" aria-label="Buscar Usuario"
                     aria-describedby="button-addon2">
-                <select id="selectUsuarioBusqueda" class="form-select" aria-label="Seleccionar Categoría">
-                    <option value="0" disabled selected>Todos los Roles</option>
+                <select id="selectUsuarioRolBusqueda" class="form-select" aria-label="Seleccionar Categoría">
                 </select>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
@@ -125,7 +107,8 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#usuarioModal" onclick="nuevoUsuario()">
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#usuarioModal"
+                onclick="btnNuevoUsuario()">
                 Nuevo Usuario
             </button>
         </section>
@@ -153,16 +136,20 @@
                     </tbody>
                 </table>
             </div>
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalRol"
+                onclick="btnNuevoRol()">
+                Nuevo Rol
+            </button>
         </section>
     </div>
 
-    <!-- Modal para editar empleado -->
-    <div class="modal fade" id="editarEmpleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
+    <!-- Modal empleado -->
+    <div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarEmpleadoModalLabel">Editar Empleado</h5>
+                    <h5 class="modal-title" id="tituloModalEmpleado">Editar Empleado</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -173,14 +160,16 @@
                                 <input type="file" class="form-control" id="foto" name="foto">
                             </div>
                             <div class="col-md-6">
-                                <label for="carnetIrtra" class="form-label">Código de Usuario:</label>
-                                <input type="text" class="form-control" id="carnetIrtra" name="carnetIrtra" readonly>
+                                <label for="codigoEmpleado" class="form-label">Código de Empleado:</label>
+                                <input type="text" class="form-control" id="codigoEmpleado" name="codigoEmpleado"
+                                    readonly>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="nombre" class="form-label">Nombre del Empleado:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <label for="nombreEmpleado" class="form-label">Nombre del Empleado:</label>
+                                <input type="text" class="form-control" id="nombreEmpleado" name="nombreEmpleado"
+                                    required>
                             </div>
                             <div class="col-md-6">
                                 <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
@@ -190,9 +179,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="identificacion" class="form-label">DPI:</label>
-                                <input type="text" class="form-control" id="identificacion" name="identificacion"
-                                    required>
+                                <label for="dpi" class="form-label">DPI:</label>
+                                <input type="text" class="form-control" id="dpi" name="dpi" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="nit" class="form-label">NIT:</label>
@@ -201,8 +189,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="correo" class="form-label">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="correo" name="correo">
+                                <label for="emailEmpleado" class="form-label">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="emailEmpleado" name="emailEmpleado">
                             </div>
 
                             <div class="col-md-6">
@@ -261,15 +249,15 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Guardar</button>
+                    <button id="btnGuardarEmpleado" type="button" class="btn btn-success">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal de Eliminación -->
-    <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel" aria-hidden="true">
+    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -277,13 +265,46 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <p><span id="codigoEliminar" hidden></span> ¿Estás seguro de que deseas eliminar el registro: <span id="descripcionEliminar"></span>?</p>
-                    <span id="lblErrorEliminar" class="text-danger" hidden>No se pudo realizar la operacion, comuniquese con soporte</span>
-                    <span id="lblExitoEliminar" class="text-success" hidden>La operacion se realizo con exito</span>
+                    <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
+                        <span id="descripcionEliminarUsuario"></span>?</p>
+                    <span id="lblErrorEliminarUsuario" class="text-danger" hidden>No se pudo realizar la operacion,
+                        comuniquese
+                        con soporte</span>
+                    <span id="lblExitoEliminarUsuario" class="text-success" hidden>La operacion se realizo con
+                        exito</span>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancelarEliminar" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminar" type="button" class="btn btn-danger" onclick="eliminarUsuario()">Eliminar</button>
+                    <button id="cancelarEliminarUsuario" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmarEliminarUsuario" type="button" class="btn btn-danger"
+                        onclick="eliminarUsuario()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación Rol -->
+    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
+                        <span id="descripcionEliminarRol"></span>?
+                    </p>
+                    <span id="lblErrorEliminarRol" class="text-danger" hidden>No se pudo realizar la operacion,
+                        comuniquese
+                        con soporte</span>
+                    <span id="lblExitoEliminarRol" class="text-success" hidden>La operacion se realizo con exito</span>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelarEliminarRol" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmarEliminarRol" type="button" class="btn btn-danger"
+                        onclick="eliminarRol()">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -294,83 +315,104 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarUsuarioModalLabel">Usuario</h5>
+                    <h5 class="modal-title" id="tituloModalUsuario">Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExito" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó correctamente</span>
+                    <div id="alertaExitoUsuario" class="row m-2" hidden>
+                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
+                            correctamente</span>
                     </div>
-                    <div id="alertaError" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error, comuniquese con soporte</span>
+                    <div id="alertaErrorUsuario" class="row m-2" hidden>
+                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                            comuniquese con soporte</span>
                     </div>
-                    <div id="alertaCompletarCampos" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los campos</span>
+                    <div id="alertaCompletarCamposUsuario" class="row m-2" hidden>
+                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                            campos</span>
                     </div>
                     <form>
-                    <div class="mb-3">
+                        <div class="mb-3">
                             <label for="codigoUsuario" class="form-label">Codigo</label>
-                            <input type="number" class="form-control" id="codigoUsuario" name="codigoUsuario" placeholder="#0" disabled required>
+                            <input type="number" class="form-control" id="codigoUsuario" name="codigoUsuario"
+                                placeholder="#0" disabled required>
                         </div>
                         <div class="mb-3">
                             <label for="emailUsuario" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="ejemplo@email.com" required>
+                            <input type="email" class="form-control" id="emailUsuario" name="email"
+                                placeholder="ejemplo@email.com" required>
                         </div>
                         <div class="mb-3">
                             <label id="lblClave" for="claveUsuario" class="form-label">Clave</label>
-                            <input type="password" class="form-control" id="claveUsuario" name="clave" placeholder="********">
+                            <input type="password" class="form-control" id="claveUsuario" name="clave"
+                                placeholder="********">
                         </div>
                         <div class="mb-3">
-                            <label for="selectUsuario" class="form-label" >Seleccione un rol para el usuario</label>
-                            <select id="selectUsuario" class="form-select" aria-label="Rol del usuario">
-                                <option value="0" disabled Selected>Rol</option>
+                            <label for="selectUsuarioRol" class="form-label">Seleccione un rol para el usuario</label>
+                            <select id="selectUsuarioRol" class="form-select" aria-label="Seleccionar Categoría">
                             </select>
                         </div>
-                        <button id="btnGuardarUsuario" type="button" class="btn btn-success" onclick="guardarUsuario()">Guardar</button>
+                        <button id="btnGuardarUsuario" type="button" class="btn btn-success"
+                            onclick="guardarUsuario()">Guardar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Nuevo Rol -->
+    <!-- Modal de Rol -->
     <div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="modalRol" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarUsuarioModalLabel">Rol</h5>
+                    <h5 class="modal-title" id="tituloModalRol">Rol</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formRol">
+                        <div id="alertaExitoRol" class="row m-2" hidden>
+                            <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
+                                correctamente</span>
+                        </div>
+                        <div id="alertaErrorRol" class="row m-2" hidden>
+                            <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                                comuniquese con soporte</span>
+                        </div>
                         <div class="mb-3">
                             <label for="nombreRol" class="form-label">Nombre del Rol</label>
-                            <input type="text" class="form-control" id="nombreRol" name="nombreRol" placeholder="Nombre" required>
+                            <input type="text" class="form-control" id="nombreRol" name="nombreRol" placeholder="Nombre"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Permisos</label>
+                            <span id="codigoRol" hidden></span>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gestiona-nomina" name="permiso[]"
-                                    value="gestiona-nomina">
-                                <label class="form-check-label" for="gestiona-nomina">Gestiona Nómina</label>
+                                <input class="form-check-input" type="checkbox" id="gestionaNomina" name="permiso[]">
+                                <label class="form-check-label" for="gestionaNomina">Gestiona Nómina</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gestiona-empleado" name="permiso[]"
-                                    value="gestiona-empleado">
-                                <label class="form-check-label" for="gestiona-empleado">Gestiona Empleado</label>
+                                <input class="form-check-input" type="checkbox" id="gestionaEmpleados" name="permiso[]">
+                                <label class="form-check-label" for="gestionaEmpleados">Gestiona Empleado</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gestiona-menu" name="permiso[]"
-                                    value="gestiona-menu">
-                                <label class="form-check-label" for="gestiona-menu">Gestiona Menú</label>
+                                <input class="form-check-input" type="checkbox" id="gestionaMenu" name="permiso[]">
+                                <label class="form-check-label" for="gestionaMenu">Gestiona Menú</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gestiona-reportes" name="permiso[]"
-                                    value="gestiona-reportes">
-                                <label class="form-check-label" for="gestiona-reportes">Gestiona Reportes</label>
+                                <input class="form-check-input" type="checkbox" id="gestionaReportes" name="permiso[]">
+                                <label class="form-check-label" for="gestionaReportes">Gestiona Reportes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gestionaCaja" name="permiso[]">
+                                <label class="form-check-label" for="gestionaCaja">Gestiona Caja</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="asistencia" name="permiso[]">
+                                <label class="form-check-label" for="asistencia">Asistencia</label>
                             </div>
                         </div>
-                        <button id="guardarRol" type="submit" class="btn btn-success">Guardar</button>
+                        <button id="btnGuardarRol" type="button" class="btn btn-success"
+                            onclick="guardarRol()">Guardar</button>
                     </form>
                 </div>
             </div>
