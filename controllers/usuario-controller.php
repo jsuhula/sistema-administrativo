@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $codigoRol = $data->codigoRol;
             $nombreRol = $data->nombreRol;
             $permisos = $data->permisos;
-            actualizarRol($codigoRol, $nombreRol, $permisos[0], $permisos[1], $permisos[1], $permisos[3], $permisos[4], $permisos[5]);
+            actualizarRol($codigoRol, $nombreRol, $permisos[0], $permisos[1], $permisos[2], $permisos[3], $permisos[4], $permisos[5]);
             break;
         case 6:
             $codigoRol = $data->codigoRol;

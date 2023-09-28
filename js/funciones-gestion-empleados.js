@@ -443,7 +443,7 @@ function guardarRol() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "../controllers/usuario-controller.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
         if (xhr.status === 200) {
