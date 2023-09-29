@@ -14,9 +14,10 @@ class EmpleadoDAO
     {
         $query = "SELECT 
                         CodigoEmpleado,
-                        CONCAT(Nombres, ' ', Apellidos) AS Nombre,
+                        Nombres,
+                        Apellidos,
                         Email,
-                        DescuentoBeneficio,
+                        Telefono,
                         SalarioBase,
                         FechaNacimiento,
                         FechaIngreso,
@@ -30,7 +31,8 @@ class EmpleadoDAO
                         Estado,
                         D.Nombre AS Departamento,
                         CodigoUsuarioSistema,
-                        CodigoJornadaLaboral
+                        CodigoJornadaLaboral,
+                        D.CodigoDepartamento
                     FROM Empleado AS E
                     INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento";
         $prpstmt = $this->connection->prepare($query);
@@ -59,11 +61,11 @@ class EmpleadoDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-    public function eliminarEmpleado(int $codigoUsuario)
+    public function eliminarEmpleado(int $codigoEmpleado)
     {
-        $query = "DELETE FROM UsuarioSistema WHERE CodigoUsuarioSistema = ?";
+        $query = "DELETE FROM Empleado WHERE CodigoEmpleado = ?";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $codigoUsuario);
+        $prpstmt->bindParam(1, $codigoEmpleado);
         $prpstmt->execute();
         return $prpstmt;
     }

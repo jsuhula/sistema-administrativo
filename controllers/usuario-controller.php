@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         case 4:
             $nombreRol = $data->nombreRol;
             $permisos = $data->permisos;
-            guardarRol($nombreRol, $permisos[0], $permisos[1], $permisos[1], $permisos[3], $permisos[4], $permisos[5]);
+            guardarRol($nombreRol, $permisos[0], $permisos[1], $permisos[2], $permisos[3], $permisos[4], $permisos[5]);
             break;
         case 5:
             $codigoRol = $data->codigoRol;
