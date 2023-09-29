@@ -43,6 +43,7 @@ class UsuarioDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+
     public function actualizarUsuario(int $codigoUsuarioSistema, $email, $clave, $rol)
     {
         $query = "UPDATE UsuarioSistema SET Email = ?, Clave = ?, CodigoRol = ? WHERE CodigoUsuarioSistema = ?";
@@ -54,6 +55,7 @@ class UsuarioDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+
     public function actualizarUsuarioNoClave(int $codigoUsuarioSistema, $email, $rol)
     {
         $query = "UPDATE UsuarioSistema SET Email = ?, CodigoRol = ? WHERE CodigoUsuarioSistema = ?";
@@ -64,6 +66,7 @@ class UsuarioDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+
     public function eliminarUsuario(int $codigoUsuario)
     {
         $query = "DELETE FROM UsuarioSistema WHERE CodigoUsuarioSistema = ?";
@@ -114,6 +117,7 @@ class UsuarioDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+    
     public function eliminarRol(int $codigoRol)
     {
         $query = "DELETE FROM Rol WHERE CodigoRol = ?";
