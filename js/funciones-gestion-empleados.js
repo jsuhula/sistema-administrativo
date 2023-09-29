@@ -94,7 +94,6 @@ function cargarEmpleados() {
                     document.getElementById("Igss").value = Igss;
                     document.getElementById("Estado").value = Estado;
                     document.getElementById("Departamento").value = CodigoDepartamento;
-
                 });
             });
 
