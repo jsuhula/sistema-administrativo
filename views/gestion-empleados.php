@@ -46,12 +46,10 @@
         <section id="empleados" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Empleados</h2>
             <div class="input-group mb-3">
-                <input id="nombre-empleado" type="text" class="form-control" placeholder="Buscar por Nombre"
-                    aria-label="Buscar Empleado" aria-describedby="button-addon2">
+                <input id="nombre-empleado" type="text" class="form-control" placeholder="Nombre" aria-label="Buscar"
+                    aria-describedby="button-addon2">
                 <select class="form-select" aria-label="Seleccionar Categoría">
                     <option value="">Todos los Departamentos</option>
-                    <option value="categoria1">Departamento 1</option>
-                    <option value="categoria2">Departamento 2</option>
                 </select>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
@@ -76,16 +74,17 @@
                 </table>
             </div>
 
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#empleadoModal">
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#empleadoModal"
+                onclick="btnNuevoEmpleado()">
                 Nuevo Empleado
             </button>
         </section>
 
-        <!-- Lista de Usuarios -->
+        <!-- Seccion de Usuarios -->
         <section id="lista-usuarios" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Usuarios</h2>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar Usuario" aria-label="Buscar Usuario"
+                <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar"
                     aria-describedby="button-addon2">
                 <select id="selectUsuarioRolBusqueda" class="form-select" aria-label="Seleccionar Categoría">
                 </select>
@@ -113,10 +112,9 @@
             </button>
         </section>
 
-        <!-- Asistencia -->
+        <!-- Seccion de Roles -->
         <section id="roles" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
             <h2>Roles</h2>
-            <!-- Lista de Roles-->
             <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
                 <table id="tablaRoles" class="table table-striped">
                     <thead class="sticky-top">
@@ -143,7 +141,7 @@
         </section>
     </div>
 
-    <!-- Modal empleado -->
+    <!-- Modal Empleado -->
     <div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -153,60 +151,77 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div id="alertaExitoEmpleado" class="row m-2" hidden>
+                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
+                            correctamente</span>
+                    </div>
+                    <div id="alertaErrorEmpleado" class="row m-2" hidden>
+                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                            comuniquese con soporte</span>
+                    </div>
+                    <div id="alertaCompletarCamposEmpleado" class="row m-2" hidden>
+                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                            campos</span>
+                    </div>
                     <form>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="foto" class="form-label">Fotografía:</label>
-                                <input type="file" class="form-control" id="foto" name="foto">
+                                <input type="file" class="form-control" id="foto" name="foto" disabled>
                             </div>
                             <div class="col-md-6">
-                                <label for="codigoEmpleado" class="form-label">Código de Empleado:</label>
-                                <input type="text" class="form-control" id="codigoEmpleado" name="codigoEmpleado"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="nombreEmpleado" class="form-label">Nombre del Empleado:</label>
-                                <input type="text" class="form-control" id="nombreEmpleado" name="nombreEmpleado"
-                                    required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
-                                <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
-                                    required>
+                                <label for="CodigoEmpleado" class="form-label">Código de Empleado:</label>
+                                <input type="text" class="form-control" id="CodigoEmpleado" name="CodigoEmpleado"
+                                    placeholder="EMP001" readonly>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="dpi" class="form-label">DPI:</label>
-                                <input type="text" class="form-control" id="dpi" name="dpi" required>
+                                <label for="NombresEmpleado" class="form-label">Nombres:</label>
+                                <input type="text" class="form-control" id="NombresEmpleado" name="NombresEmpleado"
+                                    placeholder="Nombres" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="nit" class="form-label">NIT:</label>
-                                <input type="text" class="form-control" id="nit" name="nit">
+                                <label for="ApellidosEmpleado" class="form-label">Apellidos:</label>
+                                <input type="text" class="form-control" id="ApellidosEmpleado" name="ApellidosEmpleado"
+                                    placeholder="Apellidos" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="emailEmpleado" class="form-label">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="emailEmpleado" name="emailEmpleado">
+                                <label for="Dpi" class="form-label">DPI:</label>
+                                <input type="text" class="form-control" id="Dpi" name="Dpi"
+                                    placeholder="1234 5678 9012 3456" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Nit" class="form-label">NIT:</label>
+                                <input type="text" class="form-control" id="Nit" name="Nit"
+                                    placeholder="12345678-K/123456731">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="EmailEmpleado" class="form-label">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="EmailEmpleado" name="EmailEmpleado"
+                                    placeholder="ejemplo@email.com">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="telefono" class="form-label">Número de Teléfono:</label>
-                                <input type="text" class="form-control" id="telefono" name="telefono">
+                                <label for="Telefono" class="form-label">Número de Teléfono:</label>
+                                <input type="text" class="form-control" id="Telefono" name="Telefono"
+                                    placeholder="51010101">
                             </div>
 
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="profesion" class="form-label">Profesión:</label>
-                                <input type="text" class="form-control" id="profesion" name="profesion" required>
+                                <label for="Profesion" class="form-label">Profesión:</label>
+                                <input type="text" class="form-control" id="Profesion" name="Profesion"
+                                    placeholder="Profesion/Puesto" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="departamento" class="form-label">Departamento:</label>
-                                <select class="form-select" id="departamento" name="departamento">
+                                <label for="Departamento" class="form-label">Departamento:</label>
+                                <select class="form-select" id="Departamento" name="Departamento">
                                     <option value="1">Administracion</option>
                                     <option value="2">Contabilidad</option>
                                     <option value="2">Ventas</option>
@@ -214,35 +229,43 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="fechaIngreso" class="form-label">Fecha de Ingreso:</label>
-                                <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+                            <div class="col-md-4">
+                                <label for="FechaIngreso" class="form-label">Fecha de Ingreso:</label>
+                                <input type="date" class="form-control" id="FechaIngreso" name="FechaIngreso" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="fechaRetiro" class="form-label">Fecha de Retiro:</label>
-                                <input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
+                            <div class="col-md-4">
+                                <label for="FechaRetiro" class="form-label">Fecha de Retiro:</label>
+                                <input type="date" class="form-control" id="FechaRetiro" name="FechaRetiro">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="salario" class="form-label">Salario:</label>
-                                <input type="number" class="form-control" id="salario" name="salario" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="carnetIrtraModal" class="form-label">Carnet de IRTRA:</label>
-                                <input type="text" class="form-control" id="carnetIrtraModal" name="carnetIrtraModal">
+                            <div class="col-md-4">
+                                <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
+                                <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento"
+                                    required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="carnetIgss" class="form-label">Carnet de IGSS:</label>
-                                <input type="text" class="form-control" id="carnetIgss" name="carnetIgss">
+                                <label for="SalarioBase" class="form-label">Salario:</label>
+                                <input type="number" class="form-control" id="SalarioBase" name="SalarioBase"
+                                    placeholder="2999.99" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="estado" class="form-label">Estado:</label>
-                                <select class="form-select" id="estado" name="estado">
-                                    <option value="activo">Activo</option>
-                                    <option value="inactivo">Inactivo</option>
+                                <label for="Irtra" class="form-label">Carnet de IRTRA:</label>
+                                <input type="text" class="form-control" id="Irtra" name="Irtra"
+                                    placeholder="1234 5678 9012 3456">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Igss" class="form-label">Carnet de IGSS:</label>
+                                <input type="text" class="form-control" id="Igss" name="Igss"
+                                    placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Estado" class="form-label">Estado:</label>
+                                <select class="form-select" id="Estado" name="Estado">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
                                 </select>
                             </div>
                         </div>
@@ -250,61 +273,6 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnGuardarEmpleado" type="button" class="btn btn-success">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Eliminación -->
-    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eliminarUsuarioModalLabel">Eliminar Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
-                        <span id="descripcionEliminarUsuario"></span>?</p>
-                    <span id="lblErrorEliminarUsuario" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarUsuario" class="text-success" hidden>La operacion se realizo con
-                        exito</span>
-                </div>
-                <div class="modal-footer">
-                    <button id="cancelarEliminarUsuario" type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarUsuario" type="button" class="btn btn-danger"
-                        onclick="eliminarUsuario()">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Eliminación Rol -->
-    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Eliminar Rol</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
-                        <span id="descripcionEliminarRol"></span>?
-                    </p>
-                    <span id="lblErrorEliminarRol" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarRol" class="text-success" hidden>La operacion se realizo con exito</span>
-                </div>
-                <div class="modal-footer">
-                    <button id="cancelarEliminarRol" type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarRol" type="button" class="btn btn-danger"
-                        onclick="eliminarRol()">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -335,7 +303,7 @@
                         <div class="mb-3">
                             <label for="codigoUsuario" class="form-label">Codigo</label>
                             <input type="number" class="form-control" id="codigoUsuario" name="codigoUsuario"
-                                placeholder="#0" disabled required>
+                                placeholder="#0" readonly required>
                         </div>
                         <div class="mb-3">
                             <label for="emailUsuario" class="form-label">Email</label>
@@ -414,6 +382,91 @@
                         <button id="btnGuardarRol" type="button" class="btn btn-success"
                             onclick="guardarRol()">Guardar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación Empleado -->
+    <div class="modal fade" id="eliminarEmpleadoModal" tabindex="-1" aria-labelledby="eliminarEmpleadoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarUsuarioModalLabel">Eliminar Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><span id="CodigoEliminarEmpleado" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
+                        <span id="NombreEliminarEmpleado"></span>?
+                    </p>
+                    <span id="lblErrorEliminarEmpleado" class="text-danger" hidden>No se pudo realizar la operacion,
+                        comuniquese
+                        con soporte</span>
+                    <span id="lblExitoEliminarEmpleado" class="text-success" hidden>La operacion se realizo con
+                        exito</span>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelarEliminarEmpleado" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmarEliminarEmpleado" type="button" class="btn btn-danger"
+                        onclick="eliminarEmpleado()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminar Usuario -->
+    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarUsuarioModalLabel">Eliminar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
+                        <span id="descripcionEliminarUsuario"></span>?
+                    </p>
+                    <span id="lblErrorEliminarUsuario" class="text-danger" hidden>No se pudo realizar la operacion,
+                        comuniquese
+                        con soporte</span>
+                    <span id="lblExitoEliminarUsuario" class="text-success" hidden>La operacion se realizo con
+                        exito</span>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelarEliminarUsuario" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmarEliminarUsuario" type="button" class="btn btn-danger"
+                        onclick="eliminarUsuario()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación Rol -->
+    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
+                        <span id="descripcionEliminarRol"></span>?
+                    </p>
+                    <span id="lblErrorEliminarRol" class="text-danger" hidden>No se pudo realizar la operacion,
+                        comuniquese
+                        con soporte</span>
+                    <span id="lblExitoEliminarRol" class="text-success" hidden>La operacion se realizo con exito</span>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelarEliminarRol" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirmarEliminarRol" type="button" class="btn btn-danger"
+                        onclick="eliminarRol()">Eliminar</button>
                 </div>
             </div>
         </div>
