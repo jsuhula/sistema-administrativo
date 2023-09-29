@@ -1,4 +1,5 @@
 <?php
+
 require_once("../dao/usuario-dao.php");
 $user = new UsuarioDAO();
 
