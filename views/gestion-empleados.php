@@ -33,6 +33,9 @@
                         <a class="nav-link" href="#" data-section="lista-usuarios">Usuarios</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="departamentos">Departamentos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" data-section="roles">Roles</a>
                     </li>
                 </ul>
@@ -109,6 +112,28 @@
             <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#usuarioModal"
                 onclick="btnNuevoUsuario()">
                 Nuevo Usuario
+            </button>
+        </section>
+
+        <!-- Seccion de Departamentos -->
+        <section id="departamentos" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+            <h2>Departamentos</h2>
+            <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
+                <table id="tablaDepartamentos" class="table table-striped">
+                    <thead class="sticky-top">
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Departamento</th>
+                            <th>Jefe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalDepartamento"
+                onclick="btnNuevoDepartamento()">
+                Nuevo Departamento
             </button>
         </section>
 
@@ -322,6 +347,52 @@
                         </div>
                         <button id="btnGuardarUsuario" type="button" class="btn btn-success"
                             onclick="guardarUsuario()">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Departamento -->
+    <div class="modal fade" id="modalDepartamento" tabindex="-1" aria-labelledby="modalRol" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalDepartamento">Departamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDepartamento">
+                        <div id="alertaExitoDepartamento" class="row m-2" hidden>
+                            <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
+                                correctamente</span>
+                        </div>
+                        <div id="alertaErrorDepartamento" class="row m-2" hidden>
+                            <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                                comuniquese con soporte</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="codigoDepartamento" class="form-label">Codigo</label>
+                            <input type="number" class="form-control" id="codigoDepartamento" name="codigoDepartamento"
+                                placeholder="#0" readonly required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombreDepartamento" class="form-label">Nombre del Departamento</label>
+                            <input type="text" class="form-control" id="nombreDepartamento" name="nombreDepartamento" placeholder="Nombre"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="selectComisionDepartamento" class="form-label">Comision Departamento</label>
+                            <select id="selectComisionDepartamento" class="form-select" aria-label="Seleccionar Empleado">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="selectJefeDepartamento" class="form-label">Jefe del Departamento</label>
+                            <select id="selectJefeDepartamento" class="form-select" aria-label="Seleccionar Empleado">
+                            </select>
+                        </div>
+                        <button id="btnGuardarDepartamento" type="button" class="btn btn-success"
+                            onclick="guardarDepartamento()">Guardar</button>
                     </form>
                 </div>
             </div>
