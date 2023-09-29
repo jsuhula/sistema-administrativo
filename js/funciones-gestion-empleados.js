@@ -32,7 +32,7 @@ function cargarEmpleados() {
                 let cell7 = row.insertCell(6);
 
                 cell1.innerHTML = empleado.CodigoEmpleado;
-                cell2.innerHTML = empleado.Nombres;
+                cell2.innerHTML = empleado.NombreCompleto;
                 cell3.innerHTML = empleado.Email;
                 cell4.innerHTML = empleado.Departamento;
                 cell5.innerHTML = empleado.SalarioBase;
@@ -55,7 +55,6 @@ function cargarEmpleados() {
             editButtons.forEach(function (button) {
                 button.addEventListener("click", function () {
 
-                    ocultarAlertasUsuario();
                     document.getElementById('btnGuardarEmpleado').removeAttribute('hidden');
                     // Obtén los datos personalizados del botón
                     let titulo = document.getElementById("tituloModalEmpleado");
@@ -103,7 +102,6 @@ function cargarEmpleados() {
             editButtons.forEach(function (button) {
                 button.addEventListener("click", function () {
 
-                    ocultarAlertasEliminarUsuario();
                     let CodigoEmpleado = button.getAttribute("data-codigo-empleado");
                     let NombreEmpleado = button.getAttribute("data-nombres-empleado");
                     let ApellidosEmpleado = button.getAttribute("data-apellidos-empleado");
