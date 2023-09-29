@@ -184,6 +184,11 @@
                         <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
                             comuniquese con soporte</span>
                     </div>
+                    <div id="alertaDuplicadoEmpleado" class="row m-2" hidden>
+                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un Empleado
+                            con el DPI ingresado
+                        </span>
+                    </div>
                     <div id="alertaCompletarCamposEmpleado" class="row m-2" hidden>
                         <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
@@ -320,6 +325,9 @@
                         <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
                             comuniquese con soporte</span>
                     </div>
+                    <div id="alertaDuplicadoUsuario" class="row m-2" hidden>
+                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un Usuario con el mismo E-mail, intente con otro</span>
+                    </div>
                     <div id="alertaCompletarCamposUsuario" class="row m-2" hidden>
                         <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
@@ -416,6 +424,10 @@
                         <div id="alertaErrorRol" class="row m-2" hidden>
                             <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
                                 comuniquese con soporte</span>
+                        </div>
+                        <div id="alertaDuplicadoRol" class="row m-2" hidden>
+                            <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un Rol 
+                                con el nombre actual/span>
                         </div>
                         <div class="mb-3">
                             <label for="nombreRol" class="form-label">Nombre del Rol</label>

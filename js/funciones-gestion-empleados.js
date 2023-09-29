@@ -132,7 +132,7 @@ function btnNuevoEmpleado() {
     document.getElementById("CodigoEmpleado").value = "";
 }
 
-function eliminarUsuario() {
+function eliminarEmpleado() {
     let CodigoEmpleado = document.getElementById('codigoEliminarEmpleado').textContent;
 
     let datos = {
@@ -146,14 +146,8 @@ function eliminarUsuario() {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            cargarUsuarios();
-            document.getElementById('confirmarEliminarUsuario').setAttribute('hidden', true);
-            document.getElementById('cancelarEliminarUsuario').setAttribute('hidden', true);
-            document.getElementById('lblExitoEliminarUsuario').removeAttribute('hidden');
-            document.getElementById('lblErrorEliminarUsuario').setAttribute('hidden', true);
+            cargarEmpleados();
         } else {
-            document.getElementById('lblErrorEliminarUsuario').removeAttribute('hidden');
-            document.getElementById('lblExitoEliminarUsuario').setAttribute('hidden', true);
         }
     };
     xhr.send(JSON.stringify(datos));
@@ -299,10 +293,13 @@ function guardarUsuario() {
                 cargarUsuarios();
                 limpiarCamposUsuarioModal();
                 alertasExitoGuardar("Usuario");
+            } else if(xhr.status === 409) {
+                alertaDuplicado("Usuario");
             } else {
                 alertasErrorGuardar("Usuario");
             }
         };
+        
         xhr.send(JSON.stringify(datos));
     }
 }
@@ -585,17 +582,20 @@ function restablecerAlertas(section) {
     document.getElementById('lblExitoEliminar'+section).setAttribute('hidden', true);
     document.getElementById('alertaExito'+section).setAttribute('hidden', true);
     document.getElementById('alertaError'+section).setAttribute('hidden', true);
+    document.getElementById('alertaDuplicado'+section).setAttribute('hidden', true);
 }
 
 function alertasExitoGuardar(section) {
     document.getElementById('btnGuardar'+section).setAttribute('hidden', true);
     document.getElementById('alertaExito'+section).removeAttribute('hidden');
     document.getElementById('alertaError'+section).setAttribute('hidden', true);
+    document.getElementById('alertaDuplicado'+section).setAttribute('hidden', true);
 }
 
 function alertasErrorGuardar(section) {
     document.getElementById('alertaExito'+section).setAttribute('hidden', true);
     document.getElementById('alertaError'+section).removeAttribute('hidden');
+    document.getElementById('alertaDuplicado'+section).setAttribute('hidden', true);
 }
 
 function alertasExitoEliminar(section){
@@ -609,4 +609,8 @@ function alertasExitoEliminar(section){
 function alertasErrorElimar(section){
     document.getElementById('lblErrorEliminar'+section).removeAttribute('hidden');
     document.getElementById('lblExitoEliminar'+section).setAttribute('hidden', true);
+}
+
+function alertaDuplicado(section){
+    document.getElementById('alertaDuplicado'+section).removeAttribute('hidden');
 }
