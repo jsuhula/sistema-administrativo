@@ -39,36 +39,5 @@ class EmpleadoDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-
-    public function guardarEmpleado(string $email, string $clave, int $rol)
-    {
-        $query = "INSERT INTO UsuarioSistema (Email, Clave, CodigoRol) VALUES(?, ?, ?)";
-        $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $email);
-        $prpstmt->bindParam(2, $clave);
-        $prpstmt->bindParam(3, $rol);
-        $prpstmt->execute();
-        return $prpstmt;
-    }
-    public function actualizarEmpleado(int $codigoUsuarioSistema, $email, $clave, $rol)
-    {
-        $query = "UPDATE UsuarioSistema SET Email = ?, Clave = ?, CodigoRol = ? WHERE CodigoUsuarioSistema = ?";
-        $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $email);
-        $prpstmt->bindParam(2, $clave);
-        $prpstmt->bindParam(3, $rol);
-        $prpstmt->bindParam(4, $codigoUsuarioSistema);
-        $prpstmt->execute();
-        return $prpstmt;
-    }
-    public function eliminarEmpleado(int $codigoEmpleado)
-    {
-        $query = "DELETE FROM Empleado WHERE CodigoEmpleado = ?";
-        $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $codigoEmpleado);
-        $prpstmt->execute();
-        return $prpstmt;
-    }
-
 }
 ?>
