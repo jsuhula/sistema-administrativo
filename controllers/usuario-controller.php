@@ -83,13 +83,18 @@ function guardarUsuario(string $email, string $clave, int $rol)
 {
 
     global $user;
-    $result = $user->guardarUsuario($email, $clave, $rol);
-
-    if ($result->rowCount() > 0) {
-        /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
-        http_response_code(200);
-    } else {
-        http_response_code(500);
+    $existe = $user->validarExistenciaUsuario($email);
+    $existe = $existe->fetch(PDO::FETCH_OBJ);
+    if($existe->Existe == 1){
+        http_response_code(409);
+    }else{
+        $result = $user->guardarUsuario($email, $clave, $rol);
+        if ($result->rowCount() > 0) {
+            /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
+            http_response_code(200);
+        } else {
+            http_response_code(500);
+        }
     }
 }
 

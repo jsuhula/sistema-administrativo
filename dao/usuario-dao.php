@@ -24,6 +24,15 @@ class UsuarioDAO
         return $prpstmt;
     }
 
+    public function validarExistenciaUsuario(string $email)
+    {
+        $query = "SELECT COUNT(*) AS Existe FROM `UsuarioSistema` WHERE Email = ?";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $email);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
     public function guardarUsuario(string $email, string $clave, int $rol)
     {
         $query = "INSERT INTO UsuarioSistema (Email, Clave, CodigoRol) VALUES(?, ?, ?)";
