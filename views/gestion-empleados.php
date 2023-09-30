@@ -125,6 +125,7 @@
                             <th>Codigo</th>
                             <th>Departamento</th>
                             <th>Jefe</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
