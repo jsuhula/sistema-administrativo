@@ -22,18 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $rol = $data->rol;
             guardarUsuario($email, $clave, $rol);
             break;
-        case 2:
-            $codigoUsuario = $data->codigoUsuario;
-            $email = $data->email;
-            $clave = hash('sha256', $data->clave);
-            $rol = $data->rol;
-
-            actualizarUsuario($codigoUsuario, $email, $clave, $rol);
-            break;
-        case 3:
-            $codigoUsuario = $data->codigoUsuario;
-            eliminarUsuario(intval($codigoUsuario));
-            break;
     }
 } else {
     http_response_code(400); // Solicitud incorrecta
@@ -58,52 +46,6 @@ function obtenerEmpleados()
         echo $registrosJSON;
     } else {
         http_response_code(500); // Error en el servidor
-    }
-}
-
-function guardarUsuario(string $email, string $clave, int $rol)
-{
-
-    global $empleado;
-    $result = $empleado->guardarEmpleado($email, $clave, $rol);
-
-    if ($result->rowCount() > 0) {
-        /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
-        http_response_code(200);
-    } else {
-        http_response_code(500);
-    }
-}
-
-function actualizarUsuario(int $codigo, string $email, string $clave, int $rol)
-{
-
-    global $user;
-    if (empty($clave)) {
-        $result = $user->actualizarUsuarioNoClave($codigo, $email, $rol);
-    } else {
-        $result = $user->actualizarUsuario($codigo, $email, $clave, $rol);
-    }
-
-    if ($result->rowCount() > 0) {
-        /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
-        http_response_code(200);
-    } else {
-        http_response_code(500);
-    }
-}
-
-function eliminarUsuario(int $codigoUsuario)
-{
-
-    global $user;
-    $result = $user->eliminarUsuario($codigoUsuario);
-
-    if ($result->rowCount() > 0) {
-        /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
-        http_response_code(200);
-    } else {
-        http_response_code(500);
     }
 }
 
