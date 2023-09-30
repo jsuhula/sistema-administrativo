@@ -3,9 +3,9 @@
 class MySQLConnector{
     private $connector;
     private $server = "localhost";
-    private $dbname = "id21238446_deaquisoy";
-    private $user = "id21238446_admin";
-    private $passwd = "Admin@root1";
+    private $dbname = "deaquisoy";
+    private $user = "root";
+    private $passwd = "";
 
     public function __construct(){
         try{

@@ -16,6 +16,7 @@ class EmpleadoDAO
                         CodigoEmpleado,
                         Nombres,
                         Apellidos,
+                        CONCAT(Nombres, ' ', Apellidos) AS NombreCompleto,
                         Email,
                         Telefono,
                         SalarioBase,
