@@ -13,9 +13,10 @@ class EmpleadoDAO
     public function listarEmpleados()
     {
         $query = "SELECT 
-                        CodigoEmpleado,
+                        E.CodigoEmpleado,
                         Nombres,
                         Apellidos,
+                        CONCAT(Nombres, ' ', Apellidos) AS NombreCompleto,
                         Email,
                         Telefono,
                         SalarioBase,
