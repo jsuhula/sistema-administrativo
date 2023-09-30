@@ -18,7 +18,7 @@ class DepartamentoDAO
                         C.CodigoComision,
                         E.CodigoEmpleado
                     FROM Departamento AS D
-                    INNER JOIN Comision AS C ON C.CodigoComision = D.CodigoDepartamento,
+                    INNER JOIN Comision AS C ON C.CodigoComision = D.CodigoComision
                     INNER JOIN Empleado AS E ON E.CodigoEmpleado = D.CodigoEmpleado";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
