@@ -22,14 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     switch ($option) {
         case 1:
             $email = $data->email;
-            $clave = hash('sha256', $data->clave);
+            $clave = $data->clave;
             $rol = $data->rol;
             guardarUsuario($email, $clave, $rol);
             break;
         case 2:
             $codigoUsuario = $data->codigoUsuario;
             $email = $data->email;
-            $clave = hash('sha256', $data->clave);
+            $clave = $data->clave;
             $rol = $data->rol;
 
             actualizarUsuario($codigoUsuario, $email, $clave, $rol);
@@ -103,17 +103,24 @@ function actualizarUsuario(int $codigo, string $email, string $clave, int $rol)
 {
 
     global $user;
-    if (empty($clave)) {
-        $result = $user->actualizarUsuarioNoClave($codigo, $email, $rol);
-    } else {
-        $result = $user->actualizarUsuario($codigo, $email, $clave, $rol);
-    }
+    $existe = $user->validarExistenciaUsuario($email);
+    $existe = $existe->fetch(PDO::FETCH_OBJ);
 
-    if ($result->rowCount() > 0) {
+    if($existe->Existe == 1){
+        http_response_code(409);
+    }else{
+        if (empty($clave)) {
+        $result = $user->actualizarUsuarioNoClave($codigo, $email, $rol);
+        } else {
+            $result = $user->actualizarUsuario($codigo, $email, $clave, $rol);
+        }
+
+        if ($result->rowCount() > 0) {
         /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
-        http_response_code(200);
-    } else {
-        http_response_code(500);
+            http_response_code(200);
+        } else {
+            http_response_code(500);
+        }
     }
 }
 
