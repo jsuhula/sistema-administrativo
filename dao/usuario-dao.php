@@ -18,6 +18,15 @@ class UsuarioDAO
         return $prpstmt;
     }
 
+    public function listarUsuariosBusqueda(string $usuarioBusqueda)
+    {
+        $query = "call listarUsuariosBusqueda(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $usuarioBusqueda);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
     public function validarExistenciaUsuario(string $email)
     {
         $query = "call validarExistenciaUsuario(?)";
@@ -42,7 +51,7 @@ class UsuarioDAO
     {
         $query = "call actualizarUsuario(?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $codigoRol);
+        $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->bindParam(2, $email);
         $prpstmt->bindParam(3, $clave);
         $prpstmt->bindParam(4, $rol);
@@ -78,7 +87,8 @@ class UsuarioDAO
         return $prpstmt;
     }
 
-    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes,  int $gestionaCaja, int $asistencia){
+    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia)
+    {
         $query = "call guardarRol(?, ?, ?, ?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $nombre);
@@ -88,6 +98,15 @@ class UsuarioDAO
         $prpstmt->bindParam(5, $gestionaReportes);
         $prpstmt->bindParam(6, $gestionaCaja);
         $prpstmt->bindParam(7, $asistencia);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function validarExistenciaRol(string $nombre)
+    {
+        $query = "call validarExistenciaRol(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $nombre);
         $prpstmt->execute();
         return $prpstmt;
     }
@@ -107,7 +126,7 @@ class UsuarioDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-    
+
     public function eliminarRol(int $codigoRol)
     {
         $query = "call eliminarRol(?)";
