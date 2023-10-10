@@ -12,14 +12,7 @@ class DepartamentoDAO
 
     public function listarDepartamentos()
     {
-        $query = "SELECT 
-                        D.CodigoDepartamento AS Codigo,
-                        D.Nombre,
-                        C.CodigoComision,
-                        E.CodigoEmpleado
-                    FROM Departamento AS D
-                    INNER JOIN Comision AS C ON C.CodigoComision = D.CodigoComision
-                    INNER JOIN Empleado AS E ON E.CodigoEmpleado = D.CodigoEmpleado";
+        $query = "call listarDepartamentos()";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
         return $prpstmt;
@@ -27,16 +20,16 @@ class DepartamentoDAO
 
     public function validarExistenciaDepartamento(string $nombre)
     {
-        $query = "SELECT COUNT(*) AS Existe FROM Departamento WHERE Nombre = ?";
+        $query = "call validarExistenciaDepartamento(?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $nombre);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function guardarDepartamento(string $nombre, string $codigoComision, int $codigoEmpleado)
+    public function guardarDepartamento(string $nombre, int $codigoComision, string $codigoEmpleado)
     {
-        $query = "INSERT INTO Departamento (Nombre, CodigoComision, CodigoEmpleado) VALUES(?, ?, ?)";
+        $query = "call guardarDepartamento(?,?,?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $nombre);
         $prpstmt->bindParam(2, $codigoComision);
@@ -47,24 +40,71 @@ class DepartamentoDAO
 
     public function actualizarDepartamento(int $codigoDepartamento, $nombre, $codigoComision, $codigoEmpleado)
     {
-        $query = "UPDATE Departamento  SET Nombre = ?, CodigoComision = ?, CodigoEmpleado = ? WHERE CodigoDepartamento = ?";
+        $query = "call actualizarDepartamento(?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $nombre);
-        $prpstmt->bindParam(2, $codigoComision);
-        $prpstmt->bindParam(3, $codigoEmpleado);
-        $prpstmt->bindParam(4, $codigoDepartamento);
+        $prpstmt->bindParam(1, $codigoDepartamento);
+        $prpstmt->bindParam(2, $nombre);
+        $prpstmt->bindParam(3, $codigoComision);
+        $prpstmt->bindParam(4, $codigoEmpleado);
         $prpstmt->execute();
         return $prpstmt;
     }
 
     public function eliminarDepartamento(int $codigoDepartamento)
     {
-        $query = "DELETE FROM Departamento  WHERE CodigoDepartamento = ?";
+        $query = "call eliminarDepartamento(?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoDepartamento);
         $prpstmt->execute();
         return $prpstmt;
     }
 
+    public function listarComisiones()
+    {
+        $query = "call listarComisiones()";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function guardarComision(string $nombreComision, string $restricciones, float $bono)
+    {
+        $query = "call guardarComision(?, ?, ?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $nombreComision);
+        $prpstmt->bindParam(2, $restricciones);
+        $prpstmt->bindParam(3, $bono);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function actualizarComision(int $codigoComision, string $nombreComision, string $restricciones, float $bono)
+    {
+        $query = "call actualizarComision(?, ?, ?, ?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $codigoComision);
+        $prpstmt->bindParam(2, $nombreComision);
+        $prpstmt->bindParam(3, $restricciones);
+        $prpstmt->bindParam(4, $bono);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function validarExistenciaComision(string $nombreComision)
+    {
+        $query = "call validarExistenciaComision(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $nombreComision);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+    public function eliminarComision(int $codigoComision)
+    {
+        $query = "call eliminarComision(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $codigoComision);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
 }
 ?>
