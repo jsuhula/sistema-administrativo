@@ -6,7 +6,7 @@ class DepartamentoDAO
 
     function __construct()
     {
-        $this->connection = new MySQLConnector();
+        $this->connection = MySQLConnector::getInstance();
         $this->connection = $this->connection->getConnection();
     }
 
