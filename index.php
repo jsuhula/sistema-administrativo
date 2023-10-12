@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('America/Guatemala'); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -40,6 +41,9 @@
                     </li>
                     <li class="nav-item text-white">
                         <a class="nav-link" href="views/menu.php" target="_blank">Ver Menú</a>
+                    </li>
+                    <li class="nav-item text-white">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal">Marcaje</a>
                     </li>
                 </ul>
             </div>
@@ -116,6 +120,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal para Entrada -->
+    <div class="modal fade" id="marcajeAsistenciaModal" tabindex="-1" aria-labelledby="marcajeAsistenciaModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="entradaModalLabel">Marcaje de Asistencia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="procesar_entrada.php" method="POST">
+                        <div class="mb-3">
+                            <label for="fecha_entrada" class="form-label">Fecha y hora:</label>
+                            <input type="datetime" class="form-control" id="fecha_hora" name="fecha_hora" readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
+                        </div>
+                        <button type="submit" class="btn btn-success">Registrar Entrada</button>
+                        <button type="submit" class="btn btn-danger">Registrar Salida</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
