@@ -1,5 +1,7 @@
 <?php
-
+namespace includes;
+use PDO;
+USE PDOException;
 class MySQLConnector {
     private static $instance; // Variable para almacenar la única instancia de la clase.
     private $connector;
@@ -28,6 +30,5 @@ class MySQLConnector {
         return $this->connector;
     }
 }
-
 
 ?>
