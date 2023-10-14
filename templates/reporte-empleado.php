@@ -1,5 +1,10 @@
 <?php
-	
+
+session_start();
+if (!$_SESSION) {
+	header('location: ../login.php');
+}
+
 use dao\EmpleadoDAO;
 
 date_default_timezone_set('America/Guatemala');
@@ -13,10 +18,10 @@ function empleadoDao(): EmpleadoDAO
 	require_once("../config/Autoload.php");
 	require_once("../dao/EmpleadoDAO.php");
 	require_once('../includes/MySQLConnector.php');
-	
-	return  new EmpleadoDAO();
+
+	return new EmpleadoDAO();
 }
-	
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +40,7 @@ function empleadoDao(): EmpleadoDAO
 		* {
 			font-family: 'Times New Roman', Times, serif;
 		}
+
 		.text-center span {
 			line-height: 1;
 		}
@@ -46,7 +52,9 @@ function empleadoDao(): EmpleadoDAO
 			<span>Teléfono: 123-456-7890</span><br>
 			<span>Correo Electrónico: info@empresa.com</span>
 			<hr>
-			<h5 class="text-center"><?php echo $registro->CodigoEmpleado; ?></h5>
+			<h5 class="text-center">
+				<?php echo $registro->CodigoEmpleado; ?>
+			</h5>
 
 			<table class="table table-striped">
 				<tbody class="bg-black">
@@ -56,21 +64,33 @@ function empleadoDao(): EmpleadoDAO
 					</tr>
 					<tr>
 						<td><strong>Código de Empleado:</strong></td>
-						<td><?php echo $registro->CodigoEmpleado; ?></td>
+						<td>
+							<?php echo $registro->CodigoEmpleado; ?>
+						</td>
 						<td><strong>Nombres:</strong></td>
-						<td><?php echo $registro->Nombres; ?></td>
+						<td>
+							<?php echo $registro->Nombres; ?>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Apellidos:</strong></td>
-						<td><?php echo $registro->Apellidos; ?></td>
+						<td>
+							<?php echo $registro->Apellidos; ?>
+						</td>
 						<td><strong>DPI:</strong></td>
-						<td><?php echo $registro->DPI; ?></td>
+						<td>
+							<?php echo $registro->DPI; ?>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>NIT:</strong></td>
-						<td><?php echo $registro->NIT; ?></td>
+						<td>
+							<?php echo $registro->NIT; ?>
+						</td>
 						<td><strong>Fecha de Nacimiento:</strong></td>
-						<td><?php echo $registro->FechaNacimiento; ?></td>
+						<td>
+							<?php echo $registro->FechaNacimiento; ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -82,9 +102,13 @@ function empleadoDao(): EmpleadoDAO
 					</tr>
 					<tr>
 						<td><strong>Correo Electrónico:</strong></td>
-						<td><?php echo $registro->Email; ?></td>
+						<td>
+							<?php echo $registro->Email; ?>
+						</td>
 						<td><strong>Número de Teléfono:</strong></td>
-						<td><?php echo $registro->Telefono; ?></td>
+						<td>
+							<?php echo $registro->Telefono; ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -96,15 +120,23 @@ function empleadoDao(): EmpleadoDAO
 					</tr>
 					<tr>
 						<td><strong>Profesión/Puesto:</strong></td>
-						<td><?php echo $registro->Profesion; ?></td>
+						<td>
+							<?php echo $registro->Profesion; ?>
+						</td>
 						<td><strong>Departamento:</strong></td>
-						<td><?php echo $registro->Departamento; ?></td>
+						<td>
+							<?php echo $registro->Departamento; ?>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Fecha de Ingreso:</strong></td>
-						<td><?php echo $registro->FechaIngreso; ?></td>
+						<td>
+							<?php echo $registro->FechaIngreso; ?>
+						</td>
 						<td><strong>Fecha de Retiro:</strong></td>
-						<td><?php echo $registro->FechaRetiro; ?></td>
+						<td>
+							<?php echo $registro->FechaRetiro; ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -117,15 +149,23 @@ function empleadoDao(): EmpleadoDAO
 					</tr>
 					<tr>
 						<td><strong>Salario:</strong></td>
-						<td>Q. <?php echo $registro->SalarioBase; ?></td>
+						<td>Q.
+							<?php echo $registro->SalarioBase; ?>
+						</td>
 						<td><strong>Carnet de IRTRA:</strong></td>
-						<td><?php echo $registro->IRTRA; ?></td>
+						<td>
+							<?php echo $registro->IRTRA; ?>
+						</td>
 					</tr>
 					<tr>
 						<td><strong>Carnet de IGSS:</strong></td>
-						<td><?php echo $registro->IGSS; ?></td>
+						<td>
+							<?php echo $registro->IGSS; ?>
+						</td>
 						<td><strong>Estado:</strong></td>
-						<td><?php echo $registro->Estado; ?></td>
+						<td>
+							<?php echo $registro->Estado; ?>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -138,7 +178,7 @@ function empleadoDao(): EmpleadoDAO
 <script>
 	html2pdf().set({
 		margin: 0.5,
-		filename: "<?php echo $registro->NombreCompleto; ?>"+"-"+"<?php echo $fechaHoraActual; ?>",
+		filename: "<?php echo $registro->NombreCompleto; ?>" + "-" + "<?php echo $fechaHoraActual; ?>",
 		image: {
 			type: 'jpeg',
 			quality: 0.999
