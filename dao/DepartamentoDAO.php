@@ -1,5 +1,6 @@
 <?php
-require_once("../includes/db-connector.php");
+namespace dao;
+use includes\MySQLConnector;
 class DepartamentoDAO
 {
     private $connection;

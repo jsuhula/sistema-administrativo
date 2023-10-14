@@ -1,10 +1,21 @@
 <?php
-	require_once("../dao/empleado-dao.php");
-	date_default_timezone_set('America/Guatemala');
-	$codigoEmpleado = isset($_GET['CodigoEmpleado']) ? $_GET['CodigoEmpleado'] : "";
-	$empleado = new EmpleadoDAO();
-	$registro = $empleado->obtenerEmpleado($codigoEmpleado)->fetch(PDO::FETCH_OBJ);
-	$fechaHoraActual = date("Y-m-d H:i:s");
+	
+use dao\EmpleadoDAO;
+
+date_default_timezone_set('America/Guatemala');
+$fechaHoraActual = date("Y-m-d H:i:s");
+$codigoEmpleado = isset($_GET['CodigoEmpleado']) ? $_GET['CodigoEmpleado'] : "";
+
+$empleado = empleadoDao();
+$registro = $empleado->obtenerEmpleado($codigoEmpleado)->fetch(PDO::FETCH_OBJ);
+function empleadoDao(): EmpleadoDAO
+{
+	require_once("../config/Autoload.php");
+	require_once("../dao/EmpleadoDAO.php");
+	require_once('../includes/MySQLConnector.php');
+	
+	return  new EmpleadoDAO();
+}
 	
 ?>
 

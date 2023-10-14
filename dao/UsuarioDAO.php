@@ -1,13 +1,16 @@
 <?php
-require_once("../includes/db-connector.php");
+namespace dao;
+use includes\MySQLConnector;
 class UsuarioDAO
 {
     private $connection;
+    private $_key;
 
     function __construct()
     {
         $this->connection = MySQLConnector::getInstance();
         $this->connection = $this->connection->getConnection();
+        $this->_key = new UsuarioAccessoDAO();
     }
 
     public function listarUsuarios()
@@ -36,36 +39,42 @@ class UsuarioDAO
         return $prpstmt;
     }
 
-    public function guardarUsuario(string $email, string $clave, int $rol)
+    public function guardarUsuario(string $email, string $clave, int $rol, string $dir)
     {
-        $query = "call guardarUsuario(?, ?, ?)";
+        $key = $this->_key->keyDecrypt($dir);
+        $query = "call guardarUsuario(?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $email);
         $prpstmt->bindParam(2, $clave);
         $prpstmt->bindParam(3, $rol);
+        $prpstmt->bindParam(4, $key);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function actualizarUsuario(int $codigoUsuario, string $email, string $clave, int $rol)
+    public function actualizarUsuario(int $codigoUsuario, string $email, string $clave, int $rol, string $dir)
     {
-        $query = "call actualizarUsuario(?, ?, ?, ?)";
+        $key = $this->_key->keyDecrypt($dir);
+        $query = "call actualizarUsuario(?, ?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->bindParam(2, $email);
         $prpstmt->bindParam(3, $clave);
         $prpstmt->bindParam(4, $rol);
+        $prpstmt->bindParam(5, $key);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function actualizarUsuarioNoClave(int $codigoUsuario, string $email, int $rol)
+    public function actualizarUsuarioNoClave(int $codigoUsuario, string $email, int $rol, string $dir)
     {
-        $query = "call actualizarUsuarioNoClave(?, ?, ?)";
+        $key = $this->_key->keyDecrypt($dir);
+        $query = "call actualizarUsuarioNoClave(?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->bindParam(2, $email);
         $prpstmt->bindParam(3, $rol);
+        $prpstmt->bindParam(4, $key);
         $prpstmt->execute();
         return $prpstmt;
     }
