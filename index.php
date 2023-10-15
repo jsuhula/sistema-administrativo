@@ -1,5 +1,6 @@
 <?php
 require_once("config/autoload.php");
+date_default_timezone_set('America/Guatemala');
 
 session_start();
 if (!$_SESSION) {
@@ -11,7 +12,6 @@ $usuarioSesion = $usuario->obtenerDatosDeSesion($_SESSION['CodigoUsuario'])->fet
 $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesion->UsuarioEmail : $usuarioSesion->NombreUsuarioSesion;
 
 ?>
-<?php date_default_timezone_set('America/Guatemala'); ?>
 <!DOCTYPE html>
 <html lang="es">
 
