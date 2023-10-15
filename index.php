@@ -1,3 +1,16 @@
+<?php
+require_once("config/autoload.php");
+
+session_start();
+if (!$_SESSION) {
+    header('location: login.php');
+}
+
+$usuario = new dao\UsuarioAccessoDAO();
+$usuarioSesion = $usuario->obtenerDatosDeSesion($_SESSION['CodigoUsuario'])->fetch(PDO::FETCH_OBJ);
+$nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesion->UsuarioEmail : $usuarioSesion->NombreUsuarioSesion;
+
+?>
 <?php date_default_timezone_set('America/Guatemala'); ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user"></i> User</span>
+                        <span class="nav-link"><i class="fas fa-user"></i> <?php echo $nombreUsuarioActual; ?></span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/gestion-nomina.php">Nómina</a>
@@ -49,7 +62,7 @@
             </div>
             <div class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#salir">
+                    <a class="nav-link" href="#" onclick="cerrarSesion()">
                         <i class="fas fa-sign-out-alt"></i> Salir
                     </a>
                 </li>
@@ -145,6 +158,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="js/funciones-index.js"></script>
 
     <!-- Configura la gráfica de ventas mensuales -->
     <script>

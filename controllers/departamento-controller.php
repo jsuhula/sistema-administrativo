@@ -1,70 +1,76 @@
 <?php
-require_once("../dao/departamento-dao.php");
-$departamento = new DepartamentoDAO();
 
-if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $option = $_GET['option'];
+use dao\DepartamentoDAO;
 
-    switch ($option) {
-        case 1:
-            obtenerDepartamentos();
-            break;
-        case 2:
-            obtenerComisiones();
-            break;
+main();
+function main(){
+    require_once('../dao/DepartamentoDAO.php');
+    require_once('../includes/MySQLConnector.php');
+    $departamentoDao = new DepartamentoDAO();
+
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
+        $option = $_GET['option'];
+    
+        switch ($option) {
+            case 1:
+                obtenerDepartamentos($departamentoDao);
+                break;
+            case 2:
+                obtenerComisiones($departamentoDao);
+                break;
+        }
+    } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+        $data = json_decode(file_get_contents("php://input"));
+        $option = $data->option;
+    
+        switch ($option) {
+            case 1:
+                $nombreDepartamento = $data->nombreDepartamento;
+                $codigoComision = $data->codigoComision;
+                $codigoEmpleado = $data->codigoJefe;
+                guardarDepartamento($nombreDepartamento, intval($codigoComision), $codigoEmpleado, $departamentoDao);
+                break;
+            case 2:
+                $codigoDepartamento = $data->codigoDepartamento;
+                $nombreDepartamento = $data->nombreDepartamento;
+                $codigoComision = $data->codigoComision;
+                $codigoEmpleado = $data->codigoJefe;
+                actualizarDepartamento($codigoDepartamento, $nombreDepartamento, $codigoComision, $codigoEmpleado, $departamentoDao);
+                break;
+            case 3:
+                $codigoDepartamento = $data->codigoDepartamento;
+                eliminarDepartamento(intval($codigoDepartamento), $departamentoDao);
+                break;
+            case 4:
+                $codigoComision = $data->codigoComision;
+                $nombreComision = $data->nombreComision;
+                $restriccionesComision = $data->restriccionesComision;
+                $bonoComision = $data->bonoComision;
+                guardarComision($nombreComision, $restriccionesComision, floatval($bonoComision), $departamentoDao);
+                break;
+            case 5:
+                $codigoComision = $data->codigoComision;
+                $nombreComision = $data->nombreComision;
+                $restriccionesComision = $data->restriccionesComision;
+                $bonoComision = $data->bonoComision;
+                actualizarComision($codigoComision, $nombreComision, $restriccionesComision, floatval($bonoComision), $departamentoDao);
+                break;
+            case 6:
+                $codigoComision = $data->codigoComision;
+                eliminarComision($codigoComision, $departamentoDao);
+                break;
+        }
+    } else {
+        http_response_code(400); // Solicitud incorrecta
     }
-} else if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $data = json_decode(file_get_contents("php://input"));
-    $option = $data->option;
-
-    switch ($option) {
-        case 1:
-            $nombreDepartamento = $data->nombreDepartamento;
-            $codigoComision = $data->codigoComision;
-            $codigoEmpleado = $data->codigoJefe;
-            guardarDepartamento($nombreDepartamento, intval($codigoComision), $codigoEmpleado);
-            break;
-        case 2:
-            $codigoDepartamento = $data->codigoDepartamento;
-            $nombreDepartamento = $data->nombreDepartamento;
-            $codigoComision = $data->codigoComision;
-            $codigoEmpleado = $data->codigoJefe;
-            actualizarDepartamento($codigoDepartamento, $nombreDepartamento, $codigoComision, $codigoEmpleado);
-            break;
-        case 3:
-            $codigoDepartamento = $data->codigoDepartamento;
-            eliminarDepartamento(intval($codigoDepartamento));
-            break;
-        case 4:
-            $codigoComision = $data->codigoComision;
-            $nombreComision = $data->nombreComision;
-            $restriccionesComision = $data->restriccionesComision;
-            $bonoComision = $data->bonoComision;
-            guardarComision($nombreComision, $restriccionesComision, floatval($bonoComision));
-            break;
-        case 5:
-            $codigoComision = $data->codigoComision;
-            $nombreComision = $data->nombreComision;
-            $restriccionesComision = $data->restriccionesComision;
-            $bonoComision = $data->bonoComision;
-            actualizarComision($codigoComision, $nombreComision, $restriccionesComision, floatval($bonoComision));
-            break;
-        case 6:
-            $codigoComision = $data->codigoComision;
-            eliminarComision($codigoComision);
-            break;
-    }
-} else {
-    http_response_code(400); // Solicitud incorrecta
 }
 
-function obtenerDepartamentos()
+function obtenerDepartamentos(DepartamentoDAO $departamentoDao)
 {
-    global $departamento;
 
     try {
-        $result = $departamento->listarDepartamentos();
+        $result = $departamentoDao->listarDepartamentos();
 
         if ($result->rowCount() > 0) {
             $registros = array(); // Almacena los registros en un arreglo
@@ -87,18 +93,16 @@ function obtenerDepartamentos()
 
 }
 
-function guardarDepartamento(string $nombreDepartamento, int $codigoComision, string $codigoEmpleado)
+function guardarDepartamento(string $nombreDepartamento, int $codigoComision, string $codigoEmpleado, DepartamentoDAO $departamentoDao)
 {
 
-    global $departamento;
-
     try {
-        $existe = $departamento->validarExistenciaDepartamento($nombreDepartamento);
+        $existe = $departamentoDao->validarExistenciaDepartamento($nombreDepartamento);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
         if ($existe->Existe == 1) {
             http_response_code(409);
         } else {
-            $result = $departamento->guardarDepartamento($nombreDepartamento, $codigoComision, $codigoEmpleado);
+            $result = $departamentoDao->guardarDepartamento($nombreDepartamento, $codigoComision, $codigoEmpleado);
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                 http_response_code(200);
@@ -112,18 +116,17 @@ function guardarDepartamento(string $nombreDepartamento, int $codigoComision, st
 
 }
 
-function actualizarDepartamento(int $codigoDepartamento, string $nombreDepartamento, int $codigoComision, string $codigoEmpleado)
+function actualizarDepartamento(int $codigoDepartamento, string $nombreDepartamento, int $codigoComision, string $codigoEmpleado, DepartamentoDAO $departamentoDao)
 {
-    global $departamento;
 
     try {
-        $existe = $departamento->validarExistenciaDepartamento($nombreDepartamento);
+        $existe = $departamentoDao->validarExistenciaDepartamento($nombreDepartamento);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
 
         if ($existe->Existe == 1 & $existe->CodigoDepartamento != $codigoDepartamento) {
             http_response_code(409);
         } else {
-            $result = $departamento->actualizarDepartamento($codigoDepartamento, $nombreDepartamento, $codigoComision, $codigoEmpleado);
+            $result = $departamentoDao->actualizarDepartamento($codigoDepartamento, $nombreDepartamento, $codigoComision, $codigoEmpleado);
 
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
@@ -139,12 +142,11 @@ function actualizarDepartamento(int $codigoDepartamento, string $nombreDepartame
 
 }
 
-function eliminarDepartamento(int $codigoDepartamento)
+function eliminarDepartamento(int $codigoDepartamento, DepartamentoDAO $departamentoDao)
 {
-    global $departamento;
 
     try {
-        $result = $departamento->eliminarDepartamento($codigoDepartamento);
+        $result = $departamentoDao->eliminarDepartamento($codigoDepartamento);
         if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
             /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
             http_response_code(200);
@@ -157,12 +159,11 @@ function eliminarDepartamento(int $codigoDepartamento)
 
 }
 
-function obtenerComisiones()
+function obtenerComisiones(DepartamentoDAO $departamentoDao)
 {
-    global $departamento;
 
     try {
-        $result = $departamento->listarComisiones();
+        $result = $departamentoDao->listarComisiones();
 
         if ($result->rowCount() > 0) {
             $registros = array(); // Almacena los registros en un arreglo
@@ -185,18 +186,16 @@ function obtenerComisiones()
 
 }
 
-function guardarComision(string $nombreComision, string $restricciones, float $bono)
+function guardarComision(string $nombreComision, string $restricciones, float $bono, DepartamentoDAO $departamentoDao)
 {
 
-    global $departamento;
-
     try {
-        $existe = $departamento->validarExistenciaComision($nombreComision);
+        $existe = $departamentoDao->validarExistenciaComision($nombreComision);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
         if ($existe->Existe == 1) {
             http_response_code(409);
         } else {
-            $result = $departamento->guardarComision($nombreComision, $restricciones, $bono);
+            $result = $departamentoDao->guardarComision($nombreComision, $restricciones, $bono);
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                 http_response_code(200);
@@ -210,17 +209,16 @@ function guardarComision(string $nombreComision, string $restricciones, float $b
 
 }
 
-function actualizarComision(int $codigoComision, string $nombreComision, string $restricciones, float $bono)
+function actualizarComision(int $codigoComision, string $nombreComision, string $restricciones, float $bono, DepartamentoDAO $departamentoDao)
 {
 
-    global $departamento;
     try {
-        $existe = $departamento->validarExistenciaComision($nombreComision);
+        $existe = $departamentoDao->validarExistenciaComision($nombreComision);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
         if ($existe->Existe == 1 & $existe->CodigoComision != $codigoComision) {
             http_response_code(409);
         } else {
-            $result = $departamento->actualizarComision($codigoComision, $nombreComision, $restricciones, $bono);
+            $result = $departamentoDao->actualizarComision($codigoComision, $nombreComision, $restricciones, $bono);
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                 http_response_code(200);
@@ -233,11 +231,10 @@ function actualizarComision(int $codigoComision, string $nombreComision, string 
     }
 }
 
-function eliminarComision(int $codigoComision){
+function eliminarComision(int $codigoComision, DepartamentoDAO $departamentoDao){
 
-    global $departamento;
     try {
-        $result = $departamento->eliminarComision($codigoComision);
+        $result = $departamentoDao->eliminarComision($codigoComision);
         if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
             /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
             http_response_code(200);

@@ -266,33 +266,41 @@ DELIMITER ;
 
 /*TRIGGRERS*/
 /*CUALQUIER INSERT ENCRIPTA LA CONSTRASENA*/
-DELIMITER //
-CREATE TRIGGER TriggerBeforeInsertUsuarioSistema
-BEFORE INSERT ON UsuarioSistema
-FOR EACH ROW
-BEGIN
+-- DELIMITER //
+-- CREATE TRIGGER TriggerBeforeInsertUsuarioSistema
+-- BEFORE INSERT ON UsuarioSistema
+-- FOR EACH ROW
+-- BEGIN
 
-  SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
+--   SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
 
-END //
-DELIMITER ;
+-- END //
+-- DELIMITER ;
 
-/*CUALQUIER INSERT ENCRIPTA LA CONSTRASENA*/
-DELIMITER //
-CREATE TRIGGER TriggerBeforeUpdateUsuarioSistema
-BEFORE UPDATE ON usuariosistema
-FOR EACH ROW
-BEGIN
-  IF NEW.Clave IS NOT NULL OR NEW.Clave != '' THEN
-    SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
-  END IF;
-END //
-DELIMITER ;
+-- /*CUALQUIER INSERT ENCRIPTA LA CONSTRASENA*/
+-- DELIMITER //
+-- CREATE TRIGGER TriggerBeforeUpdateUsuarioSistema
+-- BEFORE UPDATE ON usuariosistema
+-- FOR EACH ROW
+-- BEGIN
+--   IF NEW.Clave IS NOT NULL OR NEW.Clave != '' THEN
+--     SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
+--   END IF;
+-- END //
+-- DELIMITER ;
 
-/*
-SELECT Email, AES_DECRYPT(UNHEX(Clave), "UMG2023") FROM usuariosistema;
-*/
 /*PROCEDURES */
+
+/*VALIDAR CREDENCIALES*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarCredenciales 
+(IN VarEmail VARCHAR(50), IN VarClave VARCHAR(50), IN VarPalabraClave VARCHAR(50))
+BEGIN
+	SELECT COUNT(*) AS Existe, CodigoUsuarioSistema AS CodigoUsuario 
+    FROM usuariosistema WHERE Email = VarEmail 
+    AND VarClave = AES_DECRYPT(UNHEX(Clave), VarPalabraClave);
+END //
+DELIMITER ;
 
 /*LISTAR USUARIOS*/
 DELIMITER //
@@ -333,9 +341,10 @@ DELIMITER ;
 
 /*GUARDAR USUARIO*/
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS guardarUsuario(IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT)
+CREATE PROCEDURE IF NOT EXISTS guardarUsuario
+(IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
 BEGIN
-	INSERT INTO UsuarioSistema (Email, Clave, CodigoRol) VALUES(VarEmail, VarClave, VarCodigoRol);
+ INSERT INTO UsuarioSistema (Email, Clave, CodigoRol) VALUES(VarEmail, HEX(AES_ENCRYPT(VarClave, VarPalabraClave)), VarCodigoRol);
   SELECT ROW_COUNT() AS afected;
 END //
 DELIMITER ;
@@ -343,21 +352,40 @@ DELIMITER ;
 /*ACTUALIZAR USUARIO*/
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS actualizarUsuario
-( IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT)
+( IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
 BEGIN
-	UPDATE UsuarioSistema SET Email = VarEmail, Clave = VarClave, CodigoRol = VarCodigoRol 
+	UPDATE UsuarioSistema SET Email = VarEmail, Clave = AES_DECRYPT(UNHEX(VarClave), VarPalabraClave), CodigoRol = VarCodigoRol 
   WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
   SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*OBTENER DATOS PARA LA SESION*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS obtenerDatosDeSesion
+(IN VarCodigoUsuarioSistema INT)
+BEGIN
+	SELECT us.CodigoUsuarioSistema AS CodigoUsuario
+    	, CONCAT(SUBSTRING_INDEX(Nombres, ' ', 1), ' ', SUBSTRING_INDEX(Apellidos, ' ', 1)) AS NombreUsuarioSesion
+        , em.Nombres
+        , em.Apellidos
+        , em.Email
+        , us.CodigoRol
+        , us.Email AS UsuarioEmail
+    FROM usuariosistema AS us
+    LEFT JOIN empleado  AS em ON em.CodigoUsuarioSistema = us.CodigoUsuarioSistema
+    INNER JOIN rol AS r ON r.CodigoRol = us.CodigoRol
+    WHERE us.CodigoUsuarioSistema = VarCodigoUsuarioSistema;
 END //
 DELIMITER ;
 
 /*ACTUALIZAR USUARIO Y NO LA CLAVE*/
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS actualizarUsuarioNoClave
-(IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarCodigoRol INT)
+(IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
 BEGIN
   DECLARE ClaveAux VARCHAR(100);
-  SET ClaveAux = (SELECT AES_DECRYPT(UNHEX(Clave), "UMG2023") As Clave FROM usuariosistema 
+  SET ClaveAux = (SELECT AES_DECRYPT(UNHEX(Clave), VarPalabraClave) As Clave FROM usuariosistema 
   WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	UPDATE UsuarioSistema SET Email = VarEmail, CodigoRol = VarCodigoRol, Clave = ClaveAux
 	WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
