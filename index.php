@@ -43,7 +43,7 @@
                         <a class="nav-link" href="views/menu.php" target="_blank">Ver Menú</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal">Asistencia <i class="fas fa-calendar-check"></i></a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal">Asistencia</a>
                     </li>
                 </ul>
             </div>
