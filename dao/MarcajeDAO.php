@@ -1,12 +1,13 @@
 <?php
-require_once("../includes/db-connector.php");
+namespace dao;
+use includes\MySQLConnector;
 class MarcajeDAO
 {
     private $connection;
 
     function __construct()
     {
-        $this->connection = new MySQLConnector();
+        $this->connection = MySQLConnector::getInstance();
         $this->connection = $this->connection->getConnection();
     }
 
