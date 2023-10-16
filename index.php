@@ -41,22 +41,22 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                         <span class="nav-link"><i class="fas fa-user"></i> <?php echo $nombreUsuarioActual; ?></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-nomina.php">Nómina</a>
+                        <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i> Nómina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-empleados.php">Empleados</a>
+                        <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users-gear"></i> Empleados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-menu.php">Menú</a>
+                        <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i> Menú</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/reportes.php">Reportes</a>
+                        <a class="nav-link" href="views/reportes.php"><i class="fa-solid fa-chart-simple"></i> Reportes</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="views/menu.php" target="_blank">Ver Menú</a>
+                        <a class="nav-link" href="views/menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver Menú</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal">Asistencia</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i class="fa-solid fa-calendar"></i> Asistencia</a>
                     </li>
                 </ul>
             </div>
