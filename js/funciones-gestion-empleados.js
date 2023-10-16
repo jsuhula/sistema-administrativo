@@ -166,7 +166,6 @@ function guardarEmpleado() {
         'Dpi',
         'Estado',
         'SelectEmpleadoDepartamento',
-        'SelectEmpleadoUsuarioSistema'
     ];
 
     let todosCamposValidos = true;
@@ -264,9 +263,9 @@ function cargarDepartamentos() {
                         select.appendChild(option);
                     });
                 } else if (selectId === "tablaDepartamentos") {
+                    var tabla = document.getElementById("tablaDepartamentos").getElementsByTagName("tbody")[0];
 
                     borrarContenidoTabla("tablaDepartamentos");
-                    var tabla = document.getElementById("tablaDepartamentos").getElementsByTagName("tbody")[0];
 
                     data.forEach(function (departamento) {
                         var row = tabla.insertRow();
@@ -293,6 +292,7 @@ function cargarDepartamentos() {
                     editButtons.forEach(function (button) {
                         button.addEventListener("click", function () {
                             let FormularioDepartamento = document.getElementById('formDepartamento');
+                            FormularioDepartamento.reset();
                             restablecerAlertas("Departamento");
                             // Obtén los datos personalizados del botón
                             let titulo = document.getElementById("tituloModalDepartamento");
@@ -307,7 +307,9 @@ function cargarDepartamentos() {
                             FormularioDepartamento.codigoDepartamento.value = CodigoDepartamento;
                             FormularioDepartamento.nombreDepartamento.value = NombreDepartamento;
                             FormularioDepartamento.selectDepartamentoComision.value = CodigoComision;
-                            FormularioDepartamento.selectDepartamentoJefe.value = CodigoEmpleado;
+                            if(CodigoEmpleado !== 'null'){
+                                FormularioDepartamento.selectDepartamentoJefe.value = CodigoEmpleado;
+                            }
                         });
                     });
 

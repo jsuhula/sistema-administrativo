@@ -363,7 +363,7 @@
                                     placeholder="Ej: Lun. a Vie. 8:00 AM a 17:00 PM" maxlength="50">
                             </div>
                             <div class="col-md-6">
-                                <label for="SelectEmpleadoUsuarioSistema" class="form-label">*Usuario Sistema:</label>
+                                <label for="SelectEmpleadoUsuarioSistema" class="form-label">Usuario Sistema:</label>
                                 <select class="form-select" id="SelectEmpleadoUsuarioSistema"
                                     name="SelectEmpleadoUsuarioSistema">
                                     <option value="" selected disabled>Seleccione un Usuario de Sistema</option>
@@ -481,14 +481,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="selectDepartamentoComision" class="form-label">Comisión:</label>
-                            <select id="selectDepartamentoComision" class="form-select"
-                                aria-label="Seleccionar Empleado">
+                            <select id="selectDepartamentoComision" class="form-select">
                                 <option value="" selected disabled>Seleccione una comisión</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="selectDepartamentoJefe" class="form-label">Jefe del Departamento</label>
-                            <select id="selectDepartamentoJefe" class="form-select" aria-label="Seleccionar Empleado">
+                            <select id="selectDepartamentoJefe" class="form-select">
                                 <option value="" selected disabled>Seleccione un Jefe</option>
                             </select>
                         </div>
