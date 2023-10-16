@@ -44,7 +44,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                         <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i> Nómina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users-gear"></i> Empleados</a>
+                        <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i> Empleados</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i> Menú</a>

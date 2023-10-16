@@ -32,10 +32,10 @@ if (!$_SESSION) {
                         <a id="regresar" class="nav-link" href="/index.php"><i class="fas fa-arrow-left"></i> Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#lista-menu">Menú Actual</a>
+                        <a class="nav-link" href="#lista-menu"><i class="fa-solid fa-drumstick-bite"></i> Menú Actual</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#agregar-nuevo">Agregar Nuevo</a>
+                        <a class="nav-link" href="#agregar-nuevo"><i class="fa-solid fa-plus"></i> Agregar Nuevo</a>
                     </li>
                 </ul>
             </div>
