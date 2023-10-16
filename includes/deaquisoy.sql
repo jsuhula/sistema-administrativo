@@ -324,17 +324,6 @@ BEGIN
 END //
 DELIMITER ;
 
-/*ACTUALIZAR USUARIO*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS actualizarUsuario
-( IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
-BEGIN
-	UPDATE UsuarioSistema SET Email = VarEmail, Clave = HEX(AES_ENCRYPT(VarClave, VarPalabraClave)), CodigoRol = VarCodigoRol 
-  WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
-  SELECT ROW_COUNT() AS afected;
-END //
-DELIMITER ;
-
 /*OBTENER DATOS PARA LA SESION*/
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS obtenerDatosDeSesion
@@ -362,8 +351,19 @@ BEGIN
   DECLARE ClaveAux VARCHAR(100);
   SET ClaveAux = (SELECT AES_DECRYPT(UNHEX(Clave), VarPalabraClave) As Clave FROM usuariosistema 
   WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	UPDATE UsuarioSistema SET Email = VarEmail, CodigoRol = VarCodigoRol, Clave = ClaveAux
+	UPDATE UsuarioSistema SET Email = VarEmail, CodigoRol = VarCodigoRol, Clave = HEX(AES_ENCRYPT(ClaveAux, VarPalabraClave))
 	WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
+  SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*ACTUALIZAR USUARIO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS actualizarUsuario
+( IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarClave VARCHAR(200), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
+BEGIN
+	UPDATE UsuarioSistema SET Email = VarEmail, Clave = HEX(AES_ENCRYPT(VarClave, VarPalabraClave)), CodigoRol = VarCodigoRol 
+  WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
   SELECT ROW_COUNT() AS afected;
 END //
 DELIMITER ;
