@@ -56,7 +56,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                         <a class="nav-link" href="views/menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver Menú</a>
                     </li>
                     <li class="nav-item text-white">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i class="fa-solid fa-calendar"></i> Asistencia</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i class="fa-solid fa-calendar-days"></i> Asistencia</a>
                     </li>
                 </ul>
             </div>
