@@ -34,22 +34,22 @@ if (!$_SESSION) {
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#salarios" data-section="salarios">Pago Salarios</a>
+                        <a class="nav-link" href="#salarios" data-section="salarios"><i class="fa-solid fa-wallet"></i> Pago Salarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones">Pago Bonificacion</a>
+                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones"><i class="fa-solid fa-wallet"></i> Pago Bonificacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#liquidacion" data-section="liquidacion">Liquidacion</a>
+                        <a class="nav-link" href="#liquidacion" data-section="liquidacion"><i class="fa-solid fa-file-contract"></i> Liquidacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#informes" data-section="informes">Informes</a>
+                        <a class="nav-link" href="#informes" data-section="informes"><i class="fa-solid fa-chart-simple"></i> Informes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#comisiones" data-section="comisiones">Comisiones</a>
+                        <a class="nav-link" href="#comisiones" data-section="comisiones"><i class="fa-solid fa-dollar-sign"></i> Comisiones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#resumen" data-section="resumen">Resumen</a>
+                        <a class="nav-link" href="#resumen" data-section="resumen"><i class="fa-solid fa-list"></i> Resumen</a>
                     </li>
                 </ul>
             </div>

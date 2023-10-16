@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-if ($_SESSION) {
+if (!$_SESSION) {
   header('location: ../login.php');
 }
 
@@ -32,10 +32,10 @@ if ($_SESSION) {
                         <a id="regresar" class="nav-link" href="../index.php"><i class="fas fa-arrow-left"></i> Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0);" onclick="showSection('ventas')">Ventas</a>
+                        <a class="nav-link" href="javascript:void(0);" onclick="showSection('ventas')"><i class="fas fa-cart-shopping"></i> Ventas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0);" onclick="showSection('cierres-caja')">Cierres de Caja</a>
+                        <a class="nav-link" href="javascript:void(0);" onclick="showSection('cierres-caja')"><i class="fa-solid fa-cash-register"></i> Cierres de Caja</a>
                     </li>
                 </ul>
             </div>

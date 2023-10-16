@@ -34,19 +34,19 @@
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="empleados">Empleados</a>
+                        <a class="nav-link" href="#" data-section="empleados"><i class="fa-solid fa-users-gear"></i> Empleados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="lista-usuarios">Usuarios</a>
+                        <a class="nav-link" href="#" data-section="lista-usuarios"><i class="fa-solid fa-user-group"></i> Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="departamentos">Departamentos</a>
+                        <a class="nav-link" href="#" data-section="departamentos"><i class="fa-solid fa-building"></i> Departamentos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="roles">Roles</a>
+                        <a class="nav-link" href="#" data-section="roles"><i class="fa-solid fa-sitemap"></i> Roles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="comisiones">Comisiones</a>
+                        <a class="nav-link" href="#" data-section="comisiones"><i class="fa-solid fa-dollar-sign"></i> Comisiones</a>
                     </li>
                 </ul>
             </div>
