@@ -248,7 +248,6 @@ CREATE TABLE `PagoBonificacion` (
 );
 
 /* FUNCION GENERA CODIGO COMBINADO */
-
 DELIMITER //
 CREATE FUNCTION generarCodigoEmpleado(Nombres VARCHAR(50), Apellidos VARCHAR(50), DPI VARCHAR(13))
 RETURNS VARCHAR(10)
@@ -264,32 +263,62 @@ BEGIN
 END //
 DELIMITER ;
 
-/*TRIGGRERS*/
-/*CUALQUIER INSERT ENCRIPTA LA CONSTRASENA*/
--- DELIMITER //
--- CREATE TRIGGER TriggerBeforeInsertUsuarioSistema
--- BEFORE INSERT ON UsuarioSistema
--- FOR EACH ROW
--- BEGIN
-
---   SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
-
--- END //
--- DELIMITER ;
-
--- /*CUALQUIER INSERT ENCRIPTA LA CONSTRASENA*/
--- DELIMITER //
--- CREATE TRIGGER TriggerBeforeUpdateUsuarioSistema
--- BEFORE UPDATE ON usuariosistema
--- FOR EACH ROW
--- BEGIN
---   IF NEW.Clave IS NOT NULL OR NEW.Clave != '' THEN
---     SET NEW.Clave = hex(aes_encrypt(NEW.Clave, "UMG2023"));
---   END IF;
--- END //
--- DELIMITER ;
-
 /*PROCEDURES */
+
+/*LISTAR ROLES*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS listarRoles()
+BEGIN
+	SELECT CodigoRol, Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia
+    FROM Rol
+   	ORDER BY CodigoRol ASC;
+END //
+DELIMITER ;
+
+/*GUARDAR ROL*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS guardarRol
+(IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
+IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
+BEGIN
+	INSERT INTO Rol (Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia) 
+    VALUES(VarNombre, VarGestionaNomina, VarGestionaEmpleados, VarGestionaMenu, VarGestionaReportes, VarGestionaCaja, VarAsistencia);
+    SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*ACTUALIZAR ROL*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS actualizarRol
+(IN VarCodigoRol INT, IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
+IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
+BEGIN
+	UPDATE Rol 
+    SET Nombre = VarNombre, GestionaNomina = VarGestionaNomina, GestionaEmpleados = VarGestionaEmpleados, 
+    GestionaMenu = VarGestionaMenu, GestionaReportes = VarGestionaReportes, GestionaCaja = VarGestionaCaja,  
+    Asistencia = VarAsistencia
+    WHERE CodigoRol = VarCodigoRol;
+    SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*ELIMINAR ROL*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS eliminarRol(IN VarCodigoRol INT)
+BEGIN
+	DELETE FROM Rol WHERE CodigoRol = VarCodigoRol;
+  SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*VALIDAR EXISTENCIA ROL*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarExistenciaRol (IN VarNombre VARCHAR(50))
+BEGIN
+	SELECT COUNT(*) AS Existe, CodigoRol FROM Rol WHERE Nombre = VarNombre;
+END //
+DELIMITER ;
+
 
 /*VALIDAR CREDENCIALES*/
 DELIMITER //
@@ -400,60 +429,6 @@ CREATE PROCEDURE IF NOT EXISTS eliminarUsuario
 BEGIN
 	DELETE FROM UsuarioSistema WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
   SELECT ROW_COUNT() AS afected;
-END //
-DELIMITER ;
-
-/*LISTAR ROLES*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS listarRoles()
-BEGIN
-	SELECT CodigoRol, Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia
-    FROM Rol
-   	ORDER BY CodigoRol ASC;
-END //
-DELIMITER ;
-
-/*GUARDAR ROL*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS guardarRol
-(IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
-IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
-BEGIN
-	INSERT INTO Rol (Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia) 
-    VALUES(VarNombre, VarGestionaNomina, VarGestionaEmpleados, VarGestionaMenu, VarGestionaReportes, VarGestionaCaja, VarAsistencia);
-    SELECT ROW_COUNT() AS afected;
-END //
-DELIMITER ;
-
-/*ACTUALIZAR ROL*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS actualizarRol
-(IN VarCodigoRol INT, IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
-IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
-BEGIN
-	UPDATE Rol 
-    SET Nombre = VarNombre, GestionaNomina = VarGestionaNomina, GestionaEmpleados = VarGestionaEmpleados, 
-    GestionaMenu = VarGestionaMenu, GestionaReportes = VarGestionaReportes, GestionaCaja = VarGestionaCaja,  
-    Asistencia = VarAsistencia
-    WHERE CodigoRol = VarCodigoRol;
-    SELECT ROW_COUNT() AS afected;
-END //
-DELIMITER ;
-
-/*ELIMINAR ROL*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS eliminarRol(IN VarCodigoRol INT)
-BEGIN
-	DELETE FROM Rol WHERE CodigoRol = VarCodigoRol;
-  SELECT ROW_COUNT() AS afected;
-END //
-DELIMITER ;
-
-/*VALIDAR EXISTENCIA ROL*/
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS validarExistenciaRol (IN VarNombre VARCHAR(50))
-BEGIN
-	SELECT COUNT(*) AS Existe, CodigoRol FROM Rol WHERE Nombre = VarNombre;
 END //
 DELIMITER ;
 
@@ -745,3 +720,8 @@ BEGIN
             WHERE E.CodigoEmpleado = VarCodigoEmpleado;
 END //
 DELIMITER ;
+
+/* EJECUTAR LUEGO DE CREACION DE LA DB
+call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);
+call guardarUsuario('admin@admin.com', 'admin', 1, 'UMG2023');
+*/
