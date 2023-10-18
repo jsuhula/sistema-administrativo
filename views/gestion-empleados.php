@@ -363,7 +363,7 @@
                                     placeholder="Ej: Lun. a Vie. 8:00 AM a 17:00 PM" maxlength="50">
                             </div>
                             <div class="col-md-6">
-                                <label for="SelectEmpleadoUsuarioSistema" class="form-label">Usuario Sistema:</label>
+                                <label for="SelectEmpleadoUsuarioSistema" class="form-label">*Usuario Sistema:</label>
                                 <select class="form-select" id="SelectEmpleadoUsuarioSistema"
                                     name="SelectEmpleadoUsuarioSistema">
                                     <option value="" selected disabled>Seleccione un Usuario de Sistema</option>
