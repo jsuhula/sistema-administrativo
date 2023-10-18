@@ -166,6 +166,7 @@ function guardarEmpleado() {
         'Dpi',
         'Estado',
         'SelectEmpleadoDepartamento',
+        'SelectEmpleadoUsuarioSistema'
     ];
 
     let todosCamposValidos = true;
