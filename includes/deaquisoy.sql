@@ -103,7 +103,7 @@ CREATE TABLE `Liquidacion` (
 
 CREATE TABLE `Asistencia` (
   `CodigoAsistencia` INT AUTO_INCREMENT NOT NULL,
-  `entrada` DATETIME,
+  `Entrada` DATETIME,
   `Salida` DATETIME,
   `CodigoEmpleado` VARCHAR(10),
   PRIMARY KEY (`CodigoAsistencia`),
@@ -881,6 +881,46 @@ BEGIN
 END //
 DELIMITER ;
 
+/*VALIDAR ASISTENCIA*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarAsistencia
+(IN VarCodigoUsuarioSistema INT, IN VarFecha DATE)
+BEGIN
+	  DECLARE VarCodigoEmpleado VARCHAR(10);
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida
+    FROM asistencia
+    WHERE DATE(Entrada) = VarFecha OR DATE(Salida) = VarFecha
+    AND CodigoEmpleado = VarCodigoEmpleado;
+END //
+DELIMITER ;
+
+/*ASISTENCIA ENTRADA*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS asistenciaEntrada
+(IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
+BEGIN
+	DECLARE VarCodigoEmpleado VARCHAR(10);
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	INSERT INTO asistencia (Entrada, CodigoEmpleado) 
+    VALUES (VarFecha, VarCodigoEmpleado);
+END //
+DELIMITER ;
+
+
+/*ASISTENCIA SALIDA*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS asistenciaSalida
+(IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
+BEGIN
+	DECLARE VarCodigoEmpleado VARCHAR(10);
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	UPDATE asistencia
+    SET Salida = VarFechaHora
+    WHERE CodigoEmpleado = VarCodigoEmpleado
+    AND DATE(Entrada) = DATE(VarFechaHora);
+END
+DELIMITER ;
 
 /* EJECUTAR LUEGO DE CREACION DE LA DB
 call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);
