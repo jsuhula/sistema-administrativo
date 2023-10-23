@@ -30,6 +30,15 @@ class UsuarioDAO
         return $prpstmt;
     }
 
+    public function listarUsuariosPorAsignar()
+    {
+        $query = "call listarUsuariosPorAsignar()";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+
     public function validarExistenciaUsuario(string $email)
     {
         $query = "call validarExistenciaUsuario(?)";
