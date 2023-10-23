@@ -70,7 +70,6 @@ CREATE TABLE `Prestamo` (
   `Fecha` DATE,
   `Monto` DECIMAL(10,2),
   `Cuotas` INT,
-  `FechaUltimoPago` DATE,
   `CodigoEmpleado` VARCHAR(10),
   PRIMARY KEY (`CodigoPrestamo`),
   FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
@@ -720,6 +719,152 @@ BEGIN
             WHERE E.CodigoEmpleado = VarCodigoEmpleado;
 END //
 DELIMITER ;
+
+/* GUARDAR PRESTAMOS */
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS guardarPrestamo 
+(IN VarFecha DATE, IN VarMonto DECIMAL(10,2), IN VarCuotas INT, IN VarCodigoEmpleado VARCHAR(10))
+BEGIN
+	INSERT INTO Prestamo(Fecha, Monto, Cuotas, CodigoEmpleado)
+    VALUES(VarFecha, VarMonto, VarCuotas, VarCodigoEmpleado);
+    SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/* LISTAR PRESTAMOS */
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS listarPrestamos ()
+BEGIN
+	SELECT P.CodigoPrestamo
+    	  	, P.Fecha
+        	, CONCAT(Nombres, ' ', Apellidos) AS NombreEmpleado
+        	, E.CodigoEmpleado
+        	, P.Monto
+        	, P.Cuotas
+            , P.Cuotas - COUNT(A.CodigoAbono) AS CuotasPendientes
+        	, CASE
+            	WHEN (P.Monto - SUM(IFNULL(A.Monto, 1))) = 0 
+                	THEN 0
+                WHEN (P.Monto - SUM(A.Monto)) IS NULL
+                	THEN P.Monto
+                WHEN (P.Monto - SUM(A.Monto)) IS NOT NULL
+                     THEN (P.Monto - SUM(A.Monto))
+            	END AS SaldoPendiente
+    FROM Prestamo AS P
+    INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
+    LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+    GROUP BY P.CodigoPrestamo
+    HAVING SaldoPendiente > 0;
+END //
+DELIMITER ;
+
+/*LISTAR PRESTAMOS DE EMPLEADO ESPECIFICO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS listarPrestamosEmpleado (IN VarNombreEmpleado VARCHAR(50))
+BEGIN
+	SELECT P.CodigoPrestamo
+    	  	, P.Fecha
+        	, CONCAT(Nombres, ' ', Apellidos) AS NombreEmpleado
+        	, E.CodigoEmpleado
+        	, P.Monto
+        	, P.Cuotas
+          , P.Cuotas - COUNT(A.CodigoAbono) AS CuotasPendientes
+        	, CASE
+            	WHEN (P.Monto - SUM(IFNULL(A.Monto, 1))) = 0 
+                	THEN 0
+                WHEN (P.Monto - SUM(A.Monto)) IS NULL
+                	THEN P.Monto
+                WHEN (P.Monto - SUM(A.Monto)) IS NOT NULL
+                     THEN (P.Monto - SUM(A.Monto))
+            	END AS SaldoPendiente
+    FROM Prestamo AS P
+    INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
+    LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+    WHERE CONCAT(E.Nombres, '', E.Apellidos) LIKE CONCAT('%', VarNombreEmpleado, '%')
+    GROUP BY P.CodigoPrestamo;
+END //
+DELIMITER ;
+
+/*VALIDAR PRESTAMO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarPrestamo (IN VarCodigoPrestamo INT)
+BEGIN
+	IF VarCodigoPrestamo = (SELECT CodigoPrestamo FROM Prestamo WHERE CodigoPrestamo = VarCodigoPrestamo) THEN
+    BEGIN
+        SELECT P.CodigoPrestamo 
+                , CONCAT(Nombres, ' ', Apellidos) AS NombreEmpleado
+                , E.CodigoEmpleado
+                , P.Monto
+                , P.Monto/P.Cuotas AS MontoCuota
+                , CASE
+                    WHEN (P.Monto - SUM(IFNULL(A.Monto, 1))) = 0 
+                        THEN 0
+                      WHEN (P.Monto - SUM(A.Monto)) IS NULL
+                        THEN P.Monto
+                      WHEN (P.Monto - SUM(A.Monto)) IS NOT NULL
+                          THEN (P.Monto - SUM(A.Monto))
+                    END AS SaldoPendiente
+        FROM Prestamo AS P
+        LEFT JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
+        LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+        WHERE P.CodigoPrestamo = VarCodigoPrestamo
+        GROUP BY P.CodigoPrestamo;
+    END;
+  ELSE
+  	SELECT 0 AS Afected;
+  END IF;
+END //
+DELIMITER ;
+
+/*GUARDAR ABONO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS guardarAbono 
+(IN VarFecha DATE, IN VarCuotas INT, IN VarCodigoPrestamo INT)
+BEGIN
+	DECLARE MontoCuota DECIMAL(10,2);
+    SET MontoCuota = (SELECT Monto/Cuotas AS Monto FROM Prestamo WHERE CodigoPrestamo = VarCodigoPrestamo);
+	INSERT INTO Abono(Monto, Fecha, CodigoPrestamo)
+    VALUES(MontoCuota*VarCuotas, VarFecha, VarCodigoPrestamo);
+    SELECT ROW_COUNT() AS afected;
+END //
+DELIMITER ;
+
+/*LISTAR ABONOS PRESTAMO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS listarAbonosPrestamo 
+(IN VarCodigoPrestamo INT)
+BEGIN
+	SELECT P.CodigoPrestamo 
+           , A.CodigoAbono
+           , A.Monto
+           , A.Fecha
+    FROM Prestamo AS P
+    INNER JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+    WHERE P.CodigoPrestamo = VarCodigoPrestamo;
+END //
+DELIMITER ;
+
+/*VALIDAR PRESTAMOS DE EMPLEADO PENDIENTES*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarEmpleadoPrestamosPendientes 
+(IN VarCodigoEmpleado VARCHAR(10))
+BEGIN
+	SELECT E.CodigoEmpleado
+        	, CONCAT(Nombres, ' ', Apellidos) AS NombreEmpleado
+        	, CASE
+            	WHEN (P.Monto - (SUM(IFNULL(A.Monto,1)))) = 0 
+                	THEN 0
+            	ELSE 
+                	1
+            	END AS SaldoPendiente
+    FROM Prestamo AS P
+    INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
+    LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+    WHERE E.CodigoEmpleado = VarCodigoEmpleado
+    GROUP BY E.CodigoEmpleado;
+END //
+DELIMITER ;
+
 
 /* EJECUTAR LUEGO DE CREACION DE LA DB
 call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);
