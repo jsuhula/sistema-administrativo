@@ -1,5 +1,7 @@
 <?php
 namespace dao;
+
+use DateTime;
 use includes\MySQLConnector;
 class MarcajeDAO
 {
@@ -11,27 +13,28 @@ class MarcajeDAO
         $this->connection = $this->connection->getConnection();
     }
 
-    public function validarMarcaje(int $codigoUsuario)
+    public function validarAsistencia(int $codigoUsuario, string $fecha)
     {
-        $query = "call valdarMarcaje(?)";
+        $query = "call validarAsistencia(?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoUsuario);
+        $prpstmt->bindParam(2, $fecha);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function marcarEntrada(int $codigoUsuario, $fechaHora)
+    public function asistenciaEntrada(int $codigoUsuario, string $fechaHora)
     {
-        $query = "call marcarEntrada(?, ?)";
+        $query = "call asistenciaEntrada(?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->bindParam(2, $fechaHora);
         $prpstmt->execute();
         return $prpstmt;
     }
-    public function marcarSalida(int $codigoUsuario, $fechaHora)
+    public function asistenciaSalida(int $codigoUsuario, string $fechaHora)
     {
-        $query = "call marcarSalida(?, ?)";
+        $query = "call asistenciaSalida(?, ?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->bindParam(2, $fechaHora);
@@ -43,15 +46,6 @@ class MarcajeDAO
     {
         $query = "call listarMarcajes()";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->execute();
-        return $prpstmt;
-    }
-
-    public function listarMarcajesDeEmpleado(int $codigoUsuario)
-    {
-        $query = "call listarMarcajeDeEMpleado(?)";
-        $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $codigoUsuario);
         $prpstmt->execute();
         return $prpstmt;
     }
