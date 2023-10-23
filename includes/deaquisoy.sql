@@ -888,7 +888,7 @@ CREATE PROCEDURE IF NOT EXISTS validarAsistencia
 BEGIN
 	  DECLARE VarCodigoEmpleado VARCHAR(10);
     SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida
+	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe
     FROM asistencia
     WHERE DATE(Entrada) = VarFecha OR DATE(Salida) = VarFecha
     AND CodigoEmpleado = VarCodigoEmpleado;
@@ -903,7 +903,7 @@ BEGIN
 	DECLARE VarCodigoEmpleado VARCHAR(10);
     SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	INSERT INTO asistencia (Entrada, CodigoEmpleado) 
-    VALUES (VarFecha, VarCodigoEmpleado);
+    VALUES (VarFechaHora, VarCodigoEmpleado);
 END //
 DELIMITER ;
 
