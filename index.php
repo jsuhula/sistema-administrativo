@@ -201,7 +201,6 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script src="js/funciones-index.js"></script>
-    <script src="js/funciones-marcaje.js"></script>
 
     <!-- Configura la gráfica de ventas mensuales -->
     <script>
