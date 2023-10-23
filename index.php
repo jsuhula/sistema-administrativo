@@ -202,7 +202,6 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script src="js/funciones-index.js"></script>
 
-    <!-- Configura la gráfica de ventas mensuales -->
     <script>
         var ctx = document.getElementById('ventasMensuales').getContext('2d');
         var myChart = new Chart(ctx, {
