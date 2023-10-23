@@ -305,6 +305,22 @@ BEGIN
 END //
 DELIMITER ;
 
+/*LISTAR USUARIOS POR ASIGNAR*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS listarUsuariosPorAsignar()
+BEGIN
+	SELECT US.CodigoUsuarioSistema AS Codigo
+                            , US.Email
+                            , RO.Nombre AS Rol
+                            , RO.CodigoRol
+                    FROM `UsuarioSistema` AS US
+                    INNER JOIN Rol AS RO ON RO.CodigoRol = US.CodigoRol
+                    LEFT JOIN Empleado AS EM ON EM.CodigoUsuarioSistema = US.CodigoUsuarioSistema
+                    WHERE EM.CodigoEmpleado IS NULL
+                    ORDER BY Codigo ASC;
+END //
+DELIMITER ;
+
 /* VALIDAR EXISTENCIA USUARIO*/
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaUsuario (IN VarEmail VARCHAR (50))

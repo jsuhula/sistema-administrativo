@@ -3,7 +3,8 @@
 use dao\UsuarioDAO;
 
 main();
-function main(){
+function main()
+{
 
     require_once('../dao/UsuarioDAO.php');
     require_once('../includes/MySQLConnector.php');
@@ -11,10 +12,10 @@ function main(){
 
     $usuarioDao = new UsuarioDAO();
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    
+
         $option = $_GET['option'];
         $usuarioBusqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : "";
-    
+
         switch ($option) {
             case 1:
                 obtenerUsuarios($usuarioBusqueda, $usuarioDao);
@@ -22,12 +23,15 @@ function main(){
             case 2:
                 obtenerRoles($usuarioDao);
                 break;
+            case 3:
+                obtenerUsuariosPorAsignar($usuarioDao);
+                break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    
+
         $data = json_decode(file_get_contents("php://input"));
         $option = $data->option;
-    
+
         switch ($option) {
             case 1:
                 $email = $data->email;
@@ -40,7 +44,7 @@ function main(){
                 $email = $data->email;
                 $clave = $data->clave;
                 $rol = $data->rol;
-    
+
                 actualizarUsuario($codigoUsuario, $email, $clave, $rol, $usuarioDao);
                 break;
             case 3:
@@ -65,28 +69,28 @@ function main(){
         }
     } else {
         http_response_code(400); // Solicitud incorrecta
-    }   
+    }
 }
 
 function obtenerUsuarios(string $usuarioBusqueda, UsuarioDAO $usuarioDao)
 {
 
-    try{
+    try {
         if (empty($usuarioBusqueda)) {
             $result = $usuarioDao->listarUsuarios();
         } else {
             $result = $usuarioDao->listarUsuariosBusqueda($usuarioBusqueda);
         }
-    
+
         if ($result->rowCount() > 0) {
             $registros = array(); // Almacena los registros en un arreglo
-    
+
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $registros[] = $row;
             }
-    
+
             $registrosJSON = json_encode($registros);
-    
+
             // Devuelve los registros en formato JSON como respuesta HTTP
             header('Content-Type: application/json');
             echo $registrosJSON;
@@ -94,16 +98,44 @@ function obtenerUsuarios(string $usuarioBusqueda, UsuarioDAO $usuarioDao)
             header('Content-Type: application/json');
             echo json_encode([]);
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500); // Error en el servidor
     }
-    
+
+}
+
+function obtenerUsuariosPorAsignar(UsuarioDAO $usuarioDao)
+{
+
+    try {
+        $result = $usuarioDao->listarUsuariosPorAsignar();
+
+        if ($result->rowCount() > 0) {
+            $registros = array(); // Almacena los registros en un arreglo
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $registros[] = $row;
+            }
+
+            $registrosJSON = json_encode($registros);
+
+            // Devuelve los registros en formato JSON como respuesta HTTP
+            header('Content-Type: application/json');
+            echo $registrosJSON;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode([]);
+        }
+    } catch (PDOException $ex) {
+        http_response_code(500); // Error en el servidor
+    }
+
 }
 
 function guardarUsuario(string $email, string $clave, int $rol, UsuarioDAO $usuarioDao)
 {
 
-    try{
+    try {
         $existe = $usuarioDao->validarExistenciaUsuario($email);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
         if ($existe->Existe == 1) {
@@ -117,20 +149,20 @@ function guardarUsuario(string $email, string $clave, int $rol, UsuarioDAO $usua
                 http_response_code(400);
             }
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 function actualizarUsuario(int $codigo, string $email, string $clave, int $rol, UsuarioDAO $usuarioDao)
 {
 
 
-    try{
+    try {
         $existe = $usuarioDao->validarExistenciaUsuario($email);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
-    
+
         if ($existe->Existe == 1 & $existe->CodigoUsuarioSistema != $codigo) {
             http_response_code(409);
         } else {
@@ -139,7 +171,7 @@ function actualizarUsuario(int $codigo, string $email, string $clave, int $rol, 
             } else {
                 $result = $usuarioDao->actualizarUsuario($codigo, $email, $clave, $rol, "../");
             }
-    
+
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                 http_response_code(200);
@@ -147,16 +179,16 @@ function actualizarUsuario(int $codigo, string $email, string $clave, int $rol, 
                 http_response_code(400);
             }
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 function eliminarUsuario(int $codigoUsuario, UsuarioDAO $usuarioDao)
 {
-    
-    try{
+
+    try {
         $result = $usuarioDao->eliminarUsuario($codigoUsuario);
 
         if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
@@ -165,50 +197,50 @@ function eliminarUsuario(int $codigoUsuario, UsuarioDAO $usuarioDao)
         } else {
             http_response_code(400);
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 function obtenerRoles(UsuarioDAO $usuarioDao)
 {
 
-    try{
+    try {
         $result = $usuarioDao->listarRoles();
 
         if ($result->rowCount() > 0) {
             $registros = array(); // Almacena los registros en un arreglo
-    
+
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $registros[] = $row;
             }
-    
+
             $registrosJSON = json_encode($registros);
-    
+
             // Devuelve los registros en formato JSON como respuesta HTTP
             header('Content-Type: application/json');
             echo $registrosJSON;
         } else {
             http_response_code(400); // NO HAY REGISTROS
         }
-    }catch(PDOException $ex){
-        http_response_code(500); 
+    } catch (PDOException $ex) {
+        http_response_code(500);
     }
-    
+
 }
 function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia, UsuarioDAO $usuarioDao)
 {
-    try{
+    try {
         $existe = $usuarioDao->validarExistenciaRol($nombre);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
-    
+
         if ($existe->Existe == 1) {
             http_response_code(409);
         } else {
             $result = $usuarioDao->guardarRol($nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $asistencia);
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
-    
+
                 if ($result->rowCount() > 0) {
                     /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                     http_response_code(200);
@@ -217,23 +249,23 @@ function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados,
                 }
             }
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia, UsuarioDAO $usuarioDao)
 {
-    try{
+    try {
         $existe = $usuarioDao->validarExistenciaRol($nombre);
         $existe = $existe->fetch(PDO::FETCH_OBJ);
-    
+
         if ($existe->Existe == 1 & $existe->CodigoRol != $codigoRol) {
             http_response_code(409);
         } else {
             $result = $usuarioDao->actualizarRol($codigoRol, $nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $asistencia);
-    
+
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
                 http_response_code(200);
@@ -241,16 +273,16 @@ function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int 
                 http_response_code(400);
             }
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 function eliminarRol(int $codigoRol, UsuarioDAO $usuarioDao)
 {
 
-    try{
+    try {
         $result = $usuarioDao->eliminarRol($codigoRol);
         if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
             /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
@@ -258,10 +290,10 @@ function eliminarRol(int $codigoRol, UsuarioDAO $usuarioDao)
         } else {
             http_response_code(400);
         }
-    }catch(PDOException $ex){
+    } catch (PDOException $ex) {
         http_response_code(500);
     }
-    
+
 }
 
 ?>
