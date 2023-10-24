@@ -468,7 +468,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaDepartamento (IN VarNombre VARCHAR(100))
 BEGIN
-	SELECT COUNT(*) AS Existe, CodigoDepartamento FROM departamento WHERE Nombre = VarNombre;
+	SELECT COUNT(*) AS Existe, CodigoDepartamento FROM Departamento WHERE Nombre = VarNombre;
 END //
 DELIMITER ;
 
@@ -518,7 +518,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaComision (IN VarNombre VARCHAR(100))
 BEGIN
-	SELECT COUNT(*) AS Existe, CodigoComision FROM comision WHERE Nombre = VarNombre;
+	SELECT COUNT(*) AS Existe, CodigoComision FROM Comision WHERE Nombre = VarNombre;
 END //
 DELIMITER ;
 
