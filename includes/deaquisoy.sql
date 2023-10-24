@@ -890,8 +890,7 @@ BEGIN
     SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
     FROM Asistencia
-    WHERE DATE(Entrada) = VarFecha OR DATE(Salida) = VarFecha
-    AND CodigoEmpleado = VarCodigoEmpleado;
+    WHERE CodigoEmpleado = VarCodigoEmpleado AND DATE(Entrada) = VarFecha;
 END //
 DELIMITER ;
 
