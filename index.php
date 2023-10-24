@@ -172,7 +172,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                 </div>
                 <div class="modal-body">
                     <form id="formMarcaje" method="POST">
-                        <?php if ($asistencia->ExisteEntrada == 0) { ?>
+                        <?php if ($asistencia->ExisteEntrada != 0) { ?>
                             <div class="mb-3">
                                 <label for="asistenciaEntrada" class="form-label">Fecha y hora:</label>
                                 <input id="asistenciaEntrada" type="datetime" class="form-control"
@@ -180,7 +180,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                             </div>
                             <button type="submit" class="btn btn-success">Registrar
                                 Entrada</button>
-                        <?php } else if ($asistencia->ExisteSalida == 0) { ?>
+                        <?php } else if ($asistencia->ExisteSalida != 0) { ?>
                                 <div class="mb-3">
                                     <label for="asistenciaSalida" class="form-label">Fecha y hora:</label>
                                     <input id="asistenciaSalida" type="datetime" class="form-control"
