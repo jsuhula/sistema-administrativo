@@ -615,8 +615,7 @@ function cargarUsuarios(busqueda) {
     selectIds.forEach(function (selectId) {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/usuario-controller.php?option=" + encodeURIComponent(3);
-        
+        url = "../controllers/usuario-controller.php?option=" + encodeURIComponent(1) + "&busqueda=" + encodeURIComponent(busqueda);
         
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
