@@ -271,7 +271,7 @@ CREATE PROCEDURE IF NOT EXISTS validarCredenciales
 (IN VarEmail VARCHAR(50), IN VarClave VARCHAR(50), IN VarPalabraClave VARCHAR(50))
 BEGIN
 	SELECT COUNT(*) AS Existe, CodigoUsuarioSistema AS CodigoUsuario 
-    FROM usuariosistema WHERE Email = VarEmail 
+    FROM UsuarioSistema WHERE Email = VarEmail 
     AND VarClave = AES_DECRYPT(UNHEX(Clave), VarPalabraClave);
 END //
 DELIMITER ;
@@ -351,9 +351,9 @@ BEGIN
         , em.Email
         , us.CodigoRol
         , us.Email AS UsuarioEmail
-    FROM usuariosistema AS us
-    LEFT JOIN empleado  AS em ON em.CodigoUsuarioSistema = us.CodigoUsuarioSistema
-    INNER JOIN rol AS r ON r.CodigoRol = us.CodigoRol
+    FROM UsuarioSistema AS us
+    LEFT JOIN Empleado  AS em ON em.CodigoUsuarioSistema = us.CodigoUsuarioSistema
+    INNER JOIN Rol AS r ON r.CodigoRol = us.CodigoRol
     WHERE us.CodigoUsuarioSistema = VarCodigoUsuarioSistema;
 END //
 DELIMITER ;
@@ -364,7 +364,7 @@ CREATE PROCEDURE IF NOT EXISTS actualizarUsuarioNoClave
 (IN VarCodigoUsuarioSistema VARCHAR(10), IN VarEmail VARCHAR(50), IN VarCodigoRol INT, IN VarPalabraClave VARCHAR(50))
 BEGIN
   DECLARE ClaveAux VARCHAR(100);
-  SET ClaveAux = (SELECT AES_DECRYPT(UNHEX(Clave), VarPalabraClave) As Clave FROM usuariosistema 
+  SET ClaveAux = (SELECT AES_DECRYPT(UNHEX(Clave), VarPalabraClave) As Clave FROM UsuarioSistema 
   WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	UPDATE UsuarioSistema SET Email = VarEmail, CodigoRol = VarCodigoRol, Clave = HEX(AES_ENCRYPT(ClaveAux, VarPalabraClave))
 	WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema;
@@ -468,7 +468,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaDepartamento (IN VarNombre VARCHAR(100))
 BEGIN
-	SELECT COUNT(*) AS Existe, CodigoDepartamento FROM departamento WHERE Nombre = VarNombre;
+	SELECT COUNT(*) AS Existe, CodigoDepartamento FROM Departamento WHERE Nombre = VarNombre;
 END //
 DELIMITER ;
 
@@ -518,7 +518,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaComision (IN VarNombre VARCHAR(100))
 BEGIN
-	SELECT COUNT(*) AS Existe, CodigoComision FROM comision WHERE Nombre = VarNombre;
+	SELECT COUNT(*) AS Existe, CodigoComision FROM Comision WHERE Nombre = VarNombre;
 END //
 DELIMITER ;
 
@@ -562,7 +562,7 @@ BEGIN
     		, Nombre, Precio
             , Imagen , Descuento
             , CodigoCategoriaItem
-    FROM item;
+    FROM Item;
 END //
 DELIMITER ;
 
@@ -700,7 +700,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExistenciaEmpleado (IN VarDPI VARCHAR(13))
 BEGIN
-	SELECT COUNT(*) AS Existe, CodigoEmpleado FROM empleado WHERE DPI = VarDPI;
+	SELECT COUNT(*) AS Existe, CodigoEmpleado FROM Empleado WHERE DPI = VarDPI;
 END //
 DELIMITER ;
 
@@ -887,9 +887,9 @@ CREATE PROCEDURE IF NOT EXISTS validarAsistencia
 (IN VarCodigoUsuarioSistema INT, IN VarFecha DATE)
 BEGIN
 	  DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe
-    FROM asistencia
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
+    FROM Asistencia
     WHERE DATE(Entrada) = VarFecha OR DATE(Salida) = VarFecha
     AND CodigoEmpleado = VarCodigoEmpleado;
 END //
@@ -901,8 +901,8 @@ CREATE PROCEDURE IF NOT EXISTS asistenciaEntrada
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
 	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	INSERT INTO asistencia (Entrada, CodigoEmpleado) 
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	INSERT INTO Asistencia (Entrada, CodigoEmpleado) 
     VALUES (VarFechaHora, VarCodigoEmpleado);
 END //
 DELIMITER ;
@@ -914,8 +914,8 @@ CREATE PROCEDURE IF NOT EXISTS asistenciaSalida
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
 	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	UPDATE asistencia
+    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
+	UPDATE Asistencia
     SET Salida = VarFechaHora
     WHERE CodigoEmpleado = VarCodigoEmpleado
     AND DATE(Entrada) = DATE(VarFechaHora);
