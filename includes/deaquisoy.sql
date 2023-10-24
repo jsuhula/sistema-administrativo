@@ -919,7 +919,7 @@ BEGIN
     SET Salida = VarFechaHora
     WHERE CodigoEmpleado = VarCodigoEmpleado
     AND DATE(Entrada) = DATE(VarFechaHora);
-END
+END //
 DELIMITER ;
 
 /* EJECUTAR LUEGO DE CREACION DE LA DB
