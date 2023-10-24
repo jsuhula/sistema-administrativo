@@ -5,7 +5,7 @@ USE PDOException;
 class MySQLConnector {
     private static $instance; // Variable para almacenar la única instancia de la clase.
     private $connector;
-    private $server = "deaquisoy.online";
+    private $server = "srv825.hstgr.io";
     private $dbname = "u236981256_deaquisoy";
     private $user = "u236981256_sisadmin";
     private $passwd = "@Umg2023";
