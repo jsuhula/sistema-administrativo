@@ -18,7 +18,7 @@ if (isset($_POST['asistenciaEntrada'])) {
     $usuarioAsistencia->asistenciaSalida($_SESSION['CodigoUsuario'], strval($fecha));
 }
 
-$asistencia = $usuarioAsistencia->validarAsistencia($_SESSION['CodigoUsuario'], strval(date("d-m-Y")))->fetch(PDO::FETCH_OBJ);
+$asistencia = $usuarioAsistencia->validarAsistencia($_SESSION['CodigoUsuario'], strval(date("Y-m-d")))->fetch(PDO::FETCH_OBJ);
 $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesion->UsuarioEmail : $usuarioSesion->NombreUsuarioSesion;
 
 ?>
