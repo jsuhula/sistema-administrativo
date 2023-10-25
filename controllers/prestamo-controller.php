@@ -10,8 +10,8 @@ function main()
     $prestamoDao = new PrestamoDAO();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $option = $_GET['option'];
-        $nombreEmpleado = isset($_GET['nombreEmpleado']) ? $_GET['nombreEmpleado'] : "";
+        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_SANITIZE_NUMBER_INT) : 0;
+        $nombreEmpleado = isset($_GET['nombreEmpleado']) ? filter_var($_GET['nombreEmpleado'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
 
         switch ($option) {
             case 1:
@@ -23,9 +23,11 @@ function main()
                 
                 break;
             case 2:
-                $codigoPrestamo = $_GET['codigoPrestamo'];
+                $codigoPrestamo = isset($_GET['codigoPrestamo']) ? filter_var($_GET['codigoPrestamo'], FILTER_SANITIZE_NUMBER_INT) : 0;
                 validarPrestamo(intval($codigoPrestamo), $prestamoDao);
                 break;
+            default:
+            break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
 

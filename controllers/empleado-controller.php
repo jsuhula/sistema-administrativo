@@ -10,13 +10,15 @@ function main()
     $empleado = new EmpleadoDAO();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $option = $_GET['option'];
-        $empleadoBusqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : "";
-        $estado = isset($_GET['estado']) ? $_GET['estado'] : 1;
+        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_SANITIZE_NUMBER_INT) : 0;
+        $empleadoBusqueda = isset($_GET['busqueda']) ? filter_var($_GET['busqueda'], FILTER_SANITIZE_SPECIAL_CHARS) : "";
+        $estado = isset($_GET['estado']) ? filter_var($_GET['estado'], FILTER_SANITIZE_NUMBER_INT) : 1;
 
         switch ($option) {
             case 1:
                 obtenerEmpleados($empleadoBusqueda, intval($estado), $empleado);
+                break;
+            default:
                 break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {

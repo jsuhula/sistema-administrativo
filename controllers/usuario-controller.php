@@ -13,8 +13,8 @@ function main()
     $usuarioDao = new UsuarioDAO();
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
-        $option = $_GET['option'];
-        $usuarioBusqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : "";
+        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_SANITIZE_NUMBER_INT) : 0;
+        $usuarioBusqueda = isset($_GET['busqueda']) ? filter_var($_GET['busqueda'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
 
         switch ($option) {
             case 1:
@@ -25,6 +25,8 @@ function main()
                 break;
             case 3:
                 obtenerUsuariosPorAsignar($usuarioDao);
+                break;
+            default:
                 break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
