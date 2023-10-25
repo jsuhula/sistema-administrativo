@@ -9,7 +9,7 @@ function main(){
     $departamentoDao = new DepartamentoDAO();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $option = $_GET['option'];
+        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_VALIDATE_INT) : "";
     
         switch ($option) {
             case 1:

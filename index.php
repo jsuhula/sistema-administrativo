@@ -36,7 +36,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
 
 <body style="background-color: #CBC6CC">
 
-    <header class="text-white text-center" style="background-color: #41292C" >
+    <header class="text-white text-center" style="background-color: #41292C">
         <span class="display-4">Administración Restaurante</span>
     </header>
 
@@ -147,7 +147,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
             </div>
         </div>
     </div>
-    <footer class="bg-dark text-white text-center">
+    <footer class="text-white text-center" style="background-color: #41292C">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 pt-2">
