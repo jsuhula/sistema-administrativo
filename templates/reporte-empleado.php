@@ -8,14 +8,13 @@ if (!$_SESSION) {
 use dao\EmpleadoDAO;
 
 date_default_timezone_set('America/Guatemala');
-$fechaHoraActual = date("Y-m-d H:i:s");
+$fechaHoraActual = date("d-m-Y H:i:s");
 $codigoEmpleado = isset($_GET['CodigoEmpleado']) ? $_GET['CodigoEmpleado'] : "";
 
 $empleado = empleadoDao();
 $registro = $empleado->obtenerEmpleado($codigoEmpleado)->fetch(PDO::FETCH_OBJ);
 function empleadoDao(): EmpleadoDAO
 {
-	require_once("../config/Autoload.php");
 	require_once("../dao/EmpleadoDAO.php");
 	require_once('../includes/MySQLConnector.php');
 
