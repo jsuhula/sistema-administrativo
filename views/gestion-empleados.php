@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Empleados</title>
+    <link rel="icon" href="../resources/food.svg" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
@@ -23,7 +24,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" title="" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -64,12 +65,12 @@
                     <div class="input-group mb-3">
                         <input id="empleadoBusqueda" type="text" class="form-control w-50" placeholder="Nombre"
                             aria-label="Buscar" maxlength="45">
-                        <select class="form-select" id="estadoBusqueda" name="estadoBusqueda">
+                        <select class="form-select" title="Estado" id="estadoBusqueda" name="estadoBusqueda">
                             <option value="1" selected>Estado</option>
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" id="btnBuscarEmpleado"
+                        <button class="btn btn-outline-secondary" title="" type="button" id="btnBuscarEmpleado"
                             onclick="buscarEmpleado()">
                             <i class="fas fa-search"></i>
                         </button>
@@ -96,7 +97,7 @@
                 </table>
             </div>
 
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#empleadoModal"
+            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#empleadoModal"
                 onclick="btnNuevoEmpleado()">
                 Nuevo Empleado
             </button>
@@ -111,7 +112,7 @@
                     <div class="input-group mb-3">
                         <input id="usuarioBusqueda" type="text" class="form-control" placeholder="Buscar"
                             aria-label="Buscar">
-                        <button class="btn btn-outline-secondary" type="button" id="btnBuscarUsuario"
+                        <button class="btn btn-outline-secondary" title="" type="button" id="btnBuscarUsuario"
                             onclick="buscarUsuario()">
                             <i class="fas fa-search"></i>
                         </button>
@@ -132,7 +133,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#usuarioModal"
+            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#usuarioModal"
                 onclick="btnNuevoUsuario()">
                 Nuevo Usuario
             </button>
@@ -157,7 +158,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#departamentoModal"
+            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#departamentoModal"
                 onclick="btnNuevoDepartamento()">
                 Nuevo Departamento
             </button>
@@ -186,7 +187,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalRol"
+            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalRol"
                 onclick="btnNuevoRol()">
                 Nuevo Rol
             </button>
@@ -212,7 +213,7 @@
                 </tbody>
             </table>
         </div>
-        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalComision"
+        <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalComision"
             onclick="btnNuevaComision()">
             Nueva Comision
         </button>
@@ -220,13 +221,12 @@
     </div>
 
     <!-- Modal Empleado -->
-    <div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalEmpleado">Editar Empleado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoEmpleado" class="row m-2" hidden>
@@ -381,12 +381,12 @@
     </div>
 
     <!-- Modal de Usuario -->
-    <div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModal" aria-hidden="true">
+    <div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalUsuario">Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoUsuario" class="row m-2" hidden>
@@ -431,7 +431,7 @@
                                 <option value="" selected disabled>Seleccione un rol para el usuario</option>
                             </select>
                         </div>
-                        <button id="btnGuardarUsuario" type="button" class="btn btn-success"
+                        <button id="btnGuardarUsuario" title="" type="button" class="btn btn-success"
                             onclick="guardarUsuario()">Guardar</button>
                     </form>
                 </div>
@@ -440,12 +440,12 @@
     </div>
 
     <!-- Modal de Departamento -->
-    <div class="modal fade" id="departamentoModal" tabindex="-1" aria-labelledby="modalRol" aria-hidden="true">
+    <div class="modal fade" id="departamentoModal" tabindex="-1" aria-labelledby="modalDepartamento">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalDepartamento">Departamento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoDepartamento" class="row m-2" hidden>
@@ -491,7 +491,7 @@
                                 <option value="" selected disabled>Seleccione un Jefe</option>
                             </select>
                         </div>
-                        <button id="btnGuardarDepartamento" type="button" class="btn btn-success"
+                        <button id="btnGuardarDepartamento" title="" type="button" class="btn btn-success"
                             onclick="guardarDepartamento()">Guardar</button>
                     </form>
                 </div>
@@ -500,12 +500,12 @@
     </div>
 
     <!-- Modal de Rol -->
-    <div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="modalRol" aria-hidden="true">
+    <div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="modalRol">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalRol">Rol</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoRol" class="row m-2" hidden>
@@ -562,7 +562,7 @@
                                 <label class="form-check-label" for="asistencia">Asistencia</label>
                             </div>
                         </div>
-                        <button id="btnGuardarRol" type="button" class="btn btn-success"
+                        <button id="btnGuardarRol" title="" type="button" class="btn btn-success"
                             onclick="guardarRol()">Guardar</button>
                     </form>
                 </div>
@@ -571,12 +571,12 @@
     </div>
 
     <!-- Modal de Comisiones -->
-    <div class="modal fade" id="modalComision" tabindex="-1" aria-labelledby="modalRol" aria-hidden="true">
+    <div class="modal fade" id="modalComision" tabindex="-1" aria-labelledby="modalComision">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalComision">Nueva Comisión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoComision" class="row m-2" hidden>
@@ -629,13 +629,12 @@
     </div>
 
     <!-- Modal de Eliminar Usuario -->
-    <div class="modal fade" id="eliminarUsuario" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="eliminarUsuario" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="eliminarUsuarioModalTitle">Eliminar Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
@@ -648,9 +647,9 @@
                         exito</span>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancelarEliminarUsuario" type="button" class="btn btn-secondary"
+                    <button id="cancelarEliminarUsuario" title="" type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarUsuario" type="button" class="btn btn-danger"
+                    <button id="confirmarEliminarUsuario" title="" type="button" class="btn btn-danger"
                         onclick="eliminarUsuario()">Eliminar</button>
                 </div>
             </div>
@@ -658,12 +657,12 @@
     </div>
 
     <!-- Modal de Eliminación Rol -->
-    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol" aria-hidden="true">
+    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar Rol</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
@@ -675,9 +674,9 @@
                     <span id="lblExitoEliminarRol" class="text-success" hidden>La operacion se realizo con exito</span>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancelarEliminarRol" type="button" class="btn btn-secondary"
+                    <button id="cancelarEliminarRol" title="" type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarRol" type="button" class="btn btn-danger"
+                    <button id="confirmarEliminarRol" title="" type="button" class="btn btn-danger"
                         onclick="eliminarRol()">Eliminar</button>
                 </div>
             </div>
@@ -685,7 +684,7 @@
     </div>
 
     <!-- Modal de Eliminación Comision  -->
-    <div class="modal fade" id="eliminarComision" tabindex="-1" aria-labelledby="eliminarComision" aria-hidden="true">
+    <div class="modal fade" id="eliminarComision" tabindex="-1" aria-labelledby="eliminarComision">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -704,9 +703,9 @@
                         exito</span>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancelarEliminarComision" type="button" class="btn btn-secondary"
+                    <button id="cancelarEliminarComision" title="" type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarComision" type="button" class="btn btn-danger"
+                    <button id="confirmarEliminarComision" title="" type="button" class="btn btn-danger"
                         onclick="eliminarComision()">Eliminar</button>
                 </div>
             </div>
@@ -714,13 +713,12 @@
     </div>
 
     <!-- Modal de Eliminación Departamento  -->
-    <div class="modal fade" id="eliminarDepartamentoModal" tabindex="-1" aria-labelledby="eliminarDepartamento"
-        aria-hidden="true">
+    <div class="modal fade" id="eliminarDepartamentoModal" tabindex="-1" aria-labelledby="eliminarDepartamento">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar Departamento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarDepartamento" hidden></span> ¿Estás seguro de que deseas eliminar el
@@ -734,9 +732,9 @@
                         exito</span>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancelarEliminarDepartamento" type="button" class="btn btn-secondary"
+                    <button id="cancelarEliminarDepartamento" title="" type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Cancelar</button>
-                    <button id="confirmarEliminarDepartamento" type="button" class="btn btn-danger"
+                    <button id="confirmarEliminarDepartamento" title="" type="button" class="btn btn-danger"
                         onclick="eliminarDepartamento()">Eliminar</button>
                 </div>
             </div>
