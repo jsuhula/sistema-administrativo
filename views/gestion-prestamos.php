@@ -17,11 +17,11 @@ session_start();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-light">
-    <header class="bg-dark text-white text-center">
+<body style="background-color: #CBC6CC">
+    <header class="text-white text-center" style="background-color: #41292C">
         <span class="display-4">Gestión de Préstamos</span>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #41292C">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
