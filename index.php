@@ -96,7 +96,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
         </div>
     </nav>
 
-    <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4">
+    <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4 bg-light">
         <h2 class="text-center pt-3">Estadisticas del Mes</h2>
         <div class="row mt-4 justify-content-center">
             <div class="col-md-10 pb-3">
