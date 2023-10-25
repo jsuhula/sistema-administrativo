@@ -689,8 +689,6 @@ function cargarUsuarios(busqueda) {
                         });
                     });
                 }
-            } else {
-                console.log(xhr.responseText);
             }
         };
 
@@ -897,8 +895,6 @@ function cargarRoles() {
                     });
                 }
 
-            } else {
-                console.log("Error");
             }
         };
 

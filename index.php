@@ -31,6 +31,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración</title>
+    <link rel="icon" href="resources/food.svg" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
@@ -44,7 +45,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" title="" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,10 +81,10 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                             Menú</a>
                     </li>
                     <?php if ($asistencia->ExisteEmpleado != 0) { ?>
-                    <li class="nav-item text-white">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i
-                                class="fa-solid fa-calendar-days"></i> Asistencia</a>
-                    </li>
+                        <li class="nav-item text-white">
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i
+                                    class="fa-solid fa-calendar-days"></i> Asistencia</a>
+                        </li>
                     <?php } ?>
                 </ul>
             </div>
@@ -168,31 +169,32 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="entradaModalLabel">Marcaje de Asistencia</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" title="" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="formMarcaje" method="POST">
                         <?php if ($asistencia->ExisteEntrada == 0) { ?>
                             <div class="mb-3">
                                 <label for="asistenciaEntrada" class="form-label">Fecha y hora:</label>
-                                <input id="asistenciaEntrada" type="datetime" class="form-control"
-                                    name="asistenciaEntrada" readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
+                                <input id="asistenciaEntrada" type="datetime" class="form-control" name="asistenciaEntrada"
+                                    readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
                             </div>
-                            <button type="submit" class="btn btn-success">Registrar
+                            <button type="submit" title="" class="btn btn-success">Registrar
                                 Entrada</button>
                         <?php } else if ($asistencia->ExisteSalida == 0) { ?>
                                 <div class="mb-3">
                                     <label for="asistenciaSalida" class="form-label">Fecha y hora:</label>
-                                    <input id="asistenciaSalida" type="datetime" class="form-control"
-                                        name="asistenciaSalida" readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
+                                    <input id="asistenciaSalida" type="datetime" class="form-control" name="asistenciaSalida"
+                                        readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
                                 </div>
-                                <button type="submit" class="btn btn-danger">Registrar Salida</button>
-                        <?php }else{
-                         ?> 
-                         <div class="bg-warning text-center rounded-4 p-2 m-2">
-                            <span class="text-white">Ya ha realizado sus respectivos marcajes de asistencia</span>
-                         </div>
-                         <?php
+                                <button type="submit" class="btn btn-danger" title="">Registrar Salida</button>
+                        <?php } else {
+                            ?>
+                                <div class="bg-warning text-center rounded-4 p-2 m-2">
+                                    <span class="text-white">Ya ha realizado sus respectivos marcajes de asistencia</span>
+                                </div>
+                            <?php
                         } ?>
                     </form>
                 </div>
