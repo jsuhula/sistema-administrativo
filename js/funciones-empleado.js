@@ -127,8 +127,6 @@ function cargarEmpleados(busqueda) {
                         });
                     });
                 }
-            } else {
-                console.log("Error");
             }
         };
 
@@ -331,8 +329,6 @@ function cargarDepartamentos() {
                     });
                 }
 
-            } else {
-                console.log("Error");
             }
         };
 
@@ -365,8 +361,6 @@ function guardarDepartamento() {
         } else {
             option = 2;
         }
-
-        console.log(option);
 
         let datos = {
             codigoDepartamento: codigoDepartamento,
@@ -513,8 +507,6 @@ function cargarComisiones() {
                     });
                 }
 
-            } else {
-                console.log("Error");
             }
         };
 
