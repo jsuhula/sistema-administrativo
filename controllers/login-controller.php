@@ -12,7 +12,7 @@ if(!$_SESSION){
 }else{
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $data = json_decode(file_get_contents("php://input"));
-        $salir = filter_var($data->salir, FILTER_SANITIZE_EMAIL);
+        $salir = filter_var($data->salir, FILTER_SANITIZE_NUMBER_INT);
         if ($salir == 1) {
             $_SESSION['CodigoUsuario'] = null;
             session_destroy();

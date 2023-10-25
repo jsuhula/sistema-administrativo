@@ -3,14 +3,15 @@
 use dao\DepartamentoDAO;
 
 main();
-function main(){
+function main()
+{
     require_once('../dao/DepartamentoDAO.php');
     require_once('../includes/MySQLConnector.php');
     $departamentoDao = new DepartamentoDAO();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_VALIDATE_INT) : "";
-    
+        $option = isset($_GET['option']) ? filter_var($_GET['option'], FILTER_SANITIZE_NUMBER_INT) : 0;
+
         switch ($option) {
             case 1:
                 obtenerDepartamentos($departamentoDao);
@@ -18,12 +19,14 @@ function main(){
             case 2:
                 obtenerComisiones($departamentoDao);
                 break;
+            default:
+                break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    
+
         $data = json_decode(file_get_contents("php://input"));
         $option = $data->option;
-    
+
         switch ($option) {
             case 1:
                 $nombreDepartamento = $data->nombreDepartamento;
@@ -231,7 +234,8 @@ function actualizarComision(int $codigoComision, string $nombreComision, string 
     }
 }
 
-function eliminarComision(int $codigoComision, DepartamentoDAO $departamentoDao){
+function eliminarComision(int $codigoComision, DepartamentoDAO $departamentoDao)
+{
 
     try {
         $result = $departamentoDao->eliminarComision($codigoComision);
