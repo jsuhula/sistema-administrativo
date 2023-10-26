@@ -105,7 +105,7 @@ class UsuarioDAO
         return $prpstmt;
     }
 
-    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia)
+    public function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $gestionaPrestamos)
     {
         $query = "call guardarRol(?, ?, ?, ?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
@@ -115,7 +115,7 @@ class UsuarioDAO
         $prpstmt->bindParam(4, $gestionaMenu);
         $prpstmt->bindParam(5, $gestionaReportes);
         $prpstmt->bindParam(6, $gestionaCaja);
-        $prpstmt->bindParam(7, $asistencia);
+        $prpstmt->bindParam(7, $gestionaPrestamos);
         $prpstmt->execute();
         return $prpstmt;
     }
@@ -129,7 +129,7 @@ class UsuarioDAO
         return $prpstmt;
     }
 
-    public function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia)
+    public function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $gestionaPrestamos)
     {
         $query = "call actualizarRol(?, ?, ?, ?, ?, ?, ?, ?)";
         $prpstmt = $this->connection->prepare($query);
@@ -140,7 +140,7 @@ class UsuarioDAO
         $prpstmt->bindParam(5, $gestionaMenu);
         $prpstmt->bindParam(6, $gestionaReportes);
         $prpstmt->bindParam(7, $gestionaCaja);
-        $prpstmt->bindParam(8, $asistencia);
+        $prpstmt->bindParam(8, $gestionaPrestamos);
         $prpstmt->execute();
         return $prpstmt;
     }

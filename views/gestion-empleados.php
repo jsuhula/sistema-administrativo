@@ -564,8 +564,8 @@
                                 <label class="form-check-label" for="gestionaCaja">Gestiona Caja</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="asistencia" name="permiso[]">
-                                <label class="form-check-label" for="asistencia">Asistencia</label>
+                                <input class="form-check-input" type="checkbox" id="gestionaPrestamos" name="permiso[]">
+                                <label class="form-check-label" for="gestionaPrestamos">Gestiona Prestamos</label>
                             </div>
                         </div>
                         <button id="btnGuardarRol" title="" type="button" class="btn btn-success"

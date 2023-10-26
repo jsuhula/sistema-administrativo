@@ -30,7 +30,7 @@ CREATE TABLE `Rol` (
   `GestionaReportes` INT,
   `GestionaNomina` INT,
   `GestionaCaja` INT,
-  `Asistencia` INT,
+  `GestionaPrestamos` INT,
   PRIMARY KEY (`CodigoRol`)
 );
 
@@ -461,7 +461,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS listarRoles()
 BEGIN
-	SELECT CodigoRol, Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia
+	SELECT CodigoRol, Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, GestionaPrestamos
     FROM Rol
    	ORDER BY CodigoRol ASC;
 END //
@@ -471,10 +471,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS guardarRol
 (IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
-IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
+IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarGestionaPrestamos INT)
 BEGIN
-	INSERT INTO Rol (Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, Asistencia) 
-    VALUES(VarNombre, VarGestionaNomina, VarGestionaEmpleados, VarGestionaMenu, VarGestionaReportes, VarGestionaCaja, VarAsistencia);
+	INSERT INTO Rol (Nombre, GestionaNomina, GestionaEmpleados, GestionaMenu, GestionaReportes, GestionaCaja, GestionaPrestamos) 
+    VALUES(VarNombre, VarGestionaNomina, VarGestionaEmpleados, VarGestionaMenu, VarGestionaReportes, VarGestionaCaja, VarGestionaPrestamos);
     SELECT ROW_COUNT() AS afected;
 END //
 DELIMITER ;
@@ -483,12 +483,12 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS actualizarRol
 (IN VarCodigoRol INT, IN VarNombre VARCHAR(50), IN VarGestionaNomina INT, IN VarGestionaEmpleados INT,
-IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarAsistencia INT)
+IN VarGestionaMenu INT, IN VarGestionaReportes INT, IN VarGestionaCaja INT, IN VarGestionaPrestamos INT)
 BEGIN
 	UPDATE Rol 
     SET Nombre = VarNombre, GestionaNomina = VarGestionaNomina, GestionaEmpleados = VarGestionaEmpleados, 
     GestionaMenu = VarGestionaMenu, GestionaReportes = VarGestionaReportes, GestionaCaja = VarGestionaCaja,  
-    Asistencia = VarAsistencia
+    GestionaPrestamos = VarGestionaPrestamos
     WHERE CodigoRol = VarCodigoRol;
     SELECT ROW_COUNT() AS afected;
 END //
@@ -980,6 +980,23 @@ BEGIN
     SET Salida = VarFechaHora
     WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema
     AND DATE(Entrada) = DATE(VarFechaHora);
+END //
+DELIMITER ;
+
+/*VALIDAR USUARIO ROL*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarRolUsuario
+(IN VarCodigoUsuarioSistema INT)
+BEGIN
+    SELECT R.GestionaNomina
+          , R.GestionaEmpleados
+          , R.GestionaReportes
+          , R.GestionaMenu
+          , R.GestionaCaja
+          , R.GestionaPrestamos
+    FROM Rol AS R
+    INNER JOIN UsuarioSistema AS U ON U.CodigoRol = R.CodigoRol
+    WHERE U.CodigoUsuarioSistema = VarCodigoUsuarioSistema;
 END //
 DELIMITER ;
 

@@ -231,7 +231,7 @@ function obtenerRoles(UsuarioDAO $usuarioDao)
     }
 
 }
-function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia, UsuarioDAO $usuarioDao)
+function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $gestionaPrestamos, UsuarioDAO $usuarioDao)
 {
     try {
         $existe = $usuarioDao->validarExistenciaRol($nombre);
@@ -240,7 +240,7 @@ function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados,
         if ($existe->Existe == 1) {
             http_response_code(409);
         } else {
-            $result = $usuarioDao->guardarRol($nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $asistencia);
+            $result = $usuarioDao->guardarRol($nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $gestionaPrestamos);
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
 
                 if ($result->rowCount() > 0) {
@@ -257,7 +257,7 @@ function guardarRol(string $nombre, int $gestionaNomina, int $gestionaEmpleados,
 
 }
 
-function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $asistencia, UsuarioDAO $usuarioDao)
+function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int $gestionaEmpleados, int $gestionaMenu, int $gestionaReportes, int $gestionaCaja, int $gestionaPrestamos, UsuarioDAO $usuarioDao)
 {
     try {
         $existe = $usuarioDao->validarExistenciaRol($nombre);
@@ -266,7 +266,7 @@ function actualizarRol(int $codigoRol, string $nombre, int $gestionaNomina, int 
         if ($existe->Existe == 1 & $existe->CodigoRol != $codigoRol) {
             http_response_code(409);
         } else {
-            $result = $usuarioDao->actualizarRol($codigoRol, $nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $asistencia);
+            $result = $usuarioDao->actualizarRol($codigoRol, $nombre, $gestionaNomina, $gestionaEmpleados, $gestionaMenu, $gestionaReportes, $gestionaCaja, $gestionaPrestamos);
 
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
