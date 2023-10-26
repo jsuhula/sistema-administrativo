@@ -1001,6 +1001,17 @@ BEGIN
 END //
 DELIMITER ;
 
+/*VALIDAR USUARIO YA ASIGNADO*/
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarUsuarioSistemaEnUso
+(IN VarCodigoUsuarioSistema INT)
+BEGIN
+    SELECT COUNT(*) AS EnUso, E.CodigoEmpleado
+    FROM Empleado AS E
+    INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+    WHERE U.CodigoUsuarioSistema = VarCodigoUsuarioSistema;
+END //
+DELIMITER ;
 /* EJECUTAR LUEGO DE CREACION DE LA DB
 call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);
 call guardarUsuario('admin@admin.com', 'admin', 1, 'UMG2023');

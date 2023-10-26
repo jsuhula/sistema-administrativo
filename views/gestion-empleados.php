@@ -7,11 +7,12 @@ session_start();
 
 if (!$_SESSION) {
     header('location: ../login.php');
-} 
+}
 
 main();
 
-function main(){
+function main()
+{
     require_once('../dao/UsuarioAccessoDAO.php');
     require_once('../includes/MySQLConnector.php');
     $usuario = new UsuarioAccessoDAO();
@@ -261,7 +262,7 @@ function main(){
                             correctamente</span>
                     </div>
                     <div id="alertaErrorEmpleado" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
                             comuniquese con soporte</span>
                     </div>
                     <div id="alertaNoAfectacionEmpleado" class="row m-2" hidden>
@@ -269,13 +270,18 @@ function main(){
                             Cambios</span>
                     </div>
                     <div id="alertaDuplicadoEmpleado" class="row m-2" hidden>
-                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un
+                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
                             Empleado
                             con el DPI ingresado
                         </span>
                     </div>
+                    <div id="alertaAsignacionUsuario" class="row m-2" hidden>
+                        <span class="bg-warning p-2 text-center text-white rounded-4">El usuario que se
+                            desea asignar, ya está en uso
+                        </span>
+                    </div>
                     <div id="alertaCompletarCamposEmpleado" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
                     </div>
                     <form id="formEmpleado">
@@ -431,11 +437,11 @@ function main(){
                             comuniquese con soporte</span>
                     </div>
                     <div id="alertaDuplicadoUsuario" class="row m-2" hidden>
-                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un Usuario
+                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un Usuario
                             con el mismo E-mail, intente con otro</span>
                     </div>
                     <div id="alertaCompletarCamposUsuario" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
                     </div>
                     <div id="alertaNoAfectacionUsuario" class="row m-2" hidden>
@@ -487,11 +493,11 @@ function main(){
                             correctamente</span>
                     </div>
                     <div id="alertaErrorDepartamento" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
                             comuniquese con soporte</span>
                     </div>
                     <div id="alertaDuplicadoDepartamento" class="row m-2" hidden>
-                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un
+                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
                             Departamento con este nombre</span>
                     </div>
                     <div id="alertaNoAfectacionDepartamento" class="row m-2" hidden>
@@ -499,7 +505,7 @@ function main(){
                             Cambios</span>
                     </div>
                     <div id="alertaCompletarCamposDepartamento" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
                     </div>
                     <form id="formDepartamento">
@@ -552,7 +558,7 @@ function main(){
                             comuniquese con soporte</span>
                     </div>
                     <div id="alertaDuplicadoRol" class="row m-2" hidden>
-                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe un Rol
+                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un Rol
                             con el nombre actual</span>
                     </div>
                     <div id="alertaNoAfectacionRol" class="row m-2" hidden>
@@ -560,7 +566,7 @@ function main(){
                             Cambios</span>
                     </div>
                     <div id="alertaCompletarCamposRol" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
                     </div>
                     <form id="formRol">
@@ -620,11 +626,11 @@ function main(){
                             correctamente</span>
                     </div>
                     <div id="alertaErrorComision" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
                             comuniquese con soporte</span>
                     </div>
                     <div id="alertaCompletarCamposComision" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Llene todos los
+                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
                             campos</span>
                     </div>
                     <div id="alertaNoAfectacionComision" class="row m-2" hidden>
@@ -632,7 +638,7 @@ function main(){
                             Cambios</span>
                     </div>
                     <div id="alertaDuplicadoComision" class="row m-2" hidden>
-                        <span class="bg-warning bg-opacity-75 p-2 text-center text-white rounded-4">Ya existe una
+                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe una
                             comision con este nombre</span>
                     </div>
                     <form id="formComision">

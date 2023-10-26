@@ -79,7 +79,7 @@ function cargarEmpleados(busqueda) {
                     var editButtons = document.querySelectorAll(".edit-button-empleado");
                     editButtons.forEach(function (button) {
                         button.addEventListener("click", function () {
-
+                            limpiarAlertaUsuarioEnUso();
                             restablecerAlertasEmpleado();
                             // Obtén los datos personalizados del botón
                             let titulo = document.getElementById("tituloModalEmpleado");
@@ -137,6 +137,7 @@ function cargarEmpleados(busqueda) {
 function btnNuevoEmpleado() {
     restablecerAlertasEmpleado();
     limpiarCamposEmpleadoModal();
+    limpiarAlertaUsuarioEnUso();
     document.getElementById('btnGuardarEmpleado').removeAttribute('hidden');
     let titulo = document.getElementById("tituloModalEmpleado");
     titulo.innerHTML = "Nuevo Empleado";
@@ -227,7 +228,9 @@ function guardarEmpleado() {
                 })();
             } else if (xhr.status === 409) {
                 alertaDuplicado("Empleado");
-            } else if (xhr.status === 400) {
+            } else if(xhr.status === 403 ){
+                alertaUsuarioEnUso();
+            }  else if (xhr.status === 400) {
                 alertaNoAfectacion("Empleado");
             } else {
                 alertasErrorGuardar("Empleado");
@@ -1070,6 +1073,7 @@ function alertasExitoGuardar(section) {
     document.getElementById('alertaDuplicado' + section).setAttribute('hidden', true);
     document.getElementById('alertaNoAfectacion' + section).setAttribute('hidden', true);
     document.getElementById('btnGuardar' + section).setAttribute('hidden', true);
+    limpiarAlertaUsuarioEnUso();
 }
 
 function alertasErrorGuardar(section) {
@@ -1080,6 +1084,7 @@ function alertasErrorGuardar(section) {
 
 function alertaNoAfectacion(section) {
     document.getElementById('alertaNoAfectacion' + section).removeAttribute('hidden');
+    limpiarAlertaUsuarioEnUso();
 }
 
 function alertasExitoEliminar(section) {
@@ -1097,6 +1102,16 @@ function alertasErrorElimar(section) {
 function alertaDuplicado(section) {
     document.getElementById('alertaDuplicado' + section).removeAttribute('hidden');
     document.getElementById('alertaNoAfectacion' + section).setAttribute('hidden', true);
+    limpiarAlertaUsuarioEnUso();
+}
+
+function alertaUsuarioEnUso() {
+    document.getElementById('alertaAsignacionUsuario').removeAttribute('hidden');
+    restablecerAlertasEmpleado();
+}
+
+function limpiarAlertaUsuarioEnUso() {
+    document.getElementById('alertaAsignacionUsuario').setAttribute('hidden', true);
 }
 
 function limitarValor(input, max) {

@@ -71,6 +71,15 @@ class EmpleadoDAO
         return $prpstmt;
     }
 
+    public function validarUsuarioSistemaEnUso(int $codigoUsuarioSistema)
+    {
+        $query = "call validarUsuarioSistemaEnUso(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $codigoUsuarioSistema);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
     public function actualizarEmpleado(
         string $codigoEmpleado,
         string $nombres,
