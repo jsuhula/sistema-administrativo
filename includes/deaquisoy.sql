@@ -647,7 +647,6 @@ BEGIN
             FechaRetiro,
             Profesion,
             Fotografia,
-            Jornada,
             DPI,
             NIT,
             IRTRA,
@@ -656,7 +655,7 @@ BEGIN
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
             D.CodigoDepartamento,
-            CodigoJornadaLaboral
+            E.CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
             WHERE Estado = VarEstado
@@ -681,7 +680,6 @@ BEGIN
             FechaRetiro,
             Profesion,
             Fotografia,
-            Jornada,
             DPI,
             NIT,
             IRTRA,
@@ -690,7 +688,7 @@ BEGIN
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
             D.CodigoDepartamento,
-            CodigoJornadaLaboral
+            E.CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
             WHERE CONCAT(Nombres, ' ', Apellidos, ' ', DPI) LIKE CONCAT('%', VarNombreBusqueda, '%')
@@ -705,7 +703,7 @@ CREATE PROCEDURE IF NOT EXISTS guardarEmpleado
 (IN VarNombres VARCHAR(100), IN VarApellidos VARCHAR(100), IN VarEmail VARCHAR(75),
 IN VarTelefono VARCHAR(10), IN VarSalarioBase DECIMAL(10,2), IN VarFechaNacimiento DATE,
 IN VarFechaIngreso DATE, IN VarFechaRetiro DATE, IN VarProfesion VARCHAR(50),
-IN VarFotografia VARCHAR(100), IN VarJornada VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
+IN VarFotografia VARCHAR(100), IN VarCodigoJornadaLaboral INT, IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
 IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT)
 BEGIN
 	INSERT INTO Empleado (CodigoEmpleado
@@ -719,18 +717,18 @@ BEGIN
                       , FechaRetiro
                       , Profesion
                       , Fotografia
-                      , Jornada
                       , DPI
                       , NIT
                       , IRTRA
                       , IGSS
                       , Estado
                       , CodigoDepartamento
-                      , CodigoUsuarioSistema)
+                      , CodigoUsuarioSistema
+                      , CodigoJornadaLaboral)
 VALUES (
     generarCodigoEmpleado(VarNombres, VarApellidos, VarDPI),
     VarNombres, VarApellidos, VarEmail, VarTelefono, VarSalarioBase, VarFechaNacimiento,
-    VarFechaIngreso, VarFechaRetiro, VarProfesion, VarFotografia, VarJornada, VarDPI, VarNIT, VarIRTRA,
+    VarFechaIngreso, VarFechaRetiro, VarProfesion, VarFotografia, VarCodigoJornadaLaboral, VarDPI, VarNIT, VarIRTRA,
     VarIGSS, VarEstado, VarCodigoDepartamento, VarCodigoUsuarioSistema
 );
 SELECT ROW_COUNT() AS afected;
@@ -743,7 +741,7 @@ CREATE PROCEDURE IF NOT EXISTS actualizarEmpleado
 (IN VarCodigoEmpleado VARCHAR(10), IN VarNombres VARCHAR(100), IN VarApellidos VARCHAR(100), IN VarEmail VARCHAR(75),
 IN VarTelefono VARCHAR(10), IN VarSalarioBase DECIMAL(10,2), IN VarFechaNacimiento DATE,
 IN VarFechaIngreso DATE, IN VarFechaRetiro DATE, IN VarProfesion VARCHAR(50),
-IN VarFotografia VARCHAR(100), IN VarJornada VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
+IN VarFotografia VARCHAR(100), IN VarCodigoJornadaLaboral VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
 IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT)
 BEGIN
 
@@ -753,7 +751,7 @@ BEGIN
     SalarioBase = VarSalarioBase, FechaNacimiento = VarFechaNacimiento,
     FechaIngreso = VarFechaIngreso, FechaRetiro = VarFechaRetiro,
     Profesion = VarProfesion, Fotografia = VarFotografia,
-    Jornada = VarJornada, DPI = VarDPI, NIT = VarNIT, IRTRA = VarIRTRA,
+    CodigoJornadaLaboral = VarCodigoJornadaLaboral, DPI = VarDPI, NIT = VarNIT, IRTRA = VarIRTRA,
     IGSS = VarIGSS, Estado = VarEstado, CodigoDepartamento = VarCodigoDepartamento,
     CodigoUsuarioSistema = VarCodigoUsuarioSistema
     WHERE DPI = VarDPI OR CodigoEmpleado = VarCodigoEmpleado;
@@ -787,7 +785,6 @@ BEGIN
             FechaRetiro,
             Profesion,
             Fotografia,
-            Jornada,
             DPI,
             NIT,
             IRTRA,
@@ -796,6 +793,7 @@ BEGIN
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
             D.CodigoDepartamento
+            E.CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
             WHERE E.CodigoEmpleado = VarCodigoEmpleado;
