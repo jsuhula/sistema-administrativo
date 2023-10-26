@@ -32,6 +32,15 @@ class UsuarioAccessoDAO
         return $prpstmt;
     }
 
+    public function validarRolUsuario(int $codigoUsuario)
+    {
+        $query = "call validarRolUsuario(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $codigoUsuario);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
     public function keyDecrypt(string $dir): string
     {
         $_DIR_ROOT = str_replace('\\', "/", "");
