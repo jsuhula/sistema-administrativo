@@ -105,9 +105,9 @@ CREATE TABLE `Asistencia` (
   `CodigoAsistencia` INT AUTO_INCREMENT NOT NULL,
   `Entrada` DATETIME,
   `Salida` DATETIME,
-  `CodigoEmpleado` VARCHAR(10),
+  `CodigoUsuarioSistema` VARCHAR(10),
   PRIMARY KEY (`CodigoAsistencia`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+  FOREIGN KEY (`CodigoUsuarioSistema`) REFERENCES `UsuarioSistema`(`CodigoUsuarioSistema`)
 );
 
 CREATE TABLE `CategoriaItem` (
@@ -886,11 +886,13 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarAsistencia
 (IN VarCodigoUsuarioSistema INT, IN VarFecha DATE)
 BEGIN
-	  DECLARE VarCodigoEmpleado VARCHAR(10);
+    DECLARE VarCodigoEmpleado VARCHAR(10);
     SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
-    FROM Asistencia
-    WHERE CodigoEmpleado = VarCodigoEmpleado AND DATE(Entrada) = VarFecha;
+	  SELECT IFNULL(A.Entrada, 0) AS ExisteEntrada, IFNULL(A.Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
+    FROM Asistencia AS A
+    INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = A.CodigoUsuarioSistema
+    LEFT JOIN Empleado AS E ON E.CodigoUsuarioSistema = U.CodigoUsuarioSistema
+    WHERE U.CodigoUsuarioSistema = VarCodigoUsuarioSistema AND DATE(A.Entrada) = VarFecha;
 END //
 DELIMITER ;
 
@@ -899,10 +901,8 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS asistenciaEntrada
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
-	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	INSERT INTO Asistencia (Entrada, CodigoEmpleado) 
-    VALUES (VarFechaHora, VarCodigoEmpleado);
+	INSERT INTO Asistencia (Entrada, CodigoUsuarioSistema) 
+    VALUES (VarFechaHora, VarCodigoUsuarioSistema);
 END //
 DELIMITER ;
 
@@ -912,11 +912,9 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS asistenciaSalida
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
-	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	UPDATE Asistencia
     SET Salida = VarFechaHora
-    WHERE CodigoEmpleado = VarCodigoEmpleado
+    WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema
     AND DATE(Entrada) = DATE(VarFechaHora);
 END //
 DELIMITER ;
