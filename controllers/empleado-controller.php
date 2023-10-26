@@ -38,7 +38,6 @@ function main()
                 $fechaRetiro = $data->FechaRetiro;
                 $profesion = $data->Profesion;
                 $fotografia = "";
-                $jornada = $data->Jornada;
                 $dpi = $data->Dpi;
                 $nit = $data->Nit;
                 $irtra = $data->Irtra;
@@ -46,6 +45,7 @@ function main()
                 $estado = $data->Estado;
                 $codigoDepartamento = $data->CodigoDepartamento;
                 $codigoUsuarioSistema = $data->CodigoUsuarioSistema;
+                $codigoJornadaLaboral = $data->CodigoJornadaLaboral;
                 guardarEmpleado(
                     $nombres,
                     $apellidos,
@@ -57,7 +57,6 @@ function main()
                     $fechaRetiro,
                     $profesion,
                     $fotografia,
-                    $jornada,
                     $dpi,
                     $nit,
                     $irtra,
@@ -65,6 +64,7 @@ function main()
                     $estado,
                     $codigoDepartamento,
                     $codigoUsuarioSistema,
+                    $codigoJornadaLaboral,
                     $empleado
                 );
                 break;
@@ -80,7 +80,6 @@ function main()
                 $fechaRetiro = $data->FechaRetiro;
                 $profesion = $data->Profesion;
                 $fotografia = "";
-                $jornada = $data->Jornada;
                 $dpi = $data->Dpi;
                 $nit = $data->Nit;
                 $irtra = $data->Irtra;
@@ -88,6 +87,7 @@ function main()
                 $estado = $data->Estado;
                 $codigoDepartamento = $data->CodigoDepartamento;
                 $codigoUsuarioSistema = $data->CodigoUsuarioSistema;
+                $codigoJornadaLaboral = $data->CodigoJornadaLaboral;
                 actualizarEmpleado(
                     $codigoEmpleado,
                     $nombres,
@@ -100,7 +100,6 @@ function main()
                     $fechaRetiro,
                     $profesion,
                     $fotografia,
-                    $jornada,
                     $dpi,
                     $nit,
                     $irtra,
@@ -108,6 +107,7 @@ function main()
                     $estado,
                     $codigoDepartamento,
                     $codigoUsuarioSistema,
+                    $codigoJornadaLaboral,
                     $empleado
                 );
                 break;
@@ -159,7 +159,6 @@ function guardarEmpleado(
     string $fechaRetiro,
     string $profesion,
     string $fotografia,
-    string $jornada,
     string $dpi,
     string $nit,
     string $irtra,
@@ -167,6 +166,7 @@ function guardarEmpleado(
     int $estado,
     int $codigoDepartamento,
     int $codigoUsuarioSistema,
+    int $codigoJornadaLaboral,
     EmpleadoDAO $empleadoDao
 ) {
     try {
@@ -186,14 +186,14 @@ function guardarEmpleado(
                 $fechaRetiro,
                 $profesion,
                 $fotografia,
-                $jornada,
                 $dpi,
                 $nit,
                 $irtra,
                 $igss,
                 $estado,
                 $codigoDepartamento,
-                $codigoUsuarioSistema
+                $codigoUsuarioSistema,
+                $codigoJornadaLaboral
             );
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */
@@ -219,7 +219,6 @@ function actualizarEmpleado(
     string $fechaRetiro,
     string $profesion,
     string $fotografia,
-    string $jornada,
     string $dpi,
     string $nit,
     string $irtra,
@@ -227,6 +226,7 @@ function actualizarEmpleado(
     int $estado,
     int $codigoDepartamento,
     int $codigoUsuarioSistema,
+    int $codigoJornadaLaboral,
     EmpleadoDAO $empleadoDao
 ) {
     try {
@@ -247,14 +247,14 @@ function actualizarEmpleado(
                 $fechaRetiro,
                 $profesion,
                 $fotografia,
-                $jornada,
                 $dpi,
                 $nit,
                 $irtra,
                 $igss,
                 $estado,
                 $codigoDepartamento,
-                $codigoUsuarioSistema
+                $codigoUsuarioSistema,
+                $codigoJornadaLaboral
             );
             if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
                 /* SE LE RESPONDE CON EL CODIGO 200 QUE INDICA PETICION EXITOSA */

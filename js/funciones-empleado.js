@@ -65,7 +65,7 @@ function cargarEmpleados(busqueda) {
                         cell7.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-empleado" data-bs-toggle="modal" data-bs-target="#empleadoModal" ' +
                             'data-codigo-empleado="' + empleado.CodigoEmpleado + '" data-nombres="' + empleado.Nombres + '" data-apellidos="' + empleado.Apellidos + '" data-email="' + empleado.Email + '" data-telefono="' + empleado.Telefono + '" data-salario="' + empleado.SalarioBase +
-                            '" data-fecha-nacimiento="' + empleado.FechaNacimiento + '" data-fecha-ingreso="' + empleado.FechaIngreso + '" data-fecha-retiro="' + empleado.FechaRetiro + '" data-jornada="' + empleado.Jornada +
+                            '" data-fecha-nacimiento="' + empleado.FechaNacimiento + '" data-fecha-ingreso="' + empleado.FechaIngreso + '" data-fecha-retiro="' + empleado.FechaRetiro + '" data-jornada="' + empleado.CodigoJornadaLaboral +
                             '" data-profesion="' + empleado.Profesion + '" data-dpi="' + empleado.DPI + '" data-nit="' + empleado.NIT + '" data-irtra="' + empleado.IRTRA + '" data-igss="' + empleado.IGSS +
                             '" data-estado="' + empleado.Estado + '" data-codigo-departamento="' + empleado.CodigoDepartamento + '" data-codigo-usuario-sistema="' + empleado.CodigoUsuarioSistema + '">' +
                             '<i class="fas fa-edit"></i>' +
@@ -95,7 +95,7 @@ function cargarEmpleados(busqueda) {
                             let FechaIngreso = button.getAttribute("data-fecha-ingreso");
                             let FechaRetiro = button.getAttribute("data-fecha-retiro");
                             let Profesion = button.getAttribute("data-profesion");
-                            let Jornada = button.getAttribute("data-jornada");
+                            let CodigoJornadaLaboral = button.getAttribute("data-jornada");
                             let Dpi = button.getAttribute("data-dpi");
                             let Nit = button.getAttribute("data-nit");
                             let Irtra = button.getAttribute("data-irtra");
@@ -116,7 +116,6 @@ function cargarEmpleados(busqueda) {
                             FormularioEmpleado.FechaIngreso.value = FechaIngreso;
                             FormularioEmpleado.FechaRetiro.value = FechaRetiro;
                             FormularioEmpleado.Profesion.value = Profesion;
-                            FormularioEmpleado.Jornada.value = Jornada;
                             FormularioEmpleado.Dpi.value = Dpi;
                             FormularioEmpleado.Nit.value = Nit;
                             FormularioEmpleado.Irtra.value = Irtra;
@@ -124,6 +123,7 @@ function cargarEmpleados(busqueda) {
                             FormularioEmpleado.Estado.value = Estado;
                             FormularioEmpleado.SelectEmpleadoDepartamento.value = CodigoDepartamento;
                             FormularioEmpleado.SelectEmpleadoUsuarioSistema.value = CodigoUsuarioSistema;
+                            FormularioEmpleado.SelectEmpleadoJornada.value = CodigoJornadaLaboral;
                         });
                     });
                 }
@@ -164,7 +164,8 @@ function guardarEmpleado() {
         'Dpi',
         'Estado',
         'SelectEmpleadoDepartamento',
-        'SelectEmpleadoUsuarioSistema'
+        'SelectEmpleadoUsuarioSistema',
+        'SelectEmpleadoJornada'
     ];
 
     let todosCamposValidos = true;
@@ -199,7 +200,6 @@ function guardarEmpleado() {
             FechaRetiro: FormularioEmpleado.FechaRetiro.value,
             Profesion: FormularioEmpleado.Profesion.value,
             Fotografia: "",
-            Jornada: FormularioEmpleado.Jornada.value,
             Dpi: FormularioEmpleado.Dpi.value,
             Nit: FormularioEmpleado.Nit.value,
             Irtra: FormularioEmpleado.Irtra.value,
@@ -207,6 +207,7 @@ function guardarEmpleado() {
             Estado: FormularioEmpleado.Estado.value,
             CodigoDepartamento: FormularioEmpleado.SelectEmpleadoDepartamento.value,
             CodigoUsuarioSistema: FormularioEmpleado.SelectEmpleadoUsuarioSistema.value,
+            CodigoJornadaLaboral: FormularioEmpleado.SelectEmpleadoJornada.value,
             option: option
         };
 

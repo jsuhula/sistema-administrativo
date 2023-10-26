@@ -30,14 +30,14 @@ class EmpleadoDAO
         string $fechaRetiro,
         string $profesion,
         string $fotografia,
-        string $jornada,
         string $dpi,
         string $nit,
         string $irtra,
         string $igss,
         int $estado,
         int $codigoDepartamento,
-        int $codigoUsuarioSistema
+        int $codigoUsuarioSistema,
+        int $codigoJornadaLaboral
     ) {
         $query = "call guardarEmpleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $prpstmt = $this->connection->prepare($query);
@@ -51,14 +51,14 @@ class EmpleadoDAO
         $prpstmt->bindParam(8, $fechaRetiro);
         $prpstmt->bindParam(9, $profesion);
         $prpstmt->bindParam(10, $fotografia);
-        $prpstmt->bindParam(11, $jornada);
-        $prpstmt->bindParam(12, $dpi);
-        $prpstmt->bindParam(13, $nit);
-        $prpstmt->bindParam(14, $irtra);
-        $prpstmt->bindParam(15, $igss);
-        $prpstmt->bindParam(16, $estado);
-        $prpstmt->bindParam(17, $codigoDepartamento);
-        $prpstmt->bindParam(18, $codigoUsuarioSistema);
+        $prpstmt->bindParam(11, $dpi);
+        $prpstmt->bindParam(12, $nit);
+        $prpstmt->bindParam(13, $irtra);
+        $prpstmt->bindParam(14, $igss);
+        $prpstmt->bindParam(15, $estado);
+        $prpstmt->bindParam(16, $codigoDepartamento);
+        $prpstmt->bindParam(17, $codigoUsuarioSistema);
+        $prpstmt->bindParam(18, $codigoJornadaLaboral);
         $prpstmt->execute();
         return $prpstmt;
     }
@@ -83,14 +83,14 @@ class EmpleadoDAO
         string $fechaRetiro,
         string $profesion,
         string $fotografia,
-        string $jornada,
         string $dpi,
         string $nit,
         string $irtra,
         string $igss,
         int $estado,
         int $codigoDepartamento,
-        int $codigoUsuarioSistema
+        int $codigoUsuarioSistema,
+        int $codigoJornadaLaboral
     ) {
         $query = "call actualizarEmpleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $prpstmt = $this->connection->prepare($query);
@@ -105,14 +105,14 @@ class EmpleadoDAO
         $prpstmt->bindParam(9, $fechaRetiro);
         $prpstmt->bindParam(10, $profesion);
         $prpstmt->bindParam(11, $fotografia);
-        $prpstmt->bindParam(12, $jornada);
-        $prpstmt->bindParam(13, $dpi);
-        $prpstmt->bindParam(14, $nit);
-        $prpstmt->bindParam(15, $irtra);
-        $prpstmt->bindParam(16, $igss);
-        $prpstmt->bindParam(17, $estado);
-        $prpstmt->bindParam(18, $codigoDepartamento);
-        $prpstmt->bindParam(19, $codigoUsuarioSistema);
+        $prpstmt->bindParam(12, $dpi);
+        $prpstmt->bindParam(13, $nit);
+        $prpstmt->bindParam(14, $irtra);
+        $prpstmt->bindParam(15, $igss);
+        $prpstmt->bindParam(16, $estado);
+        $prpstmt->bindParam(17, $codigoDepartamento);
+        $prpstmt->bindParam(18, $codigoUsuarioSistema);
+        $prpstmt->bindParam(19, $codigoJornadaLaboral);
         $prpstmt->execute();
         return $prpstmt;
     }

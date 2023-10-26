@@ -703,8 +703,8 @@ CREATE PROCEDURE IF NOT EXISTS guardarEmpleado
 (IN VarNombres VARCHAR(100), IN VarApellidos VARCHAR(100), IN VarEmail VARCHAR(75),
 IN VarTelefono VARCHAR(10), IN VarSalarioBase DECIMAL(10,2), IN VarFechaNacimiento DATE,
 IN VarFechaIngreso DATE, IN VarFechaRetiro DATE, IN VarProfesion VARCHAR(50),
-IN VarFotografia VARCHAR(100), IN VarCodigoJornadaLaboral INT, IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
-IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT)
+IN VarFotografia VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
+IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT, IN VarCodigoJornadaLaboral INT)
 BEGIN
 	INSERT INTO Empleado (CodigoEmpleado
                       , Nombres
@@ -728,8 +728,8 @@ BEGIN
 VALUES (
     generarCodigoEmpleado(VarNombres, VarApellidos, VarDPI),
     VarNombres, VarApellidos, VarEmail, VarTelefono, VarSalarioBase, VarFechaNacimiento,
-    VarFechaIngreso, VarFechaRetiro, VarProfesion, VarFotografia, VarCodigoJornadaLaboral, VarDPI, VarNIT, VarIRTRA,
-    VarIGSS, VarEstado, VarCodigoDepartamento, VarCodigoUsuarioSistema
+    VarFechaIngreso, VarFechaRetiro, VarProfesion, VarFotografia, VarDPI, VarNIT, VarIRTRA,
+    VarIGSS, VarEstado, VarCodigoDepartamento, VarCodigoUsuarioSistema, VarCodigoJornadaLaboral
 );
 SELECT ROW_COUNT() AS afected;
 END //
@@ -741,8 +741,8 @@ CREATE PROCEDURE IF NOT EXISTS actualizarEmpleado
 (IN VarCodigoEmpleado VARCHAR(10), IN VarNombres VARCHAR(100), IN VarApellidos VARCHAR(100), IN VarEmail VARCHAR(75),
 IN VarTelefono VARCHAR(10), IN VarSalarioBase DECIMAL(10,2), IN VarFechaNacimiento DATE,
 IN VarFechaIngreso DATE, IN VarFechaRetiro DATE, IN VarProfesion VARCHAR(50),
-IN VarFotografia VARCHAR(100), IN VarCodigoJornadaLaboral VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
-IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT)
+IN VarFotografia VARCHAR(100), IN VarDPI VARCHAR(13), IN VarNIT VARCHAR(13), IN VarIRTRA VARCHAR(13),
+IN VarIGSS VARCHAR(13), IN VarEstado TINYINT, IN VarCodigoDepartamento INT, IN VarCodigoUsuarioSistema INT, IN VarCodigoJornadaLaboral INT)
 BEGIN
 
 	UPDATE Empleado
