@@ -358,9 +358,15 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="Jornada" class="form-label">Jornada:</label>
-                                <input type="text" class="form-control" id="Jornada" name="Jornada"
-                                    placeholder="Ej: Lun. a Vie. 8:00 AM a 17:00 PM" maxlength="50">
+                            <label for="SelectEmpleadoJornada" class="form-label">*Jornada:</label>
+                                <select class="form-select" id="SelectEmpleadoJornada"
+                                    name="SelectEmpleadoJornada">
+                                    <option value="" selected disabled>Seleccione una Jornada Laboral</option>
+                                    <option value="1">Lunes a Viernes</option>
+                                    <option value="2">Lunes a Sabado</option>
+                                    <option value="3">Domingo a Viernes</option>
+                                    <option value="4">Viernes a Miercoles</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="SelectEmpleadoUsuarioSistema" class="form-label">*Usuario Sistema:</label>
