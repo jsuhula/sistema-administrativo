@@ -10,14 +10,17 @@ CREATE TABLE `Comision` (
   PRIMARY KEY (`CodigoComision`)
 );
 
+
 CREATE TABLE `Departamento` (
   `CodigoDepartamento` INT AUTO_INCREMENT NOT NULL,
   `Nombre` VARCHAR(100),
   `CodigoComision` INT,
   `CodigoEmpleado` VARCHAR(10),
-  PRIMARY KEY (`CodigoDepartamento`),
-  FOREIGN KEY (`CodigoComision`) REFERENCES `Comision`(`CodigoComision`)
+  PRIMARY KEY (`CodigoDepartamento`)
 );
+
+ALTER TABLE `Departamento` ADD CONSTRAINT `FK_Departamento_CodigoComision` FOREIGN KEY (`CodigoComision`) REFERENCES `Comision`(`CodigoComision`) 
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Rol` (
   `CodigoRol` INT AUTO_INCREMENT NOT NULL,
@@ -36,8 +39,17 @@ CREATE TABLE `UsuarioSistema` (
   `Email` VARCHAR(50),
   `Clave` VARCHAR(200),
   `CodigoRol` INT,
-  PRIMARY KEY (`CodigoUsuarioSistema`),
-  FOREIGN KEY (`CodigoRol`) REFERENCES `Rol`(`CodigoRol`)
+  PRIMARY KEY (`CodigoUsuarioSistema`)
+);
+
+ALTER TABLE `UsuarioSistema` ADD CONSTRAINT `FK_UsuarioSistema_CodigoRol` FOREIGN KEY (`CodigoRol`) REFERENCES `Rol`(`CodigoRol`) 
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE `JornadaLaboral` (
+  `CodigoJornadaLaboral` INT AUTO_INCREMENT NOT NULL,
+  `Nombre` VARCHAR(50),
+  `DiasPorSemana` INT,
+  PRIMARY KEY (`CodigoJornadaLaboral`)
 );
 
 CREATE TABLE `Empleado` (
@@ -52,7 +64,6 @@ CREATE TABLE `Empleado` (
   `FechaRetiro` DATE,
   `Profesion` VARCHAR(50),
   `Fotografia` VARCHAR(100),
-  `Jornada` VARCHAR(100),
   `DPI` VARCHAR(13),
   `NIT` VARCHAR(13),
   `IRTRA` VARCHAR(13),
@@ -60,10 +71,16 @@ CREATE TABLE `Empleado` (
   `Estado` BOOLEAN,
   `CodigoDepartamento` INT,
   `CodigoUsuarioSistema` INT,
-  PRIMARY KEY (`CodigoEmpleado`),
-  FOREIGN KEY (`CodigoDepartamento`) REFERENCES `Departamento`(`CodigoDepartamento`),
-  FOREIGN KEY (`CodigoUsuarioSistema`) REFERENCES `UsuarioSistema`(`CodigoUsuarioSistema`)
+  `CodigoJornadaLaboral` INT,
+  PRIMARY KEY (`CodigoEmpleado`)
 );
+
+ALTER TABLE `Empleado` ADD CONSTRAINT `FK_Empleado_CodigoDepartamento` FOREIGN KEY (`CodigoDepartamento`) REFERENCES `Departamento`(`CodigoDepartamento`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Empleado` ADD CONSTRAINT `FK_Empleado_CodigoUsuarioSistema` FOREIGN KEY (`CodigoUsuarioSistema`) REFERENCES `UsuarioSistema`(`CodigoUsuarioSistema`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Empleado` ADD CONSTRAINT `FK_Empleado_CodigoJornadaLaboral` FOREIGN KEY (`CodigoJornadaLaboral`) REFERENCES `JornadaLaboral`(`CodigoJornadaLaboral`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Prestamo` (
   `CodigoPrestamo` INT AUTO_INCREMENT NOT NULL,
@@ -71,18 +88,22 @@ CREATE TABLE `Prestamo` (
   `Monto` DECIMAL(10,2),
   `Cuotas` INT,
   `CodigoEmpleado` VARCHAR(10),
-  PRIMARY KEY (`CodigoPrestamo`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+  PRIMARY KEY (`CodigoPrestamo`)
 );
+
+ALTER TABLE `Prestamo` ADD CONSTRAINT `FK_Prestamo_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Abono` (
   `CodigoAbono` INT AUTO_INCREMENT NOT NULL,
   `Monto` DECIMAL(10,2),
   `Fecha` DATETIME,
   `CodigoPrestamo` INT,
-  PRIMARY KEY (`CodigoAbono`),
-  FOREIGN KEY (`CodigoPrestamo`) REFERENCES `Prestamo`(`CodigoPrestamo`)
+  PRIMARY KEY (`CodigoAbono`)
 );
+
+ALTER TABLE `Abono` ADD CONSTRAINT `FK_Abono_CodigoPrestamo` FOREIGN KEY (`CodigoPrestamo`) REFERENCES `Prestamo`(`CodigoPrestamo`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Liquidacion` (
   `CodigoLiquidacion` INT AUTO_INCREMENT NOT NULL,
@@ -96,19 +117,24 @@ CREATE TABLE `Liquidacion` (
   `CantidadDiasVacacionesPendientes` DOUBLE,
   `CodigoEmpleado` VARCHAR(10),
   `CodigoPrestamo` INT,
-  PRIMARY KEY (`CodigoLiquidacion`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`),
-  FOREIGN KEY (`CodigoPrestamo`) REFERENCES `Prestamo`(`CodigoPrestamo`)
+  PRIMARY KEY (`CodigoLiquidacion`)
 );
+
+ALTER TABLE `Liquidacion` ADD CONSTRAINT `FK_Liquidacion_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Liquidacion` ADD CONSTRAINT `FK_Liquidacion_CodigoPrestamo` FOREIGN KEY (`CodigoPrestamo`) REFERENCES `Prestamo`(`CodigoPrestamo`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Asistencia` (
   `CodigoAsistencia` INT AUTO_INCREMENT NOT NULL,
   `Entrada` DATETIME,
   `Salida` DATETIME,
-  `CodigoEmpleado` VARCHAR(10),
-  PRIMARY KEY (`CodigoAsistencia`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+  `CodigoUsuarioSistema` INT,
+  PRIMARY KEY (`CodigoAsistencia`)
 );
+
+ALTER TABLE `Asistencia` ADD CONSTRAINT `FK_Asistencia_CodigoUsuarioSistema` FOREIGN KEY (`CodigoUsuarioSistema`) REFERENCES `UsuarioSistema`(`CodigoUsuarioSistema`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `CategoriaItem` (
   `CodigoCategoriaItem` INT AUTO_INCREMENT NOT NULL,
@@ -125,9 +151,11 @@ CREATE TABLE `Item` (
   `Imagen` VARCHAR(200),
   `Descuento` DOUBLE,
   `CodigoCategoriaItem` INT,
-  PRIMARY KEY (`CodigoItem`),
-  FOREIGN KEY (`CodigoCategoriaItem`) REFERENCES `CategoriaItem`(`CodigoCategoriaItem`)
+  PRIMARY KEY (`CodigoItem`)
 );
+
+ALTER TABLE `Item` ADD CONSTRAINT `FK_Item_CodigoCategoriaItem` FOREIGN KEY (`CodigoCategoriaItem`) REFERENCES `CategoriaItem`(`CodigoCategoriaItem`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Mesa` (
   `CodigoMesa` INT AUTO_INCREMENT NOT NULL,
@@ -143,20 +171,24 @@ CREATE TABLE `Orden` (
   `Estado` INT,
   `DescuentoEspecial` BOOLEAN, 
   `CodigoMesa` INT,
-  PRIMARY KEY (`CodigoOrden`),
-  FOREIGN KEY (`CodigoMesa`) REFERENCES `Mesa`(`CodigoMesa`)
+  PRIMARY KEY (`CodigoOrden`)
 );
 
+ALTER TABLE `Orden` ADD CONSTRAINT `FK_Orden_CodigoMesa` FOREIGN KEY (`CodigoMesa`) REFERENCES `Mesa`(`CodigoMesa`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `DetalleOrden` (
   `CodigoDetalleOrden` INT AUTO_INCREMENT NOT NULL,
   `CodigoOrden` INT,
   `CodigoItem` VARCHAR(10),
   `Cantidad` INT,
-  PRIMARY KEY (`CodigoDetalleOrden`),
-  FOREIGN KEY (`CodigoOrden`) REFERENCES `Orden`(`CodigoOrden`),
-  FOREIGN KEY (`CodigoItem`) REFERENCES `Item`(`CodigoItem`)
+  PRIMARY KEY (`CodigoDetalleOrden`)
 );
+
+ALTER TABLE `DetalleOrden` ADD CONSTRAINT `FK_DetalleOrden_CodigoOrden` FOREIGN KEY (`CodigoOrden`) REFERENCES `Orden`(`CodigoOrden`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `DetalleOrden` ADD CONSTRAINT `FK_DetalleOrden_CodigoItem` FOREIGN KEY (`CodigoItem`) REFERENCES `Item`(`CodigoItem`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `TipoDePago` (
   `CodigoTipoDePago` INT AUTO_INCREMENT NOT NULL,
@@ -168,9 +200,11 @@ CREATE TABLE `Caja` (
   `CodigoCaja` INT AUTO_INCREMENT NOT NULL,
   `Nombre` VARCHAR(30),
   `CodigoEmpleado` VARCHAR(10),
-  PRIMARY KEY (`CodigoCaja`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+  PRIMARY KEY (`CodigoCaja`)
 );
+
+ALTER TABLE `Caja` ADD CONSTRAINT `FK_Caja_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Cierre` (
   `CodigoCierre` INT AUTO_INCREMENT NOT NULL,
@@ -180,10 +214,13 @@ CREATE TABLE `Cierre` (
   `SaldoFinal` DECIMAL(10,2),
   `CodigoEmpleado` VARCHAR(10),
   `CodigoCaja` INT,
-  PRIMARY KEY (`CodigoCierre`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`),
-  FOREIGN KEY (`CodigoCaja`) REFERENCES `Caja`(`CodigoCaja`)
+  PRIMARY KEY (`CodigoCierre`)
 );
+
+ALTER TABLE `Cierre` ADD CONSTRAINT `FK_Cierre_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Cierre` ADD CONSTRAINT `FK_Cierre_CodigoCaja` FOREIGN KEY (`CodigoCaja`) REFERENCES `Caja`(`CodigoCaja`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Factura` (
   `CodigoFactura` VARCHAR(10) NOT NULL,
@@ -193,20 +230,36 @@ CREATE TABLE `Factura` (
   `CodigoTipoDePago` INT,
   `CodigoOrden` INT,
   `CodigoCaja` INT,
-  PRIMARY KEY (`CodigoFactura`),
-  FOREIGN KEY (`CodigoTipoDePago`) REFERENCES `TipoDePago`(`CodigoTipoDePago`),
-  FOREIGN KEY (`CodigoOrden`) REFERENCES `Orden`(`CodigoOrden`),
-  FOREIGN KEY (`CodigoCaja`) REFERENCES `Caja`(`CodigoCaja`)
+  PRIMARY KEY (`CodigoFactura`)
 );
+
+ALTER TABLE `Factura` ADD CONSTRAINT `FK_Factura_CodigoTipoDePago` FOREIGN KEY (`CodigoTipoDePago`) REFERENCES `TipoDePago`(`CodigoTipoDePago`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Factura` ADD CONSTRAINT `FK_Factura_CodigoOrden` FOREIGN KEY (`CodigoOrden`) REFERENCES `Orden`(`CodigoOrden`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Factura` ADD CONSTRAINT `FK_Factura_CodigoCaja` FOREIGN KEY (`CodigoCaja`) REFERENCES `Caja`(`CodigoCaja`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `Productividad` (
   `Fecha` DATE,
   `CodigoEmpleado` VARCHAR(10),
   `CodigoItem` VARCHAR(10),
-  `CodigoMesa` INT,
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`),
-  FOREIGN KEY (`CodigoItem`) REFERENCES `Item`(`CodigoItem`),
-  FOREIGN KEY (`CodigoMesa`) REFERENCES `Mesa`(`CodigoMesa`)
+  `CodigoMesa` INT
+);
+
+ALTER TABLE `Productividad` ADD CONSTRAINT `FK_Productividad_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Productividad` ADD CONSTRAINT `FK_Productividad_CodigoItem` FOREIGN KEY (`CodigoItem`) REFERENCES `Item`(`CodigoItem`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Productividad` ADD CONSTRAINT `FK_Productividad_CodigoMesa` FOREIGN KEY (`CodigoMesa`) REFERENCES `Mesa`(`CodigoMesa`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE `Asueto` (
+  `CodigoAsueto` INT AUTO_INCREMENT NOT NULL,
+  `Nombre` VARCHAR(50),
+  `Fecha` DATE NOT NULL,
+  `CantidadDias` INT NULL,
+  PRIMARY KEY(`CodigoAsueto`)
 );
 
 CREATE TABLE `Honorarios` (
@@ -223,9 +276,14 @@ CREATE TABLE `Honorarios` (
   `DescuentoISR` DECIMAL(10,2),
   `AbonoPrestamo` DECIMAL(10,2),
   `CodigoEmpleado` VARCHAR(10),
-  PRIMARY KEY(`CodigoHonorario`),
-  FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+  `CodigoAsueto` INT NULL,
+  PRIMARY KEY(`CodigoHonorario`)
 );
+
+ALTER TABLE `Honorarios` ADD CONSTRAINT `FK_Honorarios_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Honorarios` ADD CONSTRAINT `FK_Honorarios_CodigoAsueto` FOREIGN KEY (`CodigoAsueto`) REFERENCES `Asueto`(`CodigoAsueto`)
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE `TipoBonificacion` (
   `CodigoTipoBonificacion` INT AUTO_INCREMENT NOT NULL,
@@ -245,6 +303,12 @@ CREATE TABLE `PagoBonificacion` (
   FOREIGN KEY (`CodigoTipoBonificacion`) REFERENCES `TipoBonificacion`(`CodigoTipoBonificacion`),
   FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
 );
+
+ALTER TABLE `PagoBonificacion` ADD CONSTRAINT `FK_PagoBonificacion_CodigoTipoBonificacion` FOREIGN KEY (`CodigoTipoBonificacion`) REFERENCES `TipoBonificacion`(`CodigoTipoBonificacion`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `PagoBonificacion` ADD CONSTRAINT `FK_PagoBonificacion_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 /* FUNCION GENERA CODIGO COMBINADO */
 
@@ -591,7 +655,8 @@ BEGIN
             Estado,
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
-            D.CodigoDepartamento
+            D.CodigoDepartamento,
+            CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
             WHERE Estado = VarEstado
@@ -624,7 +689,8 @@ BEGIN
             Estado,
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
-            D.CodigoDepartamento
+            D.CodigoDepartamento,
+            CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
             WHERE CONCAT(Nombres, ' ', Apellidos, ' ', DPI) LIKE CONCAT('%', VarNombreBusqueda, '%')
@@ -886,12 +952,13 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarAsistencia
 (IN VarCodigoUsuarioSistema INT, IN VarFecha DATE)
 BEGIN
-	  DECLARE VarCodigoEmpleado VARCHAR(10);
+    DECLARE VarCodigoEmpleado VARCHAR(10);
     SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	  SELECT IFNULL(Entrada, 0) AS ExisteEntrada, IFNULL(Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
-    FROM Asistencia
-    WHERE DATE(Entrada) = VarFecha OR DATE(Salida) = VarFecha
-    AND CodigoEmpleado = VarCodigoEmpleado;
+	  SELECT IFNULL(A.Entrada, 0) AS ExisteEntrada, IFNULL(A.Salida, 0) AS ExisteSalida, COUNT(*) AS Existe, IFNULL(VarCodigoEmpleado, 0) AS ExisteEmpleado
+    FROM Asistencia AS A
+    INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = A.CodigoUsuarioSistema
+    LEFT JOIN Empleado AS E ON E.CodigoUsuarioSistema = U.CodigoUsuarioSistema
+    WHERE U.CodigoUsuarioSistema = VarCodigoUsuarioSistema AND DATE(A.Entrada) = VarFecha;
 END //
 DELIMITER ;
 
@@ -900,10 +967,8 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS asistenciaEntrada
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
-	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
-	INSERT INTO Asistencia (Entrada, CodigoEmpleado) 
-    VALUES (VarFechaHora, VarCodigoEmpleado);
+	INSERT INTO Asistencia (Entrada, CodigoUsuarioSistema) 
+    VALUES (VarFechaHora, VarCodigoUsuarioSistema);
 END //
 DELIMITER ;
 
@@ -913,11 +978,9 @@ DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS asistenciaSalida
 (IN VarCodigoUsuarioSistema INT, IN VarFechaHora DATETIME)
 BEGIN
-	DECLARE VarCodigoEmpleado VARCHAR(10);
-    SET VarCodigoEmpleado = (SELECT E.CodigoEmpleado FROM Empleado AS E WHERE E.CodigoUsuarioSistema = VarCodigoUsuarioSistema);
 	UPDATE Asistencia
     SET Salida = VarFechaHora
-    WHERE CodigoEmpleado = VarCodigoEmpleado
+    WHERE CodigoUsuarioSistema = VarCodigoUsuarioSistema
     AND DATE(Entrada) = DATE(VarFechaHora);
 END //
 DELIMITER ;
