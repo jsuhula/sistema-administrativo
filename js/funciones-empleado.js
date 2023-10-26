@@ -834,11 +834,11 @@ function cargarRoles() {
                         cell5.innerHTML = rol.GestionaMenu;
                         cell6.innerHTML = rol.GestionaReportes;
                         cell7.innerHTML = rol.GestionaCaja;
-                        cell8.innerHTML = rol.Asistencia;
+                        cell8.innerHTML = rol.GestionaPrestamos;
                         cell9.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
                             '" data-nombre-rol="' + rol.Nombre + '" data-gestiona-nomina="' + rol.GestionaNomina + '" data-gestiona-empleados="' + rol.GestionaEmpleados +
-                            '" data-gestiona-menu="' + rol.GestionaMenu + '" data-gestiona-reportes="' + rol.GestionaReportes + '" data-gestiona-caja="' + rol.GestionaCaja + '" data-asistencia="' + rol.Asistencia + '">' +
+                            '" data-gestiona-menu="' + rol.GestionaMenu + '" data-gestiona-reportes="' + rol.GestionaReportes + '" data-gestiona-caja="' + rol.GestionaCaja + '" data-asistencia="' + rol.GestionaPrestamos + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
                             '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-rol" data-bs-toggle="modal" data-bs-target="#eliminarRol" data-codigo-rol="' + rol.CodigoRol + '" data-nombre-rol="' + rol.Nombre + '">' +
@@ -864,7 +864,7 @@ function cargarRoles() {
                             let gestionaMenu = button.getAttribute("data-gestiona-menu");
                             let gestionaReportes = button.getAttribute("data-gestiona-reportes");
                             let gestionaCaja = button.getAttribute("data-gestiona-caja");
-                            let asistencia = button.getAttribute("data-asistencia");
+                            let gestionaPrestamos = button.getAttribute("data-asistencia");
 
                             // Rellena los campos del modal con los datos obtenidos
                             let codigoRolHidden = document.getElementById("codigoRol");
@@ -875,7 +875,7 @@ function cargarRoles() {
                             document.getElementById("gestionaMenu").checked = (gestionaMenu === "1");
                             document.getElementById("gestionaReportes").checked = (gestionaReportes === "1");
                             document.getElementById("gestionaCaja").checked = (gestionaCaja === "1");
-                            document.getElementById("asistencia").checked = (asistencia === "1");
+                            document.getElementById("gestionaPrestamos").checked = (gestionaPrestamos === "1");
                         });
                     });
 
