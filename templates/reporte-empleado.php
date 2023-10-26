@@ -3,6 +3,7 @@ date_default_timezone_set('America/Guatemala');
 use dao\UsuarioAccessoDAO;
 
 session_start();
+
 if (!$_SESSION) {
 	header('location: ../login.php');
 }
@@ -51,7 +52,7 @@ function empleadoDao(): EmpleadoDAO
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 
-<body onLoad="setTimeout('window.close()', 2000);" style="font-size: 12px;">
+<body onLoad="setTimeout('window.close()', 1000);" style="font-size: 12px;">
 	<style>
 		* {
 			font-family: 'Times New Roman', Times, serif;
@@ -105,7 +106,7 @@ function empleadoDao(): EmpleadoDAO
 						</td>
 						<td><strong>Fecha de Nacimiento:</strong></td>
 						<td>
-							<?php echo $registro->FechaNacimiento; ?>
+							<?php echo date("d/m/Y", strtotime($registro->FechaNacimiento)); ?>
 						</td>
 					</tr>
 				</tbody>
@@ -147,11 +148,11 @@ function empleadoDao(): EmpleadoDAO
 					<tr>
 						<td><strong>Fecha de Ingreso:</strong></td>
 						<td>
-							<?php echo $registro->FechaIngreso; ?>
+							<?php echo date("d/m/Y", strtotime($registro->FechaIngreso)); ?>
 						</td>
 						<td><strong>Fecha de Retiro:</strong></td>
 						<td>
-							<?php echo $registro->FechaRetiro; ?>
+							<?php echo date("d/m/Y", strtotime($registro->FechaRetiro)); ?>
 						</td>
 					</tr>
 				</tbody>
