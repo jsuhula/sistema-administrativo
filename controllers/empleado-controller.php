@@ -2,7 +2,7 @@
 
 session_start();
 if (!$_SESSION) {
-  header('location: ../login.php');
+    header('location: ../login.php');
 }
 
 use dao\EmpleadoDAO;
@@ -175,10 +175,13 @@ function guardarEmpleado(
     EmpleadoDAO $empleadoDao
 ) {
     try {
-        $existe = $empleadoDao->validarExistenciaEmpleado($dpi);
-        $existe = $existe->fetch(PDO::FETCH_OBJ);
+        $existe = $empleadoDao->validarExistenciaEmpleado($dpi)->fetch(PDO::FETCH_OBJ);
+        $usuarioSistema = $empleadoDao->validarUsuarioSistemaEnUso($codigoUsuarioSistema)->fetch((PDO::FETCH_OBJ));
+
         if ($existe->Existe == 1) {
             http_response_code(409);
+        } else if ($usuarioSistema->EnUso != 0) {
+            http_response_code(403);
         } else {
             $result = $empleadoDao->guardarEmpleado(
                 $nombres,
@@ -235,10 +238,13 @@ function actualizarEmpleado(
     EmpleadoDAO $empleadoDao
 ) {
     try {
-        $existe = $empleadoDao->validarExistenciaEmpleado($dpi);
-        $existe = $existe->fetch(PDO::FETCH_OBJ);
+        $existe = $empleadoDao->validarExistenciaEmpleado($dpi)->fetch(PDO::FETCH_OBJ);
+        $usuarioSistema = $empleadoDao->validarUsuarioSistemaEnUso($codigoUsuarioSistema)->fetch((PDO::FETCH_OBJ));
+
         if ($existe->Existe == 1 & $existe->CodigoEmpleado != $codigoEmpleado) {
             http_response_code(409);
+        } else if ($usuarioSistema->EnUso != 0 && $usuarioSistema->CodigoEmpleado != $codigoEmpleado) {
+            http_response_code(403);
         } else {
             $result = $empleadoDao->actualizarEmpleado(
                 $codigoEmpleado,
