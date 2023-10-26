@@ -19,6 +19,7 @@ if (isset($_POST['asistenciaEntrada'])) {
 }
 
 $asistencia = $usuarioAsistencia->validarAsistencia($_SESSION['CodigoUsuario'], strval(date("Y-m-d")))->fetch(PDO::FETCH_OBJ);
+$permisos = $usuario->validarRolUsuario($_SESSION['CodigoUsuario'])->fetch(PDO::FETCH_OBJ);
 $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesion->UsuarioEmail : $usuarioSesion->NombreUsuarioSesion;
 
 ?>
@@ -54,36 +55,48 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                             <?php echo $nombreUsuarioActual; ?>
                         </span>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i>
-                            Nómina</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-prestamos.php"><i class="fa-solid fa-wallet"></i>
-                            Préstamos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i>
-                            Empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i>
-                            Menú</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/reportes.php"><i class="fa-solid fa-chart-simple"></i>
-                            Reportes</a>
-                    </li>
-                    <li class="nav-item text-white">
-                        <a class="nav-link" href="views/menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver
-                            Menú</a>
-                    </li>
-                    <?php if ($asistencia->ExisteEmpleado != 0) { ?>
+                    <?php if ($permisos->Existe != 0) {
+                        if ($permisos->GestionaNomina) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i>
+                                    Nómina</a>
+                            </li>
+                        <?php }
+                        if ($permisos->GestionaPrestamos) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="views/gestion-prestamos.php"><i class="fa-solid fa-wallet"></i>
+                                    Préstamos</a>
+                            </li>
+                        <?php }
+                        if ($permisos->GestionaEmpleados) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i>
+                                    Empleados</a>
+                            </li>
+                        <?php }
+                        if ($permisos->GestionaMenu) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i>
+                                    Menú</a>
+                            </li>
+                        <?php }
+                        if ($permisos->GestionaReportes) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="views/reportes.php"><i class="fa-solid fa-chart-simple"></i>
+                                    Reportes</a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item text-white">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i
-                                    class="fa-solid fa-calendar-days"></i> Asistencia</a>
+                            <a class="nav-link" href="views/menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver
+                                Menú</a>
                         </li>
-                    <?php } ?>
+                        <?php if ($asistencia->ExisteEmpleado != 0) { ?>
+                            <li class="nav-item text-white">
+                                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#marcajeAsistenciaModal"><i
+                                        class="fa-solid fa-calendar-days"></i> Asistencia</a>
+                            </li>
+                        <?php }
+                    } ?>
                 </ul>
             </div>
             <div class="navbar-nav ml-auto">
