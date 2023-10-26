@@ -47,7 +47,7 @@ function main()
                 $nit = $data->Nit;
                 $irtra = $data->Irtra;
                 $igss = $data->Igss;
-                $estado = $data->Estado;
+                $estado = boolval($data->Estado);
                 $codigoDepartamento = $data->CodigoDepartamento;
                 $codigoUsuarioSistema = $data->CodigoUsuarioSistema;
                 $codigoJornadaLaboral = $data->CodigoJornadaLaboral;
@@ -89,7 +89,7 @@ function main()
                 $nit = $data->Nit;
                 $irtra = $data->Irtra;
                 $igss = $data->Igss;
-                $estado = $data->Estado;
+                $estado = boolval($data->Estado);
                 $codigoDepartamento = $data->CodigoDepartamento;
                 $codigoUsuarioSistema = $data->CodigoUsuarioSistema;
                 $codigoJornadaLaboral = $data->CodigoJornadaLaboral;
