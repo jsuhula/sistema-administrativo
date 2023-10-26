@@ -1,8 +1,30 @@
 <?php
-    session_start();
-    if (!$_SESSION) {
+
+date_default_timezone_set('America/Guatemala');
+use dao\UsuarioAccessoDAO;
+
+session_start();
+
+if (!$_SESSION) {
+    header('location: ../login.php');
+} 
+
+main();
+
+function main(){
+    require_once('../dao/UsuarioAccessoDAO.php');
+    require_once('../includes/MySQLConnector.php');
+    $usuario = new UsuarioAccessoDAO();
+    $permisos = $usuario->validarRolUsuario($_SESSION['CodigoUsuario'])->fetch(PDO::FETCH_OBJ);
+    if ($permisos->Existe != 0) {
+        if ($permisos->GestionaEmpleados != 1) {
+            header('location: ../login.php');
+        }
+    } else {
         header('location: ../login.php');
     }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -35,19 +57,23 @@
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="empleados"><i class="fa-solid fa-users-gear"></i> Empleados</a>
+                        <a class="nav-link" href="#" data-section="empleados"><i class="fa-solid fa-users-gear"></i>
+                            Empleados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="lista-usuarios"><i class="fa-solid fa-user-group"></i> Usuarios</a>
+                        <a class="nav-link" href="#" data-section="lista-usuarios"><i
+                                class="fa-solid fa-user-group"></i> Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="departamentos"><i class="fa-solid fa-building"></i> Departamentos</a>
+                        <a class="nav-link" href="#" data-section="departamentos"><i class="fa-solid fa-building"></i>
+                            Departamentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-section="roles"><i class="fa-solid fa-sitemap"></i> Roles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-section="comisiones"><i class="fa-solid fa-dollar-sign"></i> Comisiones</a>
+                        <a class="nav-link" href="#" data-section="comisiones"><i class="fa-solid fa-dollar-sign"></i>
+                            Comisiones</a>
                     </li>
                 </ul>
             </div>
@@ -226,7 +252,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalEmpleado">Editar Empleado</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoEmpleado" class="row m-2" hidden>
@@ -358,9 +385,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                            <label for="SelectEmpleadoJornada" class="form-label">*Jornada:</label>
-                                <select class="form-select" id="SelectEmpleadoJornada"
-                                    name="SelectEmpleadoJornada">
+                                <label for="SelectEmpleadoJornada" class="form-label">*Jornada:</label>
+                                <select class="form-select" id="SelectEmpleadoJornada" name="SelectEmpleadoJornada">
                                     <option value="" selected disabled>Seleccione una Jornada Laboral</option>
                                     <option value="1">Lunes a Viernes</option>
                                     <option value="2">Lunes a Sabado</option>
@@ -392,7 +418,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalUsuario">Usuario</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoUsuario" class="row m-2" hidden>
@@ -451,7 +478,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalDepartamento">Departamento</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoDepartamento" class="row m-2" hidden>
@@ -511,7 +539,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalRol">Rol</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoRol" class="row m-2" hidden>
@@ -582,7 +611,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tituloModalComision">Nueva Comisión</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="alertaExitoComision" class="row m-2" hidden>
@@ -640,7 +670,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="eliminarUsuarioModalTitle">Eliminar Usuario</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
@@ -668,7 +699,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar Rol</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
@@ -724,7 +756,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar Departamento</h5>
-                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p><span id="codigoEliminarDepartamento" hidden></span> ¿Estás seguro de que deseas eliminar el

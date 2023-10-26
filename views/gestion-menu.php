@@ -1,8 +1,29 @@
 <?php 
+date_default_timezone_set('America/Guatemala');
+use dao\UsuarioAccessoDAO;
+
 session_start();
 if (!$_SESSION) {
   header('location: ../login.php');
 }
+
+
+main();
+
+function main(){
+    require_once('../dao/UsuarioAccessoDAO.php');
+    require_once('../includes/MySQLConnector.php');
+    $usuario = new UsuarioAccessoDAO();
+    $permisos = $usuario->validarRolUsuario($_SESSION['CodigoUsuario'])->fetch(PDO::FETCH_OBJ);
+    if ($permisos->Existe != 0) {
+        if ($permisos->GestionaMenu != 1) {
+            header('location: ../login.php');
+        }
+    } else {
+        header('location: ../login.php');
+    }
+}
+
 
 ?>
 

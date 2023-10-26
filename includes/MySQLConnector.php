@@ -3,7 +3,7 @@ namespace includes;
 use PDO;
 USE PDOException;
 class MySQLConnector {
-    private static $instance; // Variable para almacenar la única instancia de la clase.
+    private static $instance;
     private $connector;
     private $server = "191.96.56.1";
     private $dbname = "u236981256_deaquisoy";
