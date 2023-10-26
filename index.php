@@ -56,31 +56,31 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                         </span>
                     </li>
                     <?php if ($permisos->Existe != 0) {
-                        if ($permisos->GestionaNomina) { ?>
+                        if ($permisos->GestionaNomina != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i>
                                     Nómina</a>
                             </li>
                         <?php }
-                        if ($permisos->GestionaPrestamos) { ?>
+                        if ($permisos->GestionaPrestamos != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/gestion-prestamos.php"><i class="fa-solid fa-wallet"></i>
                                     Préstamos</a>
                             </li>
                         <?php }
-                        if ($permisos->GestionaEmpleados) { ?>
+                        if ($permisos->GestionaEmpleados != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i>
                                     Empleados</a>
                             </li>
                         <?php }
-                        if ($permisos->GestionaMenu) { ?>
+                        if ($permisos->GestionaMenu != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i>
                                     Menú</a>
                             </li>
                         <?php }
-                        if ($permisos->GestionaReportes) { ?>
+                        if ($permisos->GestionaReportes != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/reportes.php"><i class="fa-solid fa-chart-simple"></i>
                                     Reportes</a>

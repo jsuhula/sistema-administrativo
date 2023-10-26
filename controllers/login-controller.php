@@ -1,7 +1,7 @@
 <?php
+
 session_start();
 use dao\UsuarioAccessoDAO;
-
 
 if(!$_SESSION){
     if (main() != 0) {

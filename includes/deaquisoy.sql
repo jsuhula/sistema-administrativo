@@ -792,7 +792,7 @@ BEGIN
             Estado,
             D.Nombre AS Departamento,
             CodigoUsuarioSistema,
-            D.CodigoDepartamento
+            D.CodigoDepartamento,
             E.CodigoJornadaLaboral
             FROM Empleado AS E
             INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
@@ -994,6 +994,7 @@ BEGIN
           , R.GestionaMenu
           , R.GestionaCaja
           , R.GestionaPrestamos
+          , COUNT(*) AS Existe
     FROM Rol AS R
     INNER JOIN UsuarioSistema AS U ON U.CodigoRol = R.CodigoRol
     WHERE U.CodigoUsuarioSistema = VarCodigoUsuarioSistema;
