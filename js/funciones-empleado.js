@@ -838,7 +838,7 @@ function cargarRoles() {
                         cell9.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
                             '" data-nombre-rol="' + rol.Nombre + '" data-gestiona-nomina="' + rol.GestionaNomina + '" data-gestiona-empleados="' + rol.GestionaEmpleados +
-                            '" data-gestiona-menu="' + rol.GestionaMenu + '" data-gestiona-reportes="' + rol.GestionaReportes + '" data-gestiona-caja="' + rol.GestionaCaja + '" data-asistencia="' + rol.GestionaPrestamos + '">' +
+                            '" data-gestiona-menu="' + rol.GestionaMenu + '" data-gestiona-reportes="' + rol.GestionaReportes + '" data-gestiona-caja="' + rol.GestionaCaja + '" data-gestiona-prestamos="' + rol.GestionaPrestamos + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
                             '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-rol" data-bs-toggle="modal" data-bs-target="#eliminarRol" data-codigo-rol="' + rol.CodigoRol + '" data-nombre-rol="' + rol.Nombre + '">' +
@@ -864,7 +864,7 @@ function cargarRoles() {
                             let gestionaMenu = button.getAttribute("data-gestiona-menu");
                             let gestionaReportes = button.getAttribute("data-gestiona-reportes");
                             let gestionaCaja = button.getAttribute("data-gestiona-caja");
-                            let gestionaPrestamos = button.getAttribute("data-asistencia");
+                            let gestionaPrestamos = button.getAttribute("data-gestiona-prestamos");
 
                             // Rellena los campos del modal con los datos obtenidos
                             let codigoRolHidden = document.getElementById("codigoRol");

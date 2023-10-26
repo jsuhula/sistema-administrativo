@@ -179,7 +179,7 @@
                             <th>Menu</th>
                             <th>Reportes</th>
                             <th>Caja</th>
-                            <th>Asistencia</th>
+                            <th>Prestamos</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
