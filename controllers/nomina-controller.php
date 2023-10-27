@@ -20,7 +20,6 @@ function main()
 
         switch ($option) {
             case 1:
-                $fecha = $data->fecha;
                 calcularNominaSalario($fechaOperacion, $nominaDao);
                 break;
         }

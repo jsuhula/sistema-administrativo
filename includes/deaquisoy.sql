@@ -948,7 +948,7 @@ BEGIN
     INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
     LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
     WHERE E.CodigoEmpleado = VarCodigoEmpleado
-    GROUP BY P.CodigoPrestamo
+    GROUP BY E.CodigoEmpleado
     HAVING SaldoPendiente > 0;
 END //
 DELIMITER ;
@@ -1023,9 +1023,10 @@ DELIMITER ;
 
 
 /*CALCULO NOMINA SALARIO*/
+DROP PROCEDURE IF EXISTS calcularNominaSalario;
+
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS calcularNominaSalario
-(IN VarFecha DATE)
+CREATE PROCEDURE calcularNominaSalario(IN VarFecha DATE)
 BEGIN
 	WITH HorasCalculo AS
 	(
@@ -1054,7 +1055,7 @@ BEGIN
 		INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
     WHERE E.Estado = 1
 	
-	), Bonificacion AS
+	), BonificacionPago AS
 	(
 		SELECT PC.Fecha
 		, C.Bono
@@ -1067,7 +1068,7 @@ BEGIN
 		WHERE MONTH(PC.Fecha) = MONTH(VarFecha) AND E.Estado = 1
 		GROUP BY U.CodigoUsuarioSistema
 		
-	), Prestamos AS 
+	), PrestamosDescuento AS 
 	(
 		SELECT E.CodigoUsuarioSistema
 	        	, P.Monto
@@ -1091,28 +1092,33 @@ BEGIN
 	
 	SELECT H.Fecha
 		, EM.CodigoEmpleado
-		, CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreComleto
+		, CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreCompleto
+		, CASE WHEN (H.HorasTrabajadas < H.HorasBase) 
+			THEN (H.PrecioHora * H.HorasTrabajadas)
+			ELSE E.SalarioBase 
+			END AS SalarioBase
 		, H.HorasBase
 		, H.HorasTrabajadas
-		, H.HorasExtras
+		, CASE WHEN (H.HorasTrabajadas < H.HorasBase)
+			THEN 0
+			ELSE H.HorasExtras END AS HorasExtras
 		, H.PrecioHora
 		, H.PrecioHoraExtra
 		, E.IGSSEmpleado
+		, E.IGSSPatronal
 		, E.IRTRA
-		, E.SalarioBase
 		, IFNULL(B.Bono, 0) AS Comision
 		, IFNULL((PS.SaldoPendiente/PS.CuotasPendientes), 0) AS CuotaPrestamo
 		, (H.PrecioHoraExtra * H.HorasExtras) AS DevengadoHorasExtras 
 		, ((E.SalarioBase) + (H.PrecioHoraExtra * H.HorasExtras) + (IFNULL(B.Bono, 0)) - (IFNULL((PS.SaldoPendiente/PS.CuotasPendientes), 0)) - (E.IGSSEmpleado) - (E.IRTRA)) AS SalarioNetoDevengado
 	FROM HorasCalculo AS H
 	INNER JOIN EmpleadoCalculos AS E ON E.CodigoUsuarioSistema = H.CodigoUsuarioSistema
-	LEFT JOIN Bonificacion AS B ON B.CodigoUsuarioSistema = H.CodigoUsuarioSistema
-	LEFT JOIN Prestamos AS PS ON PS.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+	LEFT JOIN BonificacionPago AS B ON B.CodigoUsuarioSistema = H.CodigoUsuarioSistema
+	LEFT JOIN PrestamosDescuento AS PS ON PS.CodigoUsuarioSistema = E.CodigoUsuarioSistema
 	INNER JOIN Empleado AS EM ON EM.CodigoUsuarioSistema = E.CodigoUsuarioSistema
 	GROUP BY H.CodigoUsuarioSistema, H.Fecha;
 END //
 DELIMITER ;
-
 
 /* EJECUTAR LUEGO DE CREACION DE LA DB
 call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);

@@ -84,7 +84,7 @@ function main(){
                 <div class="row align-items-center justify-content-between">
                     <label for="fechaNominaSalario" class="form-label">Mes:</label>
                     <div class="col-md-6">
-                        <input type="month" class="form-control" id="fechaNominaSalario">
+                        <input type="date" class="form-control" id="fechaNominaSalario">
                     </div>
                     <div class="col-md-3">
                         <button type="button" class="btn btn-secondary" onclick="calcularNominaSalario()">Calcular</button>
@@ -94,30 +94,21 @@ function main(){
             <!-- Resultado del cálculo de salarios -->
             <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table class="table table-striped">
+                <table id="tablaNominaSalario" class="table table-striped text-end">
                     <thead class="sticky-top">
                         <tr>
-                            <th>Código</th>
+                            <th>Código Empleado</th>
                             <th>Empleado</th>
                             <th>Salario</th>
                             <th>Comisiones</th>
+                            <th>Horas Extras</th>
                             <th>IGSS</th>
                             <th>IRTRA</th>
-                            <th>ISR</th>
+                            <th>Cuota Prestamo</th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>EMP01</td>
-                            <td>Empleado 1</td>
-                            <td>Q.3500.00</td>
-                            <td>Q.278.00</td>
-                            <td>Q.150.00</td>
-                            <td>Q.125.00</td>
-                            <td>Q.150</td>
-                            <td>Q.3500.00</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -436,6 +427,7 @@ function main(){
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/funciones-nomina.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const header = document.querySelector('header');
