@@ -948,7 +948,8 @@ BEGIN
     INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
     LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
     WHERE E.CodigoEmpleado = VarCodigoEmpleado
-    GROUP BY E.CodigoEmpleado;
+    GROUP BY P.CodigoPrestamo
+    HAVING SaldoPendiente > 0;
 END //
 DELIMITER ;
 
