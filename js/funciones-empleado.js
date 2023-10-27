@@ -61,7 +61,7 @@ function cargarEmpleados(busqueda) {
                         cell3.innerHTML = empleado.Email;
                         cell4.innerHTML = empleado.Departamento;
                         cell5.innerHTML = empleado.SalarioBase;
-                        cell6.innerHTML = empleado.Estado;
+                        cell6.innerHTML = empleado.Estado === 1 ? "Activo" : "Inactivo";
                         cell7.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-empleado" data-bs-toggle="modal" data-bs-target="#empleadoModal" ' +
                             'data-codigo-empleado="' + empleado.CodigoEmpleado + '" data-nombres="' + empleado.Nombres + '" data-apellidos="' + empleado.Apellidos + '" data-email="' + empleado.Email + '" data-telefono="' + empleado.Telefono + '" data-salario="' + empleado.SalarioBase +
@@ -819,25 +819,25 @@ function cargarRoles() {
                     borrarContenidoTabla("tablaRoles");
                     let tabla = document.getElementById("tablaRoles").getElementsByTagName("tbody")[0];
                     data.forEach(function (rol) {
-                        var row = tabla.insertRow();
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);
-                        var cell5 = row.insertCell(4);
-                        var cell6 = row.insertCell(5);
-                        var cell7 = row.insertCell(6);
-                        var cell8 = row.insertCell(7);
-                        var cell9 = row.insertCell(8);
+                        let row = tabla.insertRow();
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cell4 = row.insertCell(3);
+                        let cell5 = row.insertCell(4);
+                        let cell6 = row.insertCell(5);
+                        let cell7 = row.insertCell(6);
+                        let cell8 = row.insertCell(7);
+                        let cell9 = row.insertCell(8);
 
                         cell1.innerHTML = rol.CodigoRol;
                         cell2.innerHTML = rol.Nombre;
-                        cell3.innerHTML = rol.GestionaNomina;
-                        cell4.innerHTML = rol.GestionaEmpleados;
-                        cell5.innerHTML = rol.GestionaMenu;
-                        cell6.innerHTML = rol.GestionaReportes;
-                        cell7.innerHTML = rol.GestionaCaja;
-                        cell8.innerHTML = rol.GestionaPrestamos;
+                        cell3.innerHTML = rol.GestionaNomina === 1 ?  String.fromCharCode(10003) : "X";
+                        cell4.innerHTML = rol.GestionaEmpleados === 1 ?  String.fromCharCode(10003) : "X";
+                        cell5.innerHTML = rol.GestionaMenu  === 1 ?  String.fromCharCode(10003) : "X";
+                        cell6.innerHTML = rol.GestionaReportes  === 1 ?  String.fromCharCode(10003) : "X";
+                        cell7.innerHTML = rol.GestionaCaja  === 1 ?  String.fromCharCode(10003) : "X";
+                        cell8.innerHTML = rol.GestionaPrestamos  === 1 ?  String.fromCharCode(10003) : "X";
                         cell9.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
                             '" data-nombre-rol="' + rol.Nombre + '" data-gestiona-nomina="' + rol.GestionaNomina + '" data-gestiona-empleados="' + rol.GestionaEmpleados +
