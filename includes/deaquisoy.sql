@@ -1024,7 +1024,7 @@ DELIMITER ;
 
 /*CALCULO NOMINA SALARIO*/
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS calculoNominaSalario
+CREATE PROCEDURE IF NOT EXISTS calcularNominaSalario
 (IN VarFecha DATE)
 BEGIN
 	WITH HorasCalculo AS
@@ -1040,7 +1040,7 @@ BEGIN
 		INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
 		INNER JOIN Asistencia AS A ON A.CodigoUsuarioSistema = U.CodigoUsuarioSistema
 		INNER JOIN JornadaLaboral AS JL ON JL.CodigoJornadaLaboral = E.CodigoJornadaLaboral
-		WHERE MONTH(A.Entrada) = MONTH(VarFecha)
+		WHERE MONTH(A.Entrada) = MONTH(VarFecha) AND E.Estado = 1
 		GROUP BY U.CodigoUsuarioSistema
 	
 	), EmpleadoCalculos AS
@@ -1052,6 +1052,7 @@ BEGIN
 	        , E.SalarioBase
 		FROM Empleado AS E
 		INNER JOIN UsuarioSistema AS U ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+    WHERE E.Estado = 1
 	
 	), Bonificacion AS
 	(
@@ -1063,7 +1064,7 @@ BEGIN
 		INNER JOIN PagoComision AS PC ON PC.CodigoEmpleado = E.CodigoEmpleado
 		INNER JOIN Departamento AS D ON D.CodigoDepartamento = E.CodigoDepartamento
 		INNER JOIN Comision AS C ON C.CodigoComision = D.CodigoComision
-		WHERE MONTH(PC.Fecha) = MONTH(VarFecha)
+		WHERE MONTH(PC.Fecha) = MONTH(VarFecha) AND E.Estado = 1
 		GROUP BY U.CodigoUsuarioSistema
 		
 	), Prestamos AS 
@@ -1083,8 +1084,9 @@ BEGIN
 	    FROM Prestamo AS P
 	    INNER JOIN Empleado AS E ON E.CodigoEmpleado = P.CodigoEmpleado
 	    LEFT JOIN Abono AS A ON A.CodigoPrestamo = P.CodigoPrestamo
+      WHERE E.Estado = 1
 	    GROUP BY P.CodigoPrestamo
-	   HAVING CuotasPendientes > 0
+	    HAVING CuotasPendientes > 0
 	)
 	
 	SELECT H.Fecha

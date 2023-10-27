@@ -12,9 +12,9 @@ class NominaDAO
         $this->connection = $this->connection->getConnection();
     }
 
-    public function calculoNominaSalario(string $fecha)
+    public function calcularNominaSalario(string $fecha)
     {
-        $query = "call calculoNominaSalario(?)";
+        $query = "call calcularNominaSalario(?)";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->bindParam(1, $fecha);
         $prpstmt->execute();

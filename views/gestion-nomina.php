@@ -82,12 +82,12 @@ function main(){
             <h2>Cálculo de Salarios</h2>
             <form>
                 <div class="row align-items-center justify-content-between">
-                    <label for="mes_calculo" class="form-label">Mes:</label>
+                    <label for="fechaNominaSalario" class="form-label">Mes:</label>
                     <div class="col-md-6">
-                        <input type="month" class="form-control" id="mes_calculo">
+                        <input type="month" class="form-control" id="fechaNominaSalario">
                     </div>
                     <div class="col-md-3">
-                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                        <button type="button" class="btn btn-secondary" onclick="calcularNominaSalario()">Calcular</button>
                     </div>
                 </div>
             </form>
