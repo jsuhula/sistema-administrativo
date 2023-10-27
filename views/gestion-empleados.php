@@ -766,9 +766,9 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <p><span id="codigoEliminarDepartamento" hidden></span> ¿Estás seguro de que deseas eliminar el
-                        Departamento:
-                        <span id="descripcionEliminarDepartamento"></span>?
+                    <p><span id="codigoEliminarDepartamento" hidden></span> <span id="leyendaConfirmacionEliminarDepartamento" hidden> ¿Estás seguro de que deseas eliminar el
+                        Departamento: 
+                        <span id="descripcionEliminarDepartamento"></span>?</span>
                     </p>
                     <span id="lblErrorEliminarDepartamento" class="text-danger" hidden>No se pudo realizar la operacion,
                         comuniquese
