@@ -1,9 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var btnIniciarSesion = document.getElementById("btnIniciarSesion");
+    let btnIniciarSesion = document.getElementById("btnIniciarSesion");
 
     btnIniciarSesion.addEventListener("click", function (event) {
         event.preventDefault();
         iniciarSesion();
+    });
+
+    const passwordInput = document.getElementById("clave");
+    const showPasswordButton = document.getElementById("showPassword");
+
+    showPasswordButton.addEventListener("click", function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
     });
 });
 
@@ -39,7 +50,7 @@ function iniciarSesion() {
                     break;
             }
         } else {
-           console.log(xhr.responseText);
+            console.log(xhr.responseText);
         }
     };
 

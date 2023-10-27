@@ -50,6 +50,9 @@ if ($_SESSION) {
                   <input id="clave" required
                     class="form-control bg-transparent border border-dark  border-start-0 border-top-0 border-end-0 rounded-0 border-opacity-25"
                     type="password" name="pass" preview="true" placeholder="Contraseña" maxlength="13">
+                    <button id="showPassword" type="button" class="btn btn-secondary">
+                    <i class="fas fa-eye"></i>
+                  </button>
                 </div>
                 <div id="alertaCredenciales" class="text-center" hidden>
                   <div class="alert border-danger bg-transparent border-opacity-50 rounded-5">
