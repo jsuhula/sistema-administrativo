@@ -191,6 +191,7 @@ function guardarAbono() {
         document.getElementById('alertaValidacion').setAttribute('hidden', true);
     } else {
         document.getElementById('alertaCompletarCamposAbono').setAttribute('hidden', true);
+        document.getElementById('alertaValidacion').setAttribute('hidden', true);
         var datos = {
             fecha: fechaAbono,
             codigoPrestamo: codigoPrestamo,
