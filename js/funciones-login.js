@@ -38,10 +38,8 @@ function iniciarSesion() {
                     document.getElementById('alertaCredenciales').setAttribute('hidden', true);
                     break;
             }
-            console.log(xhr.responseText);
-            console.log(data);
         } else {
-           console.log('OCURRIO UN ERROR CRITICO');
+           console.log(xhr.responseText);
         }
     };
 
