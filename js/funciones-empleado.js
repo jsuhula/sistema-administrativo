@@ -321,6 +321,7 @@ function cargarDepartamentos() {
                         button.addEventListener("click", function () {
 
                             restablecerAlertas("Departamento");
+                            document.getElementById("leyendaConfirmacionEliminarDepartamento").removeAttribute("hidden");
                             let CodigoDepartamento = button.getAttribute("data-codigo-departamento");
                             let NombreDepartamento = button.getAttribute("data-nombre-departamento");
 
@@ -412,6 +413,7 @@ function eliminarDepartamento() {
         if (xhr.status === 200) {
             cargarDepartamentos();
             alertasExitoEliminar("Departamento");
+            document.getElementById('leyendaConfirmacionEliminarDepartamento').setAttribute('hidden', true);
         } else {
             alertasErrorElimar("Departamento");
         }
