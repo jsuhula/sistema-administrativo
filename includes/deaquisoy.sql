@@ -275,23 +275,23 @@ CREATE TABLE `Honorarios` (
   `CodigoHonorario` INT AUTO_INCREMENT NOT NULL,
   `FechaPago` DATE,
   `SalarioBase` DECIMAL(10,2),
-  `TotalComisiones` DECIMAL(10,2),
+  `HorasBase` INT,
+  `HorasTrabajadas` DECIMAL(10,2),
+  `HorasExtras` DECIMAL(10,2),
+  `HorasNoTrabajadas` DECIMAL(10,2),
+  `PrecioHora` DECIMAL(10,2),
+  `PrecioHoraExtra` DECIMAL(10,2),
+  `Comisiones` DECIMAL(10,2),
   `BonoIncentivo` DECIMAL(10,2),
-  `HorasExtras` DOUBLE,
-  `HorasNoTrabajadas` DOUBLE,
-  `DescuentoHorasNoTrabajadas` DECIMAL(10,2),
-  `DescuentoIGSS` DECIMAL(10,2),
-  `DescuentoIRTRA` DECIMAL(10,2),
-  `DescuentoISR` DECIMAL(10,2),
+  `IGSS` DECIMAL(10,2),
+  `IGSSPatrono` DECIMAL(10,2),
+  `IRTRA` DECIMAL(10,2),
   `AbonoPrestamo` DECIMAL(10,2),
   `CodigoEmpleado` VARCHAR(10),
-  `CodigoAsueto` INT NULL,
   PRIMARY KEY(`CodigoHonorario`)
 );
 
 ALTER TABLE `Honorarios` ADD CONSTRAINT `FK_Honorarios_CodigoEmpleado` FOREIGN KEY (`CodigoEmpleado`) REFERENCES `Empleado`(`CodigoEmpleado`)
-ON DELETE NO ACTION ON UPDATE CASCADE;
-ALTER TABLE `Honorarios` ADD CONSTRAINT `FK_Honorarios_CodigoAsueto` FOREIGN KEY (`CodigoAsueto`) REFERENCES `Asueto`(`CodigoAsueto`)
 ON DELETE NO ACTION ON UPDATE CASCADE;
 
 CREATE TABLE `TipoBonificacion` (
@@ -1030,7 +1030,7 @@ CREATE PROCEDURE calcularNominaSalario(IN VarFecha DATE)
 BEGIN
 	WITH HorasCalculo AS
 	(
-		SELECT CONCAT(MONTH(A.Entrada), '-', YEAR(A.Entrada)) AS Fecha
+		SELECT VarFecha AS Fecha
 			, ((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8) AS HorasBase
 			, SUM(ABS(TIME_TO_SEC(TIMEDIFF(Entrada, Salida)) / 3600.0)) AS HorasTrabajadas
 	        , (SUM(ABS(TIME_TO_SEC(TIMEDIFF(Entrada, Salida)) / 3600.0))) - (((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8)) As HorasExtras
@@ -1047,7 +1047,7 @@ BEGIN
 	), EmpleadoCalculos AS
 	(
 		SELECT (E.SalarioBase * 0.0483) AS IGSSEmpleado
-	        , (E.SalarioBase * 0.1067) AS IGSSPatronal
+	        , (E.SalarioBase * 0.1067) AS IGSSPatrono
 	        , (E.SalarioBase * 0.01) AS IRTRA
 	        , U.CodigoUsuarioSistema
 	        , E.SalarioBase
@@ -1102,15 +1102,36 @@ BEGIN
 		, CASE WHEN (H.HorasTrabajadas < H.HorasBase)
 			THEN 0
 			ELSE H.HorasExtras END AS HorasExtras
+		, CASE WHEN (H.HorasTrabajadas < H.HorasBase)
+			THEN (H.HorasBase - H.HorasTrabajadas) * H.PrecioHora
+			ELSE 0 END AS DescuentoHorasNoTrabajadas
 		, H.PrecioHora
 		, H.PrecioHoraExtra
 		, E.IGSSEmpleado
-		, E.IGSSPatronal
+		, E.IGSSPatrono
 		, E.IRTRA
 		, IFNULL(B.Bono, 0) AS Comision
 		, IFNULL((PS.SaldoPendiente/PS.CuotasPendientes), 0) AS CuotaPrestamo
-		, (H.PrecioHoraExtra * H.HorasExtras) AS DevengadoHorasExtras 
-		, ((E.SalarioBase) + (H.PrecioHoraExtra * H.HorasExtras) + (IFNULL(B.Bono, 0)) - (IFNULL((PS.SaldoPendiente/PS.CuotasPendientes), 0)) - (E.IGSSEmpleado) - (E.IRTRA)) AS SalarioNetoDevengado
+		, CASE WHEN (H.HorasTrabajadas > H.HorasBase)
+			THEN (H.PrecioHoraExtra * H.HorasExtras) 
+			ELSE 0 END AS DevengadoHorasExtras 
+    	, 235.00 AS BonoIncentivo
+		, (
+			(CASE WHEN (H.HorasTrabajadas < H.HorasBase) 
+				THEN (H.PrecioHora * H.HorasTrabajadas)
+				ELSE E.SalarioBase END)
+			+ (CASE WHEN (H.HorasTrabajadas > H.HorasBase)
+				THEN (H.PrecioHoraExtra * H.HorasExtras) 
+				ELSE 0 END)
+			- (CASE WHEN (H.HorasTrabajadas < H.HorasBase)
+				THEN (H.HorasBase - H.HorasTrabajadas) * H.PrecioHora
+				ELSE 0 END)
+			+ (IFNULL(B.Bono, 0)) 
+			+ (235.00) 
+			- (IFNULL((PS.SaldoPendiente/PS.CuotasPendientes), 0)) 
+			- (E.IGSSEmpleado) 
+			- (E.IRTRA)
+			) AS SalarioNetoDevengado
 	FROM HorasCalculo AS H
 	INNER JOIN EmpleadoCalculos AS E ON E.CodigoUsuarioSistema = H.CodigoUsuarioSistema
 	LEFT JOIN BonificacionPago AS B ON B.CodigoUsuarioSistema = H.CodigoUsuarioSistema
@@ -1124,3 +1145,194 @@ DELIMITER ;
 call guardarRol('Administrador', 1, 1, 1, 1, 1, 1);
 call guardarUsuario('admin@admin.com', 'admin', 1, 'UMG2023');
 */
+
+/*GUARDAR HONORARIO*/
+DROP PROCEDURE IF EXISTS guardarHonorarios;
+
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS guardarHonorarios(IN VarFecha DATE)
+BEGIN
+IF (SELECT COUNT(*) AS Existe FROM Honorarios WHERE MONTH(FechaPago) = MONTH(VarFecha)) = 0
+THEN
+INSERT INTO Honorarios (FechaPago, SalarioBase, HorasBase, HorasTrabajadas, HorasExtras,
+HorasNoTrabajadas, PrecioHora, PrecioHoraExtra, Comisiones, BonoIncentivo,
+IGSS, IGSSPatrono, IRTRA, AbonoPrestamo, CodigoEmpleado)
+  SELECT
+    O.Fecha,
+    O.SalarioBase,
+    O.HorasBase,
+    O.HorasTrabajadas,
+    O.HorasExtras,
+    O.HorasNoTrabajadas,
+    O.PrecioHora,
+    O.PrecioHoraExtra,
+    O.Comision,
+    O.BonoIncentivo,
+    O.IGSSEmpleado,
+    O.IGSSPatrono,
+    O.IRTRA,
+    O.CuotaPrestamo,
+    O.CodigoEmpleado
+  FROM (SELECT
+    H.Fecha,
+    EM.CodigoEmpleado,
+    CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreCompleto,
+    CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN (H.PrecioHora * H.HorasTrabajadas)
+      ELSE E.SalarioBase
+    END AS SalarioBase,
+    H.HorasBase,
+    H.HorasTrabajadas,
+    CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN H.HorasBase - H.HorasTrabajadas
+      ELSE 0
+    END AS HorasNoTrabajadas,
+    CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN 0
+      ELSE H.HorasExtras
+    END AS HorasExtras,
+    CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN (H.HorasBase - H.HorasTrabajadas) * H.PrecioHora
+      ELSE 0
+    END AS DescuentoHorasNoTrabajadas,
+    H.PrecioHora,
+    H.PrecioHoraExtra,
+    E.IGSSEmpleado,
+    E.IGSSPatrono,
+    E.IRTRA,
+    IFNULL(B.Bono, 0) AS Comision,
+    IFNULL((PS.SaldoPendiente / PS.CuotasPendientes), 0) AS CuotaPrestamo,
+    CASE
+      WHEN (H.HorasTrabajadas > H.HorasBase) THEN (H.PrecioHoraExtra * H.HorasExtras)
+      ELSE 0
+    END AS DevengadoHorasExtras,
+    235.00 AS BonoIncentivo,
+    (
+    (CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN (H.PrecioHora * H.HorasTrabajadas)
+      ELSE E.SalarioBase
+    END)
+    + (CASE
+      WHEN (H.HorasTrabajadas > H.HorasBase) THEN (H.PrecioHoraExtra * H.HorasExtras)
+      ELSE 0
+    END)
+    - (CASE
+      WHEN (H.HorasTrabajadas < H.HorasBase) THEN (H.HorasBase - H.HorasTrabajadas) * H.PrecioHora
+      ELSE 0
+    END)
+    + (IFNULL(B.Bono, 0))
+    + (235.00)
+    - (IFNULL((PS.SaldoPendiente / PS.CuotasPendientes), 0))
+    - (E.IGSSEmpleado)
+    - (E.IRTRA)
+    ) AS SalarioNetoDevengado
+  FROM (SELECT
+    VarFecha AS Fecha,
+    ((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8) AS HorasBase,
+    SUM(ABS(TIME_TO_SEC(TIMEDIFF(Entrada, Salida)) / 3600.0)) AS HorasTrabajadas,
+    (SUM(ABS(TIME_TO_SEC(TIMEDIFF(Entrada, Salida)) / 3600.0))) - (((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8)) AS HorasExtras,
+    (E.SalarioBase / ((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8)) AS PrecioHora,
+    ((E.SalarioBase / ((DAY(LAST_DAY(A.Entrada)) - JL.DiasPorSemana) * 8)) * 2) AS PrecioHoraExtra,
+    U.CodigoUsuarioSistema
+  FROM Empleado AS E
+  INNER JOIN UsuarioSistema AS U
+    ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+  INNER JOIN Asistencia AS A
+    ON A.CodigoUsuarioSistema = U.CodigoUsuarioSistema
+  INNER JOIN JornadaLaboral AS JL
+    ON JL.CodigoJornadaLaboral = E.CodigoJornadaLaboral
+  WHERE MONTH(A.Entrada) = MONTH(VarFecha)
+  AND E.Estado = 1
+  GROUP BY U.CodigoUsuarioSistema) AS H
+  INNER JOIN (SELECT
+    (E.SalarioBase * 0.0483) AS IGSSEmpleado,
+    (E.SalarioBase * 0.1067) AS IGSSPatrono,
+    (E.SalarioBase * 0.01) AS IRTRA,
+    U.CodigoUsuarioSistema,
+    E.SalarioBase
+  FROM Empleado AS E
+  INNER JOIN UsuarioSistema AS U
+    ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+  WHERE E.Estado = 1) AS E
+    ON E.CodigoUsuarioSistema = H.CodigoUsuarioSistema
+  LEFT JOIN (SELECT
+    PC.Fecha,
+    C.Bono,
+    U.CodigoUsuarioSistema
+  FROM Empleado AS E
+  INNER JOIN UsuarioSistema AS U
+    ON U.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+  INNER JOIN PagoComision AS PC
+    ON PC.CodigoEmpleado = E.CodigoEmpleado
+  INNER JOIN Departamento AS D
+    ON D.CodigoDepartamento = E.CodigoDepartamento
+  INNER JOIN Comision AS C
+    ON C.CodigoComision = D.CodigoComision
+  WHERE MONTH(PC.Fecha) = MONTH(VarFecha)
+  AND E.Estado = 1
+  GROUP BY U.CodigoUsuarioSistema) AS B
+    ON B.CodigoUsuarioSistema = H.CodigoUsuarioSistema
+  LEFT JOIN (SELECT
+    E.CodigoUsuarioSistema,
+    P.Monto,
+    P.Cuotas,
+    P.Cuotas - COUNT(A.CodigoAbono) AS CuotasPendientes,
+    CASE
+      WHEN (P.Monto - SUM(IFNULL(A.Monto, 1))) = 0 THEN 0
+      WHEN (P.Monto - SUM(A.Monto)) IS NULL THEN P.Monto
+      WHEN (P.Monto - SUM(A.Monto)) IS NOT NULL THEN (P.Monto - SUM(A.Monto))
+    END AS SaldoPendiente
+  FROM Prestamo AS P
+  INNER JOIN Empleado AS E
+    ON E.CodigoEmpleado = P.CodigoEmpleado
+  LEFT JOIN Abono AS A
+    ON A.CodigoPrestamo = P.CodigoPrestamo
+  WHERE E.Estado = 1
+  GROUP BY P.CodigoPrestamo
+  HAVING CuotasPendientes > 0) AS PS
+    ON PS.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+  INNER JOIN Empleado AS EM
+    ON EM.CodigoUsuarioSistema = E.CodigoUsuarioSistema
+  GROUP BY H.CodigoUsuarioSistema,
+           H.Fecha) AS O;
+  IF(ROW_COUNT() > 0) THEN
+    call realizarAbonoPorNomina(VarFecha);
+  END IF;
+  SELECT COUNT(*) AS afected FROM Honorarios WHERE MONTH(FechaPago) = MONTH(VarFecha);
+  ELSE
+  SELECT 0 AS afected;
+  END IF;
+END //
+DELIMITER ;
+
+/*REALIZAR ABONO POR PRESTAMO*/
+DROP PROCEDURE IF EXISTS realizarAbonoPorNomina;
+
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS realizarAbonoPorNomina(IN VarFecha DATE)
+BEGIN
+	DECLARE done INT DEFAULT 0;
+	DECLARE CodigoPrestamo INT;
+  
+  	DECLARE cur CURSOR FOR 
+  		(SELECT PS.CodigoPrestamo
+		FROM Honorarios AS H
+		INNER JOIN Empleado AS E ON E.CodigoEmpleado = H.CodigoEmpleado
+		INNER JOIN Prestamo AS PS ON PS.CodigoEmpleado = E.CodigoEmpleado
+		WHERE FechaPago = VarFecha
+		AND AbonoPrestamo > 0);
+		
+  	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+  
+  	OPEN cur;
+  
+  	read_loop: LOOP
+    	FETCH cur INTO CodigoPrestamo;
+    	IF done THEN
+      		LEAVE read_loop;
+    	END IF;
+   	 	call guardarAbono(VarFecha, 1, CodigoPrestamo);
+  	END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
