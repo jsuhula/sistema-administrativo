@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('America/Guatemala');
+setlocale(LC_TIME, 'es_ES.UTF-8');
 
 session_start();
 
@@ -9,7 +10,7 @@ if (!$_SESSION) {
 
 $fechaHoraActual = date("d-m-Y H:i:s");
 $fechaOperacion = isset($_GET['fechaOperacion']) ? $_GET['fechaOperacion'] : "";
-$fechaOperacionReporte = date("d-m-Y", strtotime($fechaOperacion));
+$fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 
 ?>
 
