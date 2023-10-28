@@ -317,7 +317,8 @@ function main(){
         <!-- Generación de Informes -->
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Generación de Informes</h2>
-
+            <span id="noExisteReporteNominaSalario" class="text-center text-danger" hidden>No existe un reporte de nomina registrado en el periodo seleccionado</span>
+            <br/>
             <!-- Sección de Pago de Nómina -->
             <hr class="my-4">
             <div class="row mb-3 align-items-end">
@@ -329,11 +330,11 @@ function main(){
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <label for="fecha_informe_nomina" class="form-label">Fecha:</label>
-                    <input type="month" class="form-control" id="fecha_informe_nomina">
+                    <label for="fechaInformeNominaSalario" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fechaInformeNominaSalario">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                    <button type="submit" class="btn btn-success" onclick="validarExisteReporteNomina()">Generar Informe</button>
                 </div>
             </div>
 

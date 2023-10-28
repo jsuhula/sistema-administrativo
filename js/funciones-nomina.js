@@ -82,6 +82,34 @@ function confirmarNominaSalario() {
     }
 }
 
+function validarExisteReporteNomina(){
+    let fechaOperacion = document.getElementById('fechaInformeNominaSalario').value;
+    document.getElementById('noExisteReporteNominaSalario').setAttribute('hidden', true);
+    if (fechaOperacion !== "") {
+        let datos = {
+            fechaOperacion: fechaOperacion,
+            option: 2
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../controllers/nomina-controller.php", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onload = function () {
+
+            if (xhr.status === 200) {
+                window.open('../templates/reporte-nomina-salarios.php?fechaOperacion='+fechaOperacion, '_blank');
+                window.location.reload();
+            } else if (xhr.status === 400) {
+                document.getElementById('noExisteReporteNominaSalario').removeAttribute('hidden');
+            }else{
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify(datos));
+    }
+}
+
 function borrarContenidoTabla(nombreTabla) {
     var tabla = document.getElementById("" + nombreTabla + "");
     var tbody = tabla.getElementsByTagName("tbody")[0];
