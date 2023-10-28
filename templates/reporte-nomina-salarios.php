@@ -9,6 +9,7 @@ if (!$_SESSION) {
 
 $fechaHoraActual = date("d-m-Y H:i:s");
 $fechaOperacion = isset($_GET['fechaOperacion']) ? $_GET['fechaOperacion'] : "";
+$fechaOperacionReporte = date("d-m-Y", strtotime($fechaOperacion));
 
 ?>
 
@@ -49,7 +50,7 @@ $fechaOperacion = isset($_GET['fechaOperacion']) ? $_GET['fechaOperacion'] : "";
 					</span>
 					<br/>
 					<span>Fecha de Reporte Nomina:
-						<?php echo $fechaOperacion; ?>
+						<?php echo $fechaOperacionReporte; ?>
 					</span>
 				</div>
 				<hr>
