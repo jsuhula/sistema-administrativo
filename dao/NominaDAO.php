@@ -39,10 +39,11 @@ class NominaDAO
         return $prpstmt;
     }
 
-    public function calcularNominaBonificacionBono14()
+    public function validarExisteReporteNominaSalario(string $fechaOperacion)
     {
-        $query = "call calcularNominaBonificacionBono14()";
+        $query = "call validarExisteReporteNominaSalario(?)";
         $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
         $prpstmt->execute();
         return $prpstmt;
     }

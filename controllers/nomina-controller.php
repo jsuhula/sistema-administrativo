@@ -26,10 +26,8 @@ function main()
                 $tipoBonificacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_NUMBER_INT) : 0;
                 switch ($tipoBonificacion) {
                     case 1:
-                        calcularNominaBonificacionBono14($nominaDao);
                         break;
                     case 2:
-                        calcularNominaBonificacionAguinaldo($nominaDao);
                         break;
                     default:
                         break;
@@ -45,6 +43,10 @@ function main()
             case 1:
                 $fechaOperacion = $data->fechaOperacion;
                 guardarNominaSalario($fechaOperacion, $nominaDao);
+                break;
+            case 2:
+                $fechaOperacion = $data->fechaOperacion;
+                validarExisteReporteNominaSalario($fechaOperacion, $nominaDao);
                 break;
             default:
                 break;
@@ -98,34 +100,6 @@ function guardarNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
 
 }
 
-function calcularNominaBonificacionBono14(NominaDAO $nominaDao)
-{
-
-    try {
-
-        $result = $nominaDao->calcularNominaBonificacionBono14();
-
-        if ($result->rowCount() > 0) {
-            $registros = array(); // Almacena los registros en un arreglo
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[] = $row;
-            }
-
-            $registrosJSON = json_encode($registros);
-
-            // Devuelve los registros en formato JSON como respuesta HTTP
-            header('Content-Type: application/json');
-            echo $registrosJSON;
-        } else {
-            http_response_code(400); //
-        }
-    } catch (PDOException $ex) {
-        http_response_code(500); // Error en el servidor
-    }
-
-}
-
 function calcularNominaBonificacionAguinaldo(NominaDAO $nominaDao)
 {
 
@@ -154,5 +128,20 @@ function calcularNominaBonificacionAguinaldo(NominaDAO $nominaDao)
 
 }
 
+function validarExisteReporteNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
+{
+    try {
+        $result = $nominaDao->validarExisteReporteNominaSalario($fechaOperacion);
+
+        if ($result->fetch(PDO::FETCH_OBJ)->Existe > 0) {
+            http_response_code(200);
+        }else{
+            http_response_code(400);
+        }
+    } catch (PDOException $ex) {
+        http_response_code(500);
+    }
+
+}
 
 ?>
