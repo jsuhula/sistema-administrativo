@@ -112,7 +112,7 @@ function main(){
                     </tbody>
                 </table>
             </div>
-            <div id="existenciaReporteMesSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75" hidden>
+            <div id="existenciaReporteMesSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75 col-md-6 m-auto" hidden>
                 <span class="text-center text-white">Ya existe un reporte de nomina del mes seleccionado</span>
             </div>
             <button id="confirmarOperacionNominaSalario" class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
