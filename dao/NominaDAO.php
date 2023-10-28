@@ -12,20 +12,44 @@ class NominaDAO
         $this->connection = $this->connection->getConnection();
     }
 
-    public function calcularNominaSalario(string $fecha)
+    public function calcularNominaSalario(string $fechaOperacion)
     {
         $query = "call calcularNominaSalario(?)";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $fecha);
+        $prpstmt->bindParam(1, $fechaOperacion);
         $prpstmt->execute();
         return $prpstmt;
     }
 
-    public function guardarNominaSalario(string $fecha)
+    public function guardarHonorarios(string $fechaOperacion)
     {
-        $query = "call guardarNominaSalario(?)";
+        $query = "call guardarHonorarios(?)";
         $prpstmt = $this->connection->prepare($query);
-        $prpstmt->bindParam(1, $fecha);
+        $prpstmt->bindParam(1, $fechaOperacion);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function realizarAbonoPorNomina(string $fechaOperacion)
+    {
+        $query = "call realizarAbonoPorNomina(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
+    public function calcularNominaBonificacionBono14()
+    {
+        $query = "call calcularNominaBonificacionBono14()";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+    public function calcularNominaBonificacionAguinaldo()
+    {
+        $query = "call calcularNominaBonificacionAguinaldo()";
+        $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
         return $prpstmt;
     }

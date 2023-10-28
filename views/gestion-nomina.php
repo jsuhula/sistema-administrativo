@@ -82,11 +82,11 @@ function main(){
             <h2>Cálculo de Salarios</h2>
             <form>
                 <div class="row align-items-center justify-content-between">
-                    <label for="fechaNominaSalario" class="form-label">Mes:</label>
-                    <div class="col-md-6">
+                    <label for="fechaNominaSalario" class="form-label">Fecha Atención:</label>
+                    <div class="col-md-3 p-2">
                         <input type="date" class="form-control" id="fechaNominaSalario">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 p-2">
                         <button type="button" class="btn btn-secondary" onclick="calcularNominaSalario()">Calcular</button>
                     </div>
                 </div>
@@ -98,10 +98,10 @@ function main(){
                     <thead class="sticky-top">
                         <tr>
                             <th>Código Empleado</th>
-                            <th>Empleado</th>
                             <th>Salario</th>
                             <th>Comisiones</th>
                             <th>Horas Extras</th>
+                            <th>Horas No Trabajadas</th>
                             <th>IGSS</th>
                             <th>IRTRA</th>
                             <th>Cuota Prestamo</th>
@@ -112,8 +112,11 @@ function main(){
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
-                data-bs-target="#editarUsuarioModal" disabled>
+            <div id="existenciaReporteMesSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75" hidden>
+                <span class="text-center text-white">Ya existe un reporte de nomina del mes seleccionado</span>
+            </div>
+            <button id="confirmarOperacionNominaSalario" class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
+                data-bs-target="#editarUsuarioModal" disabled onclick="confirmarNominaSalario()">
                 CONFIRMAR OPERACION
             </button>
         </section>
@@ -124,14 +127,14 @@ function main(){
             <form>
                 <div class="row align-items-center justify-content-between">
                     <label for="tipo_bonificacion" class="form-label">Tipo Bonificacion:</label>
-                    <div class="col-md-6">
-                        <select class="form-select" id="tipo_bonificacion">
+                    <div class="col-md-3 p-2">
+                        <select class="form-select" id="SelectTipoBonificacion">
                             <option value="1">Bono 14</option>
                             <option value="2">Aguinaldo</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                    <div class="col-md-3 p-2">
+                        <button type="submit" class="btn btn-secondary" onclick="calcularNominaBonificacion()">Calcular</button>
                     </div>
                 </div>
             </form>
@@ -139,24 +142,16 @@ function main(){
             <!-- Resultado del cálculo de bonificaciones -->
             <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table class="table table-striped">
+                <table id="tablaNominaBonificacion" class="table table-striped text-end">
                     <thead class="sticky-top">
                         <tr>
-                            <th>Código</th>
+                            <th>Código Empleado</th>
                             <th>Empleado</th>
                             <th>Bonificacion</th>
-                            <th>Descuentos</th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>EMP01</td>
-                            <td>Empleado 1</td>
-                            <td>Q.3500.00</td>
-                            <td>Q.0.00</td>
-                            <td>Q.3500.00</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
