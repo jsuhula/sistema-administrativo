@@ -44,8 +44,12 @@ $fechaOperacion = isset($_GET['fechaOperacion']) ? $_GET['fechaOperacion'] : "";
 					<h4>Reporte de Nómina</h4>
 				</div>
 				<div class="text-end">
-					<span>Fecha del Reporte:
-						<?php echo $fechaHoraActual ?>
+					<span>Fecha de Generacion de Reporte:
+						<?php echo $fechaHoraActual; ?>
+					</span>
+					<br/>
+					<span>Fecha de Reporte Nomina:
+						<?php echo $fechaOperacion; ?>
 					</span>
 				</div>
 				<hr>
