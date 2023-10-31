@@ -37,8 +37,8 @@ function calcularNominaSalario() {
                         let cell13 = row.insertCell(12);
                         let cell14 = row.insertCell(13);
 
-                        cell1.innerHTML = registro.CodigoEmpleado;
-                        cell2.innerHTML = registro.NombreCompleto;
+                        cell1.innerHTML = registro.NombreCompleto;
+                        cell2.innerHTML = registro.Profesion;
                         cell3.innerHTML = Number(registro.SalarioBase).toFixed(2);
                         cell4.innerHTML = Number(registro.HorasTrabajadas).toFixed(2);
                         cell5.innerHTML = Number(registro.HorasExtras).toFixed(2);
