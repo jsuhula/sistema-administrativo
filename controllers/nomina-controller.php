@@ -23,8 +23,7 @@ function main()
                 calcularNominaSalario($fechaOperacion, $nominaDao);
                 break;
             case 2:
-                $tipoBonificacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_NUMBER_INT) : 0;
-                $fechaOperacion = $data->fechaOperacion;
+                $fechaOperacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_NUMBER_INT) : 0;
                 calcularPagoBono14($fechaOperacion, $nominaDao);
                 break;
         }
