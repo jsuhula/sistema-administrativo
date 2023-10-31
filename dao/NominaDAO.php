@@ -47,10 +47,11 @@ class NominaDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-    public function calcularPagoBono14()
+    public function calcularPagoBono14(string $fechaOperacion)
     {
-        $query = "call calcularPagoBono14()";
+        $query = "call calcularPagoBono14(?)";
         $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
         $prpstmt->execute();
         return $prpstmt;
     }
