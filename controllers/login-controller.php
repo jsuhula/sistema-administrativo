@@ -6,8 +6,6 @@ use dao\UsuarioAccessoDAO;
 if(!$_SESSION){
     if (main() != 0) {
         $_SESSION['CodigoUsuario'] = main();
-        $tiempoDeVidaSesion = 3600;
-        session_set_cookie_params($tiempoDeVidaSesion);
         header('Content-Type: application/json');
         echo json_encode(1);
     }
