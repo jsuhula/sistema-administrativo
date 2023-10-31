@@ -1092,6 +1092,7 @@ BEGIN
 	
 	SELECT H.Fecha
 		, EM.CodigoEmpleado
+    , EM.Profesion
 		, CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreCompleto
 		, CASE WHEN (H.HorasTrabajadas < H.HorasBase) 
 			THEN (H.PrecioHora * H.HorasTrabajadas)
@@ -1338,11 +1339,44 @@ END //
 DELIMITER ;
 
 /*VALIDAR EXISTE NOMINA SALARIO GENERADO*/
+DROP PROCEDURE IF EXISTS validarExisteReporteNominaSalario;
+
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS validarExisteReporteNominaSalario(IN VarFecha DATE)
 BEGIN
 	  SELECT COUNT(*) AS Existe
     FROM Honorarios
     WHERE MONTH(FechaPago) = MONTH(VarFecha);
+END //
+DELIMITER ;
+
+/*CALCULAR PAGO BONO14*/
+DROP PROCEDURE IF EXISTS calcularPagoBono14;
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS calcularPagoBono14(IN VarFecha DATE)
+BEGIN
+	  SELECT CASE 
+            WHEN PB.FechaUltimoPago = 0 OR PB.FechaUltimoPago IS NULL
+                THEN EM.FechaIngreso
+                  ELSE PB.FechaUltimoPago END AS FechaUltimoPago
+              , , EM.Profesion
+              , H.CodigoEmpleado
+              , CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado
+              , AVG(H.SalarioBase) AS Bono14
+    FROM Honorarios AS H
+    INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
+    LEFT JOIN (
+      SELECT COALESCE(DATE(PF.Fecha), 0) AS FechaUltimoPago,
+          COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
+          COALESCE(PF.CodigoTipoBonificacion, NULL) AS CodigoTipoBonificacion
+        FROM (
+            SELECT 1 AS dummy
+        ) AS dummy
+        LEFT JOIN PagoBonificacion AS PF ON 1=1
+        ORDER BY DATE(PF.Fecha) DESC
+        LIMIT 1
+    ) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
+    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
+    GROUP BY EM.CodigoEmpleado;
 END //
 DELIMITER ;

@@ -110,6 +110,12 @@ function validarExisteReporteNomina(){
     }
 }
 
+function validarExisteReporteNomina(){
+    let fechaOperacion = document.getElementById('fechaPagoBono14').value;
+    window.open('../templates/reporte-nomina-salarios.php?fechaOperacion='+fechaOperacion, '_blank');
+    window.location.reload();
+}
+
 function borrarContenidoTabla(nombreTabla) {
     var tabla = document.getElementById("" + nombreTabla + "");
     var tbody = tabla.getElementsByTagName("tbody")[0];
