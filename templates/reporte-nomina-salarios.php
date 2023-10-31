@@ -59,8 +59,8 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 					<table id="tablaNominaSalario" class="table table-striped text-end">
 						<thead class="sticky-top text-white">
 							<tr>
-								<th>Código</th>
 								<th>Empleado</th>
+								<th>Puesto</th>
 								<th>Salario Base</th>
 								<th>Cant. Horas Trabajadas</th>
 								<th>Cant. Horas Extras</th>
