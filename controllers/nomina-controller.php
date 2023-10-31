@@ -24,14 +24,8 @@ function main()
                 break;
             case 2:
                 $tipoBonificacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_NUMBER_INT) : 0;
-                switch ($tipoBonificacion) {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        break;
-                }
+                $fechaOperacion = $data->fechaOperacion;
+                calcularPagoBono14($fechaOperacion, $nominaDao);
                 break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -47,10 +41,6 @@ function main()
             case 2:
                 $fechaOperacion = $data->fechaOperacion;
                 validarExisteReporteNominaSalario($fechaOperacion, $nominaDao);
-                break;
-            case 3:
-                $fechaOperacion = $data->fechaOperacion;
-                calcularPagoBono14($fechaOperacion, $nominaDao);
                 break;
             default:
                 break;
