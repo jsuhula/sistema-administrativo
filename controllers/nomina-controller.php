@@ -48,6 +48,10 @@ function main()
                 $fechaOperacion = $data->fechaOperacion;
                 validarExisteReporteNominaSalario($fechaOperacion, $nominaDao);
                 break;
+            case 3:
+                $fechaOperacion = $data->fechaOperacion;
+                calcularPagoBono14($fechaOperacion, $nominaDao);
+                break;
             default:
                 break;
         }
@@ -97,15 +101,30 @@ function guardarNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
     } catch (PDOException $ex) {
         http_response_code(500);
     }
+}
+
+function validarExisteReporteNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
+{
+    try {
+        $result = $nominaDao->validarExisteReporteNominaSalario($fechaOperacion);
+
+        if ($result->fetch(PDO::FETCH_OBJ)->Existe > 0) {
+            http_response_code(200);
+        }else{
+            http_response_code(400);
+        }
+    } catch (PDOException $ex) {
+        http_response_code(500);
+    }
 
 }
 
-function calcularNominaBonificacionAguinaldo(NominaDAO $nominaDao)
+function calcularPagoBono14(string $fechaOperacion, NominaDAO $nominaDao)
 {
 
     try {
 
-        $result = $nominaDao->calcularNominaBonificacionAguinaldo();
+        $result = $nominaDao->calcularPagoBono14($fechaOperacion);
 
         if ($result->rowCount() > 0) {
             $registros = array(); // Almacena los registros en un arreglo
@@ -124,22 +143,6 @@ function calcularNominaBonificacionAguinaldo(NominaDAO $nominaDao)
         }
     } catch (PDOException $ex) {
         http_response_code(500); // Error en el servidor
-    }
-
-}
-
-function validarExisteReporteNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
-{
-    try {
-        $result = $nominaDao->validarExisteReporteNominaSalario($fechaOperacion);
-
-        if ($result->fetch(PDO::FETCH_OBJ)->Existe > 0) {
-            http_response_code(200);
-        }else{
-            http_response_code(400);
-        }
-    } catch (PDOException $ex) {
-        http_response_code(500);
     }
 
 }

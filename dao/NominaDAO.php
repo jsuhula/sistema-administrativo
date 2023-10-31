@@ -47,9 +47,9 @@ class NominaDAO
         $prpstmt->execute();
         return $prpstmt;
     }
-    public function calcularNominaBonificacionAguinaldo()
+    public function calcularPagoBono14()
     {
-        $query = "call calcularNominaBonificacionAguinaldo()";
+        $query = "call calcularPagoBono14()";
         $prpstmt = $this->connection->prepare($query);
         $prpstmt->execute();
         return $prpstmt;

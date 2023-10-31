@@ -341,7 +341,7 @@ function main(){
             <!-- Sección de Pago de Bonificaciones -->
             <hr class="my-4">
             <div class="row mb-3 align-items-end">
-                <h3 class="text-secondary pt-2">Pago Bonificaciones</h3>
+                <h3 class="text-secondary pt-2">Pago Bono 14</h3>
                 <div class="col-md-6 mb-2">
                     <label for="tipo_informe_bonificacion" class="form-label">Tipo:</label>
                     <select class="form-select" id="tipo_informe_bonificacion">
@@ -350,11 +350,11 @@ function main(){
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <label for="fecha_informe_bonificacion" class="form-label">Fecha:</label>
-                    <input type="month" class="form-control" id="fecha_informe_bonificacion">
+                    <label for="fechaPagoBono14" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fechaPagoBono14">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                <button type="submit" class="btn btn-success" onclick="exportarPagoBono14()">Generar Informe</button>
                 </div>
             </div>
 
