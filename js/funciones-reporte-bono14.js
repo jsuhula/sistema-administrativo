@@ -29,9 +29,9 @@ function calcularPagoBono14() {
                         let cell5 = row.insertCell(4);
 
                         cell1.innerHTML = registro.FechaUltimoPago;
-                        cell2.innerHTML = registro.CodigoEmpleado;
-                        cell3.innerHTML = registro.NombreEmpleado;
-                        cell4.innerHTML = registro.Profesion;
+                        cell2.innerHTML = registro.NombreEmpleado;
+                        cell3.innerHTML = registro.Profesion;
+                        cell4.innerHTML = Number(registro.Bono14).toFixed(2);
                         cell5.innerHTML = Number(registro.Bono14).toFixed(2);
 
                     });
