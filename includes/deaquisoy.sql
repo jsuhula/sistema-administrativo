@@ -1376,7 +1376,7 @@ BEGIN
         ORDER BY DATE(PF.FechaPago) DESC
         LIMIT 1
     ) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
-    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
+    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha AND EM.Estado = 1
     GROUP BY EM.CodigoEmpleado;
 END //
 DELIMITER ;
@@ -1410,7 +1410,7 @@ FROM
       LEFT JOIN PagoBonificacion AS PF ON 1=1
       ORDER BY DATE(PF.FechaPago) DESC
       LIMIT 1) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
-   WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
+   WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha AND EM.Estado = 1
    GROUP BY EM.CodigoEmpleado) AS PB;
    SELECT COUNT(*) AS afected FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha);
 ELSE

@@ -11,6 +11,7 @@ function calcularNominaSalario() {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
+                borrarContenidoTabla("tablaNominaSalario");
                 var data = JSON.parse(xhr.responseText);
 
                 var tabla = document.getElementById("tablaNominaSalario").getElementsByTagName("tbody")[0];
@@ -105,8 +106,8 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
+                borrarContenidoTabla("tablaPagoBono14");
                 var data = JSON.parse(xhr.responseText);
-                let fecha = "";
 
                 var tabla = document.getElementById("tablaPagoBono14").getElementsByTagName("tbody")[0];
                 document.getElementById('confirmarOperacionPagoBono14').removeAttribute('disabled');
