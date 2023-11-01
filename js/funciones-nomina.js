@@ -113,6 +113,7 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
                 document.getElementById('SelectTipoBonificacion').setAttribute('disabled', true);
                 /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
                 borrarContenidoTabla("tablaPagoBono14");
+                console.log(data);
                 data.forEach(function (registro) {
                     let row = tabla.insertRow();
                     let cell1 = row.insertCell(0);
