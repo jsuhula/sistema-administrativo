@@ -56,7 +56,7 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 				</div>
 				<hr>
 				<div>
-					<table id="tablaPagoSalario" class="table table-striped text-end">
+					<table id="tablaPagoBono14" class="table table-striped text-end">
 						<thead class="sticky-top text-white">
 							<tr>
 								<th>Fecha Ultimo Bono</th>

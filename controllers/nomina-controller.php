@@ -24,7 +24,8 @@ function main()
                 break;
             case 2:
                 $fechaOperacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_NUMBER_INT) : 0;
-                calcularPagoBono14($fechaOperacion, $nominaDao);
+                $codigoTipoBonificacion = isset($_GET['codigoTipoBonificacion']) ? filter_var($_GET['codigoTipoBonificacion']) : 0;
+                calcularPagoBonificacion($fechaOperacion, intval($codigoTipoBonificacion), $nominaDao);
                 break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -39,13 +40,18 @@ function main()
                 break;
             case 2:
                 $fechaOperacion = $data->fechaOperacion;
+                $codigoTipoBonificacion = $data->codigoTipoBonificacion;
+                guardarReporteBonificacion($fechaOperacion, intval($codigoTipoBonificacion), $nominaDao);
+                break;
+            case 4:
+                $fechaOperacion = $data->fechaOperacion;
                 validarExisteReporteNominaSalario($fechaOperacion, $nominaDao);
                 break;
             default:
                 break;
         }
     } else {
-        http_response_code(400); // Solicitud incorrecta
+        http_response_code(400);
     }
 }
 
@@ -82,7 +88,6 @@ function guardarNominaSalario(string $fechaOperacion, NominaDAO $nominaDao)
         $result = $nominaDao->guardarHonorarios($fechaOperacion);
 
         if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
-            //$result = $nominaDao->realizarAbonoPorNomina($fechaOperacion);
             http_response_code(200);
         } else {
             http_response_code(400);
@@ -99,7 +104,7 @@ function validarExisteReporteNominaSalario(string $fechaOperacion, NominaDAO $no
 
         if ($result->fetch(PDO::FETCH_OBJ)->Existe > 0) {
             http_response_code(200);
-        }else{
+        } else {
             http_response_code(400);
         }
     } catch (PDOException $ex) {
@@ -108,32 +113,47 @@ function validarExisteReporteNominaSalario(string $fechaOperacion, NominaDAO $no
 
 }
 
-function calcularPagoBono14(string $fechaOperacion, NominaDAO $nominaDao)
+function calcularPagoBonificacion(string $fechaOperacion, int $codigoTipoBonificacion, NominaDAO $nominaDao)
 {
 
     try {
+        if ($codigoTipoBonificacion == 1) {
+            $result = $nominaDao->calcularPagoBono14($fechaOperacion);
 
-        $result = $nominaDao->calcularPagoBono14($fechaOperacion);
+            if ($result->rowCount() > 0) {
+                $registros = array(); // Almacena los registros en un arreglo
 
-        if ($result->rowCount() > 0) {
-            $registros = array(); // Almacena los registros en un arreglo
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $registros[] = $row;
+                }
 
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[] = $row;
+                $registrosJSON = json_encode($registros);
+
+                // Devuelve los registros en formato JSON como respuesta HTTP
+                header('Content-Type: application/json');
+                echo $registrosJSON;
+            } else {
+                http_response_code(400); //
             }
-
-            $registrosJSON = json_encode($registros);
-
-            // Devuelve los registros en formato JSON como respuesta HTTP
-            header('Content-Type: application/json');
-            echo $registrosJSON;
-        } else {
-            http_response_code(400); //
         }
     } catch (PDOException $ex) {
         http_response_code(500); // Error en el servidor
     }
 
+}
+
+function guardarReporteBonificacion(string $fechaOperacion, int $codigoTipoBonificacion, NominaDAO $nominaDao)
+{
+    try {
+        $result = $nominaDao->guardarReportePagoBono($fechaOperacion, $codigoTipoBonificacion);
+        if ($result->fetch(PDO::FETCH_OBJ)->afected > 0) {
+            http_response_code(200);
+        } else {
+            http_response_code(400);
+        }
+    } catch (PDOException $ex) {
+        http_response_code(500);
+    }
 }
 
 ?>

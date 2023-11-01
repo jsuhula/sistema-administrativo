@@ -305,7 +305,7 @@ CREATE TABLE `TipoBonificacion` (
 CREATE TABLE `PagoBonificacion` (
   `CodigoPagoBonificacion` INT AUTO_INCREMENT NOT NULL,
   `Monto` DECIMAL(10,2),
-  `Fecha` DATETIME,
+  `FechaPago` DATE,
   `CodigoEmpleado` VARCHAR(10),
   `CodigoTipoBonificacion` INT,
   PRIMARY KEY (`CodigoPagoBonificacion`)
@@ -1359,24 +1359,73 @@ BEGIN
             WHEN PB.FechaUltimoPago = 0 OR PB.FechaUltimoPago IS NULL
                 THEN EM.FechaIngreso
                   ELSE PB.FechaUltimoPago END AS FechaUltimoPago
-              , , EM.Profesion
+              , EM.Profesion
               , H.CodigoEmpleado
               , CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado
-              , AVG(H.SalarioBase) AS Bono14
+              , (EM.SalarioBase/12) * COUNT(H.FechaPago) AS Bono14
     FROM Honorarios AS H
     INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
     LEFT JOIN (
-      SELECT COALESCE(DATE(PF.Fecha), 0) AS FechaUltimoPago,
+      SELECT COALESCE(DATE(PF.FechaPago), 0) AS FechaUltimoPago,
           COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
           COALESCE(PF.CodigoTipoBonificacion, NULL) AS CodigoTipoBonificacion
         FROM (
             SELECT 1 AS dummy
         ) AS dummy
         LEFT JOIN PagoBonificacion AS PF ON 1=1
-        ORDER BY DATE(PF.Fecha) DESC
+        ORDER BY DATE(PF.FechaPago) DESC
         LIMIT 1
     ) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
     GROUP BY EM.CodigoEmpleado;
+END //
+DELIMITER ;
+
+/*GUARDAR PAGO BONIFICACION*/
+DROP PROCEDURE IF EXISTS guardarReportePagoBono;
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS guardarReportePagoBono(IN VarFecha DATE, IN VarCodigoTipoBonificacion INT) BEGIN
+IF (SELECT COUNT(*) AS Existe FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha) AND CodigoTipoBonificacion = VarCodigoTipoBonificacion) = 0
+THEN
+INSERT INTO PagoBonificacion (Monto, FechaPago, CodigoEmpleado, CodigoTipoBonificacion)
+SELECT PB.Bono14, VarFecha, PB.CodigoEmpleado, VarCodigoTipoBonificacion
+FROM
+  (SELECT CASE
+              WHEN PB.FechaUltimoPago = 0
+                   OR PB.FechaUltimoPago IS NULL THEN EM.FechaIngreso
+              ELSE PB.FechaUltimoPago
+          END AS FechaUltimoPago ,
+          EM.Profesion ,
+          H.CodigoEmpleado ,
+          CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado ,
+          (EM.SalarioBase/12) * COUNT(H.FechaPago) AS Bono14
+   FROM Honorarios AS H
+   INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
+   LEFT JOIN
+     (SELECT COALESCE(DATE(PF.FechaPago), 0) AS FechaUltimoPago,
+             COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
+             COALESCE(PF.CodigoTipoBonificacion, NULL) AS CodigoTipoBonificacion
+      FROM
+        (SELECT 1 AS dummy) AS dummy
+      LEFT JOIN PagoBonificacion AS PF ON 1=1
+      ORDER BY DATE(PF.FechaPago) DESC
+      LIMIT 1) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
+   WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
+   GROUP BY EM.CodigoEmpleado) AS PB;
+   SELECT COUNT(*) AS afected FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha);
+ELSE
+  SELECT 0 AS afected;
+END IF;
+END //
+DELIMITER ;
+
+/*VALIDAR EXISTE NOMINA SALARIO GENERADO*/
+DROP PROCEDURE IF EXISTS validarExisteReportePagoBonificacion;
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS validarExisteReportePagoBonificacion(IN VarCodigoTipoBonificacion INT)
+BEGIN
+	  SELECT COUNT(*) AS Existe
+    FROM TipoBonificacion
+    WHERE YEAR(FechaPago) = YEAR(VarFecha);
 END //
 DELIMITER ;

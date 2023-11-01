@@ -55,5 +55,15 @@ class NominaDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+
+    public function guardarReportePagoBono(string $fechaOperacion, int $codigoPagoBonificacion)
+    {
+        $query = "call guardarReportePagoBono(?, ?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
+        $prpstmt->bindParam(2, $codigoPagoBonificacion);
+        $prpstmt->execute();
+        return $prpstmt;
+    }    
 }
 ?>

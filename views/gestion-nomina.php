@@ -1,15 +1,16 @@
-<?php 
+<?php
 date_default_timezone_set('America/Guatemala');
 use dao\UsuarioAccessoDAO;
 
 session_start();
 if (!$_SESSION) {
-  header('location: ../login.php');
+    header('location: ../login.php');
 }
 
 main();
 
-function main(){
+function main()
+{
     require_once('../dao/UsuarioAccessoDAO.php');
     require_once('../includes/MySQLConnector.php');
     $usuario = new UsuarioAccessoDAO();
@@ -22,6 +23,8 @@ function main(){
         header('location: ../login.php');
     }
 }
+
+$fechaOperacion = date("Y-m-d");
 
 ?>
 <!DOCTYPE html>
@@ -53,22 +56,24 @@ function main(){
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#salarios" data-section="salarios"><i class="fa-solid fa-wallet"></i> Pago Salarios</a>
+                        <a class="nav-link" href="#salarios" data-section="salarios"><i class="fa-solid fa-wallet"></i>
+                            Pago Salarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones"><i class="fa-solid fa-wallet"></i> Pago Bonificacion</a>
+                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones"><i
+                                class="fa-solid fa-wallet"></i> Pago Bonificacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#liquidacion" data-section="liquidacion"><i class="fa-solid fa-file-contract"></i> Liquidacion</a>
+                        <a class="nav-link" href="#liquidacion" data-section="liquidacion"><i
+                                class="fa-solid fa-file-contract"></i> Liquidacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#informes" data-section="informes"><i class="fa-solid fa-chart-simple"></i> Informes</a>
+                        <a class="nav-link" href="#informes" data-section="informes"><i
+                                class="fa-solid fa-chart-simple"></i> Informes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#comisiones" data-section="comisiones"><i class="fa-solid fa-dollar-sign"></i> Comisiones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#resumen" data-section="resumen"><i class="fa-solid fa-list"></i> Resumen</a>
+                        <a class="nav-link" href="#resumen" data-section="resumen"><i class="fa-solid fa-list"></i>
+                            Resumen</a>
                     </li>
                 </ul>
             </div>
@@ -87,7 +92,8 @@ function main(){
                         <input type="date" class="form-control" id="fechaNominaSalario">
                     </div>
                     <div class="col-md-3 p-2">
-                        <button type="button" class="btn btn-secondary" onclick="calcularNominaSalario()">Calcular</button>
+                        <button type="button" class="btn btn-secondary"
+                            onclick="calcularNominaSalario()">Calcular</button>
                     </div>
                 </div>
             </form>
@@ -112,11 +118,11 @@ function main(){
                     </tbody>
                 </table>
             </div>
-            <div id="existenciaReporteMesSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75 col-md-6 m-auto" hidden>
+            <div id="existenciaReporteMesSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75 col-md-6 m-auto"
+                hidden>
                 <span class="text-center text-white">Ya existe un reporte de nómina en el periodo seleccionado</span>
             </div>
-            <button id="confirmarOperacionNominaSalario" class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
-                data-bs-target="#editarUsuarioModal" disabled onclick="confirmarNominaSalario()">
+            <button id="confirmarOperacionNominaSalario" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarNominaSalario()">
                 CONFIRMAR OPERACION
             </button>
         </section>
@@ -126,15 +132,19 @@ function main(){
             <h2>Cálculo de Bonificaciones</h2>
             <form>
                 <div class="row align-items-center justify-content-between">
-                    <label for="tipo_bonificacion" class="form-label">Tipo Bonificacion:</label>
-                    <div class="col-md-3 p-2">
+                    <label for="SelectTipoBonificacion" class="form-label">Tipo Bonificacion:</label>
+                    <div class="col-sm-3 p-2">
                         <select class="form-select" id="SelectTipoBonificacion">
                             <option value="1">Bono 14</option>
                             <option value="2">Aguinaldo</option>
                         </select>
                     </div>
-                    <div class="col-md-3 p-2">
-                        <button type="submit" class="btn btn-secondary" onclick="calcularNominaBonificacion()">Calcular</button>
+                    <div class="col-sm-3 p-2">
+                    <input type="date" class="form-control" id="fechaPagoBono14">
+                    </div>
+                    <div class="col-sm-3 p-2">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="calcularBonificacion()">Calcular</button>
                     </div>
                 </div>
             </form>
@@ -142,12 +152,13 @@ function main(){
             <!-- Resultado del cálculo de bonificaciones -->
             <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table id="tablaNominaBonificacion" class="table table-striped text-end">
+                <table id="tablaPagoBono14" class="table table-striped text-end">
                     <thead class="sticky-top">
                         <tr>
-                            <th>Código Empleado</th>
+                            <th>Fecha Ultimo Bono</th>
                             <th>Empleado</th>
-                            <th>Bonificacion</th>
+                            <th>Puesto</th>
+                            <th>Bono</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -155,83 +166,13 @@ function main(){
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-danger bg-opacity-50 mt-3" data-bs-toggle="modal"
-                data-bs-target="#editarUsuarioModal" disabled>
+            <div id="existenciaPagoBonoSeleccionado" class="row bg-danger p-2 rounded-4 bg-opacity-75 col-md-6 m-auto"
+                hidden>
+                <span class="text-center text-white">Ya existe un reporte de pago para la bonificación seleccionada</span>
+            </div>
+            <button id="confirmarOperacionPagoBono14" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarPagoBonificacion()">
                 CONFIRMAR OPERACION
             </button>
-        </section>
-
-        <!-- Seccion de Comisiones -->
-        <section id="comisiones" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
-            <h2>Comisiones de Meseros y Chefs</h2>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="tipoNomina" class="form-label">Seleccione:</label>
-                    <select class="form-select" id="tipoNomina">
-                        <option value="1">Chef/Cocinero (a)</option>
-                        <option value="2">Mesero (a)</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="mesInforme" class="form-label">Selecciona el Mes:</label>
-                    <input type="month" class="form-control" id="mesInforme">
-                </div>
-            </div>
-
-            <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table class="table table-striped" id="tablaComisiones">
-                    <thead class="sticky-top">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Monto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,120.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,120.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,120.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,120.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,100.00</td>
-                        </tr>
-                        <tr>
-                            <td>Mesero/Chef</td>
-                            <td>Q.1,120.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
         </section>
 
         <!-- Calculo de liquidacion -->
@@ -317,8 +258,9 @@ function main(){
         <!-- Generación de Informes -->
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Generación de Informes</h2>
-            <span id="noExisteReporteNominaSalario" class="text-center text-danger" hidden>No existe un reporte de nomina registrado en el periodo seleccionado</span>
-            <br/>
+            <span id="noExisteReporteNominaSalario" class="text-center text-danger" hidden>No existe un reporte de
+                nomina registrado en el periodo seleccionado</span>
+            <br />
             <!-- Sección de Pago de Nómina -->
             <hr class="my-4">
             <div class="row mb-3 align-items-end">
@@ -334,7 +276,8 @@ function main(){
                     <input type="date" class="form-control" id="fechaInformeNominaSalario">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success" onclick="validarExisteReporteNomina()">Generar Informe</button>
+                    <button type="submit" class="btn btn-success" onclick="validarExisteReporteNomina()">Generar
+                        Informe</button>
                 </div>
             </div>
 
@@ -350,11 +293,12 @@ function main(){
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <label for="fechaPagoBono14" class="form-label">Fecha:</label>
-                    <input type="date" class="form-control" id="fechaPagoBono14">
+                    <label for="fechaInformePagoBono14" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fechaInformePagoBono14">
                 </div>
                 <div class="col-md-3 mb-2">
-                <button type="submit" class="btn btn-success" onclick="exportarPagoBono14()">Generar Informe</button>
+                    <button type="submit" class="btn btn-success" onclick="exportarPagoBono14()">Generar
+                        Informe</button>
                 </div>
             </div>
 
@@ -433,7 +377,6 @@ function main(){
             const informes = document.getElementById('informes');
             const liquidaciones = document.getElementById('liquidacion');
             const resumen = document.getElementById('resumen');
-            const comisiones = document.getElementById('comisiones');
             const regresarLink = document.getElementById('regresar');
 
             const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
@@ -449,7 +392,6 @@ function main(){
                         informes.setAttribute('hidden', 'true');
                         liquidaciones.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
-                        comisiones.setAttribute('hidden', 'true');
                         bonificaciones.setAttribute('hidden', true);
 
                     } else if (targetId === 'bonificaciones') {
@@ -458,7 +400,6 @@ function main(){
                         informes.setAttribute('hidden', 'true');
                         liquidaciones.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
-                        comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
 
                     } else if (targetId === 'informes') {
@@ -466,7 +407,6 @@ function main(){
 
                         liquidaciones.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
-                        comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
                         bonificaciones.setAttribute('hidden', true);
 
@@ -475,7 +415,6 @@ function main(){
 
                         informes.setAttribute('hidden', 'true');
                         resumen.setAttribute('hidden', 'true');
-                        comisiones.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
                         bonificaciones.setAttribute('hidden', true);
 
@@ -484,16 +423,6 @@ function main(){
 
                         informes.setAttribute('hidden', 'true');
                         liquidaciones.setAttribute('hidden', 'true');
-                        comisiones.setAttribute('hidden', 'true');
-                        salarios.setAttribute('hidden', 'true');
-                        bonificaciones.setAttribute('hidden', true);
-
-                    } else if (targetId === 'comisiones') {
-                        comisiones.removeAttribute('hidden');
-
-                        informes.setAttribute('hidden', 'true');
-                        liquidaciones.setAttribute('hidden', 'true');
-                        resumen.setAttribute('hidden', 'true');
                         salarios.setAttribute('hidden', 'true');
                         bonificaciones.setAttribute('hidden', true);
 

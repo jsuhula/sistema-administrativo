@@ -8,7 +8,7 @@ function calcularPagoBono14() {
     if (fecha !== "") {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&fechaOperacion=" + encodeURIComponent(fecha);
+        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(1) + "&fechaOperacion=" + encodeURIComponent(fecha);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -18,7 +18,7 @@ function calcularPagoBono14() {
                 var data = JSON.parse(xhr.responseText);
                 let fecha = "";
 
-                var tabla = document.getElementById("tablaPagoSalario").getElementsByTagName("tbody")[0];
+                var tabla = document.getElementById("tablaPagoBono14").getElementsByTagName("tbody")[0];
                     /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
                     data.forEach(function (registro) {
                         let row = tabla.insertRow();
