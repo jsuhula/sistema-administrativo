@@ -93,6 +93,7 @@ function calcularBonificacion() {
 
 function implCalcularPagoBonificacion(codigoTipoBonificacion) {
 
+    document.getElementById('existenciaPagoBonoSeleccionado').setAttribute('hidden', true);
     let fecha = document.getElementById('fechaPagoBono14').value;
 
     if (fecha !== "") {
@@ -129,6 +130,8 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
                     cell5.innerHTML = Number(registro.Bono14).toFixed(2);
 
                 });
+            }else if (xhr.status === 400){
+                document.getElementById('existenciaPagoBonoSeleccionado').removeAttribute('hidden');
             }
         };
 
@@ -171,8 +174,6 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
                 document.getElementById('existenciaPagoBonoSeleccionado').removeAttribute('hidden');
                 document.getElementById('fechaPagoBono14').removeAttribute('disabled');
                 document.getElementById('confirmarOperacionPagoBono14').setAttribute('disabled', true);
-            } else {
-                console.log(xhr.responseText);
             }
         };
         xhr.send(JSON.stringify(datos));
