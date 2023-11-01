@@ -49,7 +49,6 @@ function calcularNominaSalario() {
     }
 }
 
-
 function confirmarNominaSalario() {
 
     let fechaOperacion = document.getElementById('fechaNominaSalario').value;
@@ -82,13 +81,117 @@ function confirmarNominaSalario() {
     }
 }
 
+function calcularBonificacion(){
+    let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
+
+    if(bonificacionSeleccionada === "1"){
+        implCalcularPagoBonificacion(1);
+    }else if(bonificacionSeleccionada === "2"){
+        implCalcularPagoBonificacion(2);
+    }
+}
+
+function implCalcularPagoBonificacion(codigoTipoBonificacion) {
+
+    let fecha = document.getElementById('fechaPagoBono14').value;
+
+    if (fecha !== "") {
+
+        var xhr = new XMLHttpRequest();
+        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion="+ encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
+
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                let fecha = "";
+
+                var tabla = document.getElementById("tablaPagoBono14").getElementsByTagName("tbody")[0];
+                document.getElementById('confirmarOperacionPagoBono14').removeAttribute('disabled');
+                document.getElementById('fechaPagoBono14').setAttribute('disabled', true);
+                document.getElementById('SelectTipoBonificacion').setAttribute('disabled', true);
+                    /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
+                    data.forEach(function (registro) {
+                        let row = tabla.insertRow();
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cell4 = row.insertCell(3);
+                        let cell5 = row.insertCell(4);
+
+                        cell1.innerHTML = registro.FechaUltimoPago;
+                        cell2.innerHTML = registro.NombreEmpleado;
+                        cell3.innerHTML = registro.Profesion;
+                        cell4.innerHTML = Number(registro.Bono14).toFixed(2);
+                        cell5.innerHTML = Number(registro.Bono14).toFixed(2);
+
+                    });
+            }
+        };
+
+        xhr.send();
+    }
+}
+
+function confirmarPagoBonificacion(){
+    let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
+
+    if(bonificacionSeleccionada === "1"){
+        implConfirmarPagoBonificacion(1);
+    }else if(bonificacionSeleccionada === "2"){
+        implConfirmarPagoBonificacion(2)
+    }
+}
+
+function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
+
+    let fechaOperacion = document.getElementById('fechaPagoBono14').value;
+    document.getElementById('existenciaPagoBonoSeleccionado').setAttribute('hidden', true);
+    if (fechaOperacion !== "") {
+        let datos = {
+            fechaOperacion: fechaOperacion,
+            codigoTipoBonificacion: codigoTipoBonificacion,
+            option: 2
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../controllers/nomina-controller.php", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onload = function () {
+
+            if (xhr.status === 200) {
+                document.getElementById('confirmarOperacionPagoBono14').setAttribute('disabled', true);
+                window.open('../templates/reporte-nomina-bono14.php?fechaOperacion='+fechaOperacion, '_blank');
+                window.location.reload();
+            } else if (xhr.status === 400) {
+                document.getElementById('existenciaPagoBonoSeleccionado').removeAttribute('hidden');
+                document.getElementById('fechaPagoBono14').removeAttribute('disabled');
+                document.getElementById('confirmarOperacionPagoBono14').setAttribute('disabled', true);
+            }else{
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify(datos));
+    }
+}
+
+function exportarPagoBono14(){
+    let fechaOperacion = document.getElementById('fechaInformePagoBono14').value;
+    console.log(fechaOperacion);
+    window.open('../templates/reporte-nomina-bono14.php?fechaOperacion='+fechaOperacion, '_blank');
+    //window.location.reload();
+}
+
 function validarExisteReporteNomina(){
     let fechaOperacion = document.getElementById('fechaInformeNominaSalario').value;
     document.getElementById('noExisteReporteNominaSalario').setAttribute('hidden', true);
     if (fechaOperacion !== "") {
         let datos = {
             fechaOperacion: fechaOperacion,
-            option: 2
+            option: 4
         };
 
         var xhr = new XMLHttpRequest();
@@ -108,12 +211,6 @@ function validarExisteReporteNomina(){
         };
         xhr.send(JSON.stringify(datos));
     }
-}
-
-function exportarPagoBono14(){
-    let fechaOperacion = document.getElementById('fechaPagoBono14').value;
-    window.open('../templates/reporte-nomina-bono14.php?fechaOperacion='+fechaOperacion, '_blank');
-    window.location.reload();
 }
 
 function borrarContenidoTabla(nombreTabla) {
