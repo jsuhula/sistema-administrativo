@@ -1364,7 +1364,7 @@ BEGIN
               , CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado
               , (EM.SalarioBase/12) * COUNT(H.FechaPago) AS Bono14
     FROM Honorarios AS H
-    INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
+    INNER JOIN (SELECT * FROM Empleado WHERE Estado = 1) AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
     LEFT JOIN (
       SELECT COALESCE(DATE(PF.FechaPago), 0) AS FechaUltimoPago,
           COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
@@ -1374,9 +1374,8 @@ BEGIN
         ) AS dummy
         LEFT JOIN PagoBonificacion AS PF ON 1=1
         ORDER BY DATE(PF.FechaPago) DESC
-        LIMIT 1
-    ) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
-    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha AND EM.Estado = 1
+    ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
+    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
     GROUP BY EM.CodigoEmpleado;
 END //
 DELIMITER ;
@@ -1400,7 +1399,7 @@ FROM
           CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado ,
           (EM.SalarioBase/12) * COUNT(H.FechaPago) AS Bono14
    FROM Honorarios AS H
-   INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
+   INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado AND EM.Estado = 1
    LEFT JOIN
      (SELECT COALESCE(DATE(PF.FechaPago), 0) AS FechaUltimoPago,
              COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
@@ -1410,7 +1409,7 @@ FROM
       LEFT JOIN PagoBonificacion AS PF ON 1=1
       ORDER BY DATE(PF.FechaPago) DESC
       LIMIT 1) AS PB ON PB.CodigoEmpleado = H.CodigoEmpleado
-   WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha AND EM.Estado = 1
+   WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
    GROUP BY EM.CodigoEmpleado) AS PB;
    SELECT COUNT(*) AS afected FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha);
 ELSE
