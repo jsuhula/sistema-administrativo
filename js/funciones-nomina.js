@@ -11,7 +11,6 @@ function calcularNominaSalario() {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                borrarContenidoTabla("tablaNominaSalario");
                 var data = JSON.parse(xhr.responseText);
 
                 var tabla = document.getElementById("tablaNominaSalario").getElementsByTagName("tbody")[0];
@@ -68,13 +67,13 @@ function confirmarNominaSalario() {
 
             if (xhr.status === 200) {
                 document.getElementById('confirmarOperacionNominaSalario').setAttribute('disabled', true);
-                window.open('../templates/reporte-nomina-salarios.php?fechaOperacion='+fechaOperacion, '_blank');
+                window.open('../templates/reporte-nomina-salarios.php?fechaOperacion=' + fechaOperacion, '_blank');
                 window.location.reload();
             } else if (xhr.status === 400) {
                 document.getElementById('existenciaReporteMesSeleccionado').removeAttribute('hidden');
                 document.getElementById('fechaNominaSalario').removeAttribute('disabled');
                 document.getElementById('confirmarOperacionNominaSalario').setAttribute('disabled', true);
-            }else{
+            } else {
                 console.log(xhr.responseText);
             }
         };
@@ -82,12 +81,12 @@ function confirmarNominaSalario() {
     }
 }
 
-function calcularBonificacion(){
+function calcularBonificacion() {
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
 
-    if(bonificacionSeleccionada === "1"){
+    if (bonificacionSeleccionada === "1") {
         implCalcularPagoBonificacion(1);
-    }else if(bonificacionSeleccionada === "2"){
+    } else if (bonificacionSeleccionada === "2") {
         implCalcularPagoBonificacion(2);
     }
 }
@@ -99,36 +98,36 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
     if (fecha !== "") {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion="+ encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
+        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                borrarContenidoTabla("tablaPagoBono14");
                 var data = JSON.parse(xhr.responseText);
 
                 var tabla = document.getElementById("tablaPagoBono14").getElementsByTagName("tbody")[0];
                 document.getElementById('confirmarOperacionPagoBono14').removeAttribute('disabled');
                 document.getElementById('fechaPagoBono14').setAttribute('disabled', true);
                 document.getElementById('SelectTipoBonificacion').setAttribute('disabled', true);
-                    /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
-                    data.forEach(function (registro) {
-                        let row = tabla.insertRow();
-                        let cell1 = row.insertCell(0);
-                        let cell2 = row.insertCell(1);
-                        let cell3 = row.insertCell(2);
-                        let cell4 = row.insertCell(3);
-                        let cell5 = row.insertCell(4);
+                /* BORRA LA TABLA PARA QUE ESTA NO SE DUPLIQUE AL LISTAR LOS REGISTROS */
+                borrarContenidoTabla("tablaPagoBono14");
+                data.forEach(function (registro) {
+                    let row = tabla.insertRow();
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+                    let cell4 = row.insertCell(3);
+                    let cell5 = row.insertCell(4);
 
-                        cell1.innerHTML = registro.FechaUltimoPago;
-                        cell2.innerHTML = registro.NombreEmpleado;
-                        cell3.innerHTML = registro.Profesion;
-                        cell4.innerHTML = Number(registro.Bono14).toFixed(2);
-                        cell5.innerHTML = Number(registro.Bono14).toFixed(2);
+                    cell1.innerHTML = registro.FechaUltimoPago;
+                    cell2.innerHTML = registro.NombreEmpleado;
+                    cell3.innerHTML = registro.Profesion;
+                    cell4.innerHTML = Number(registro.Bono14).toFixed(2);
+                    cell5.innerHTML = Number(registro.Bono14).toFixed(2);
 
-                    });
+                });
             }
         };
 
@@ -136,12 +135,12 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
     }
 }
 
-function confirmarPagoBonificacion(){
+function confirmarPagoBonificacion() {
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
 
-    if(bonificacionSeleccionada === "1"){
+    if (bonificacionSeleccionada === "1") {
         implConfirmarPagoBonificacion(1);
-    }else if(bonificacionSeleccionada === "2"){
+    } else if (bonificacionSeleccionada === "2") {
         implConfirmarPagoBonificacion(2)
     }
 }
@@ -165,13 +164,13 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
 
             if (xhr.status === 200) {
                 document.getElementById('confirmarOperacionPagoBono14').setAttribute('disabled', true);
-                window.open('../templates/reporte-nomina-bono14.php?fechaOperacion='+fechaOperacion, '_blank');
+                window.open('../templates/reporte-nomina-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
                 window.location.reload();
             } else if (xhr.status === 400) {
                 document.getElementById('existenciaPagoBonoSeleccionado').removeAttribute('hidden');
                 document.getElementById('fechaPagoBono14').removeAttribute('disabled');
                 document.getElementById('confirmarOperacionPagoBono14').setAttribute('disabled', true);
-            }else{
+            } else {
                 console.log(xhr.responseText);
             }
         };
@@ -179,14 +178,14 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
     }
 }
 
-function exportarPagoBono14(){
+function exportarPagoBono14() {
     let fechaOperacion = document.getElementById('fechaInformePagoBono14').value;
     console.log(fechaOperacion);
-    window.open('../templates/reporte-nomina-bono14.php?fechaOperacion='+fechaOperacion, '_blank');
+    window.open('../templates/reporte-nomina-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
     //window.location.reload();
 }
 
-function validarExisteReporteNomina(){
+function validarExisteReporteNomina() {
     let fechaOperacion = document.getElementById('fechaInformeNominaSalario').value;
     document.getElementById('noExisteReporteNominaSalario').setAttribute('hidden', true);
     if (fechaOperacion !== "") {
@@ -202,11 +201,11 @@ function validarExisteReporteNomina(){
         xhr.onload = function () {
 
             if (xhr.status === 200) {
-                window.open('../templates/reporte-nomina-salarios.php?fechaOperacion='+fechaOperacion, '_blank');
+                window.open('../templates/reporte-nomina-salarios.php?fechaOperacion=' + fechaOperacion, '_blank');
                 window.location.reload();
             } else if (xhr.status === 400) {
                 document.getElementById('noExisteReporteNominaSalario').removeAttribute('hidden');
-            }else{
+            } else {
                 console.log(xhr.responseText);
             }
         };
