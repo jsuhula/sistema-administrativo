@@ -1385,7 +1385,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS guardarReportePagoBono;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS guardarReportePagoBono(IN VarFecha DATE, IN VarCodigoTipoBonificacion INT) BEGIN
-IF (SELECT COUNT(*) AS Existe FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha) AND CodigoPagoBonificacion = VarCodigoTipoBonificacion) = 0
+IF (SELECT COUNT(*) AS Existe FROM PagoBonificacion WHERE YEAR(FechaPago) = YEAR(VarFecha) AND CodigoTipoBonificacion = VarCodigoTipoBonificacion) = 0
 THEN
 INSERT INTO PagoBonificacion (Monto, FechaPago, CodigoEmpleado, CodigoTipoBonificacion)
 SELECT PB.Bono14, VarFecha, PB.CodigoEmpleado, VarCodigoTipoBonificacion
