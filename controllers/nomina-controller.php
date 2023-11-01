@@ -27,6 +27,10 @@ function main()
                 $codigoTipoBonificacion = isset($_GET['codigoTipoBonificacion']) ? filter_var($_GET['codigoTipoBonificacion']) : 0;
                 calcularPagoBonificacion($fechaOperacion, intval($codigoTipoBonificacion), $nominaDao);
                 break;
+            case 3:
+                $fechaOperacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
+                informePagoBono14($fechaOperacion, $nominaDao);
+                break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -153,6 +157,27 @@ function guardarReporteBonificacion(string $fechaOperacion, int $codigoTipoBonif
         }
     } catch (PDOException $ex) {
         http_response_code(500);
+    }
+}
+
+function informePagoBono14($fechaOperacion, $nominaDao)
+{
+    $result = $nominaDao->informePagoBono14($fechaOperacion);
+
+    if ($result->rowCount() > 0) {
+        $registros = array(); // Almacena los registros en un arreglo
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $registros[] = $row;
+        }
+
+        $registrosJSON = json_encode($registros);
+
+        // Devuelve los registros en formato JSON como respuesta HTTP
+        header('Content-Type: application/json');
+        echo $registrosJSON;
+    } else {
+        http_response_code(400); //
     }
 }
 
