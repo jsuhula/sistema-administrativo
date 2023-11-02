@@ -140,7 +140,7 @@ $fechaOperacion = date("Y-m-d");
                         </select>
                     </div>
                     <div class="col-sm-3 p-2">
-                    <input type="date" class="form-control" id="fechaPagoBono14">
+                    <input type="date" class="form-control" id="fechaPagoBonificacion">
                     </div>
                     <div class="col-sm-3 p-2">
                         <button type="button" class="btn btn-secondary"
@@ -152,7 +152,7 @@ $fechaOperacion = date("Y-m-d");
             <!-- Resultado del cálculo de bonificaciones -->
             <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
-                <table id="tablaPagoBono14" class="table table-striped text-end">
+                <table id="tablaPagoBonificacion" class="table table-striped text-end">
                     <thead class="sticky-top">
                         <tr>
                             <th>Fecha Ultimo Bono</th>
@@ -170,7 +170,7 @@ $fechaOperacion = date("Y-m-d");
                 hidden>
                 <span class="text-center text-white">Ya existe un reporte de pago para la bonificación seleccionada</span>
             </div>
-            <button id="confirmarOperacionPagoBono14" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarPagoBonificacion()">
+            <button id="confirmarOperacionPagoBonificacion" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarPagoBonificacion()">
                 CONFIRMAR OPERACION
             </button>
         </section>
@@ -284,7 +284,7 @@ $fechaOperacion = date("Y-m-d");
             <!-- Sección de Pago de Bonificaciones -->
             <hr class="my-4">
             <div class="row mb-3 align-items-end">
-                <h3 class="text-secondary pt-2">Pago Bono 14</h3>
+                <h3 class="text-secondary pt-2">Pagos Prestaciones</h3>
                 <div class="col-md-6 mb-2">
                     <label for="tipo_informe_bonificacion" class="form-label">Tipo:</label>
                     <select class="form-select" id="tipo_informe_bonificacion">
@@ -293,11 +293,11 @@ $fechaOperacion = date("Y-m-d");
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <label for="fechaInformePagoBono14" class="form-label">Fecha:</label>
-                    <input type="date" class="form-control" id="fechaInformePagoBono14">
+                    <label for="fechaInformePagoBonificacion" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fechaInformePagoBonificacion">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success" onclick="exportarPagoBono14()">Generar
+                    <button type="submit" class="btn btn-success" onclick="exportarPagoBonificacion()">Generar
                         Informe</button>
                 </div>
             </div>

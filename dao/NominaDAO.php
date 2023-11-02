@@ -74,5 +74,14 @@ class NominaDAO
         $prpstmt->execute();
         return $prpstmt;
     }
+
+    public function informePagoAguinaldo(string $fechaOperacion)
+    {
+        $query = "call informePagoAguinaldo(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
 }
 ?>
