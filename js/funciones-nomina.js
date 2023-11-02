@@ -234,7 +234,7 @@ function validarExistenDatosParInforme(codigoTipoBonificacion, fechaOperacion) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
+    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
