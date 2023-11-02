@@ -31,6 +31,10 @@ function main()
                 $fechaOperacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
                 informePagoBono14($fechaOperacion, $nominaDao);
                 break;
+            case 4:
+                $fechaOperacion = isset($_GET['fechaOperacion']) ? filter_var($_GET['fechaOperacion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
+                informePagoAguinaldo($fechaOperacion, $nominaDao);
+                break;
         }
     } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -47,7 +51,7 @@ function main()
                 $codigoTipoBonificacion = $data->codigoTipoBonificacion;
                 guardarReporteBonificacion($fechaOperacion, intval($codigoTipoBonificacion), $nominaDao);
                 break;
-            case 4:
+            case 3:
                 $fechaOperacion = $data->fechaOperacion;
                 validarExisteReporteNominaSalario($fechaOperacion, $nominaDao);
                 break;
@@ -139,6 +143,24 @@ function calcularPagoBonificacion(string $fechaOperacion, int $codigoTipoBonific
             } else {
                 http_response_code(400); //
             }
+        }else if ($codigoTipoBonificacion == 2){
+            $result = $nominaDao->calcularPagoAguinaldo($fechaOperacion);
+
+            if ($result->rowCount() > 0) {
+                $registros = array(); // Almacena los registros en un arreglo
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $registros[] = $row;
+                }
+
+                $registrosJSON = json_encode($registros);
+
+                // Devuelve los registros en formato JSON como respuesta HTTP
+                header('Content-Type: application/json');
+                echo $registrosJSON;
+            } else {
+                http_response_code(400); //
+            }
         }
     } catch (PDOException $ex) {
         http_response_code(500); // Error en el servidor
@@ -181,4 +203,24 @@ function informePagoBono14($fechaOperacion, $nominaDao)
     }
 }
 
+function informePagoAguinaldo($fechaOperacion, $nominaDao)
+{
+    $result = $nominaDao->informePagoAguinaldo($fechaOperacion);
+
+    if ($result->rowCount() > 0) {
+        $registros = array(); // Almacena los registros en un arreglo
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $registros[] = $row;
+        }
+
+        $registrosJSON = json_encode($registros);
+
+        // Devuelve los registros en formato JSON como respuesta HTTP
+        header('Content-Type: application/json');
+        echo $registrosJSON;
+    } else {
+        http_response_code(400); //
+    }
+}
 ?>

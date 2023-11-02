@@ -43,35 +43,26 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 			<span>Correo Electrónico: info@empresa.com</span>
 			<section id="salarios">
 				<div class="text-center">
-					<h4>Reporte de Nómina</h4>
+					<h4>Reporte de Pago Bonificación</h4>
 				</div>
 				<div class="text-end">
 					<span>Fecha Generacion de Reporte:
 						<?php echo $fechaHoraActual; ?>
 					</span>
 					<br/>
-					<span>Fecha de Reporte Nomina:
+					<span>Fecha de Reporte Pago Bono 14:
 						<?php echo $fechaOperacionReporte; ?>
 					</span>
 				</div>
 				<hr>
 				<div>
-					<table id="tablaNominaSalario" class="table table-striped text-end">
+					<table id="tablaPagoBono14" class="table table-striped text-end">
 						<thead class="sticky-top text-white">
 							<tr>
+								<th>Fecha Ultimo Pago</th>
 								<th>Empleado</th>
 								<th>Puesto</th>
-								<th>Salario Base</th>
-								<th>Cant. Horas Trabajadas</th>
-								<th>Cant. Horas Extras</th>
-								<th>Precio Hora</th>
-								<th>Comisión</th>
-								<th>Q. Horas Extras</th>
-								<th>Bono Incentivo</th>
-								<th>Descuento Inasistencia</th>
-								<th>IGSS</th>
-								<th>IRTRA</th>
-								<th>Cuota Prestamo</th>
+								<th>Bono</th>
 								<th>Total</th>
 							</tr>
 						</thead>
@@ -81,7 +72,7 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 				</div>
 			</section>
 			<div hidden>
-				<input type="date" id="fechaNominaSalario" value="<?php echo $fechaOperacion; ?>">
+				<input type="date" id="fechaPagoBono14" value="<?php echo $fechaOperacion; ?>">
 			</div>
 			<div hidden>
 				<input type="datetimelocal" id="fechaReporte" value="<?php echo $fechaHoraActual; ?>">
@@ -91,4 +82,4 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 </body>
 
 </html>
-<script src="../js/funciones-reporte-nomina.js"></script>
+<script src="../js/funciones-reporte-bono14.js"></script>
