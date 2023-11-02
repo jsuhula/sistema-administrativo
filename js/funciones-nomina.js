@@ -191,11 +191,11 @@ function exportarPagoBonificacion() {
 
     if (fechaOperacion !== "") {
         if (bonificacionSeleccionada === "1") {
-            if (validarExistenDatosParInforme(1) === 1) {
+            if (validarExistenDatosParInforme(1, fechaOperacion) === 1) {
                 window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
             }
         } else if (bonificacionSeleccionada === "2") {
-            if (validarExistenDatosParInforme(2) === 1) {
+            if (validarExistenDatosParInforme(2, fechaOperacion) === 1) {
                 window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
             }
         }
@@ -230,7 +230,7 @@ function validarExisteReporteNomina() {
     }
 }
 
-function validarExistenDatosParInforme(codigoTipoBonificacion) {
+function validarExistenDatosParInforme(codigoTipoBonificacion, fechaOperacion) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
