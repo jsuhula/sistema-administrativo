@@ -155,7 +155,7 @@ $fechaOperacion = date("Y-m-d");
                 <table id="tablaPagoBonificacion" class="table table-striped text-end">
                     <thead class="sticky-top">
                         <tr>
-                            <th>Fecha Ultimo Bono</th>
+                            <th>Fecha Ultimo Pago</th>
                             <th>Empleado</th>
                             <th>Puesto</th>
                             <th>Bono</th>
@@ -258,8 +258,7 @@ $fechaOperacion = date("Y-m-d");
         <!-- Generación de Informes -->
         <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
             <h2>Generación de Informes</h2>
-            <span id="noExisteReporteNominaSalario" class="text-center text-danger" hidden>No existe un reporte de
-                nomina registrado en el periodo seleccionado</span>
+            <span id="AlertaExistenciaDatosParaInforme" class="text-center text-danger" hidden>No existen datos para el informe</span>
             <br />
             <!-- Sección de Pago de Nómina -->
             <hr class="my-4">
@@ -286,8 +285,8 @@ $fechaOperacion = date("Y-m-d");
             <div class="row mb-3 align-items-end">
                 <h3 class="text-secondary pt-2">Pagos Prestaciones</h3>
                 <div class="col-md-6 mb-2">
-                    <label for="tipo_informe_bonificacion" class="form-label">Tipo:</label>
-                    <select class="form-select" id="tipo_informe_bonificacion">
+                    <label for="SelectTipInformeBonificacion" class="form-label">Tipo:</label>
+                    <select class="form-select" id="SelectTipInformeBonificacion">
                         <option value="1">Pago Bono 14</option>
                         <option value="2">Pago Aguinaldo</option>
                     </select>

@@ -94,7 +94,7 @@ function calcularBonificacion() {
 function implCalcularPagoBonificacion(codigoTipoBonificacion) {
 
     document.getElementById('existenciaPagoBonoSeleccionado').setAttribute('hidden', true);
-    let fecha = document.getElementById('fechaPagoBono14').value;
+    let fecha = document.getElementById('fechaPagoBonificacion').value;
 
     if (fecha !== "") {
 
@@ -130,7 +130,7 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
                     cell5.innerHTML = Number(registro.Bono).toFixed(2);
 
                 });
-            }else if (xhr.status === 400){
+            } else if (xhr.status === 400) {
                 document.getElementById('existenciaPagoBonoSeleccionado').removeAttribute('hidden');
             }
         };
@@ -153,7 +153,7 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
     let fechaOperacion = document.getElementById('fechaPagoBonoificacion').value;
 
     document.getElementById('existenciaPagoBonoSeleccionado').setAttribute('hidden', true);
-    
+
     if (fechaOperacion !== "") {
         let datos = {
             fechaOperacion: fechaOperacion,
@@ -169,9 +169,9 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
 
             if (xhr.status === 200) {
                 document.getElementById('confirmarOperacionPagoBonificacion').setAttribute('disabled', true);
-                if(codigoTipoBonificacion === 1){
+                if (codigoTipoBonificacion === 1) {
                     window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
-                }else if(codigoTipoBonificacion === 2){
+                } else if (codigoTipoBonificacion === 2) {
                     window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
                 }
                 window.location.reload();
@@ -189,20 +189,22 @@ function exportarPagoBonificacion() {
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
     let fechaOperacion = document.getElementById('fechaInformePagoBonificacion').value;
 
-    if(fechaOperacion !== ""){
-        if(bonificacionSeleccionada === "1"){
-            console.log(fechaOperacion);
-            window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
-        }else if(bonificacionSeleccionada === "2"){
-            console.log(fechaOperacion);
-            window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
+    if (fechaOperacion !== "") {
+        if (bonificacionSeleccionada === "1") {
+            if (validarExistenDatosParInforme(1) === 1) {
+                window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
+            }
+        } else if (bonificacionSeleccionada === "2") {
+            if (validarExistenDatosParInforme(2) === 1) {
+                window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
+            }
         }
     }
 }
 
 function validarExisteReporteNomina() {
     let fechaOperacion = document.getElementById('fechaInformeNominaSalario').value;
-    document.getElementById('noExisteReporteNominaSalario').setAttribute('hidden', true);
+    document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     if (fechaOperacion !== "") {
         let datos = {
             fechaOperacion: fechaOperacion,
@@ -219,13 +221,36 @@ function validarExisteReporteNomina() {
                 window.open('../templates/reporte-nomina-salarios.php?fechaOperacion=' + fechaOperacion, '_blank');
                 window.location.reload();
             } else if (xhr.status === 400) {
-                document.getElementById('noExisteReporteNominaSalario').removeAttribute('hidden');
+                document.getElementById('AlertaExistenciaDatosParaInforme').removeAttribute('hidden');
             } else {
                 console.log(xhr.responseText);
             }
         };
         xhr.send(JSON.stringify(datos));
     }
+}
+
+function validarExistenDatosParInforme(codigoTipoBonificacion) {
+
+    document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
+    var xhr = new XMLHttpRequest();
+    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
+
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            return 1;
+        } else if (xhr.status === 400) {
+            document.getElementById('AlertaExistenciaDatosParaInforme').removeAttribute('hidden');
+            return 0;
+        }
+    };
+
+    xhr.send();
+
+    return -1;
 }
 
 function borrarContenidoTabla(nombreTabla) {
