@@ -82,7 +82,7 @@ function confirmarNominaSalario() {
 }
 
 function calcularBonificacion() {
-    
+
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
 
     if (bonificacionSeleccionada === "1") {
@@ -152,7 +152,7 @@ function confirmarPagoBonificacion() {
 }
 
 function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
-    let fechaOperacion = document.getElementById('fechaPagoBonoificacion').value;
+    let fechaOperacion = document.getElementById('fechaPagoBonificacion').value;
 
     document.getElementById('existenciaPagoBonoSeleccionado').setAttribute('hidden', true);
 
@@ -188,10 +188,15 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
 }
 
 function exportarPagoBonificacion() {
+    
     let bonificacionSeleccionada = document.getElementById('SelectTipoInformeBonificacion').value;
     let fechaOperacion = document.getElementById('fechaInformePagoBonificacion').value;
 
+    console.log(bonificacionSeleccionada, fechaOperacion);
+    console.log(validarExistenDatosParInforme(1, fechaOperacion));
+    console.log(validarExistenDatosParInforme(2, fechaOperacion));
     if (fechaOperacion !== "") {
+        console.log('ASQ');
         if (bonificacionSeleccionada === "1") {
             if (validarExistenDatosParInforme(1, fechaOperacion) === 1) {
                 window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
