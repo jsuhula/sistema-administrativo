@@ -1485,8 +1485,7 @@ BEGIN
         LEFT JOIN PagoBonificacion AS PF ON 1=1
         ORDER BY DATE(PF.FechaPago) DESC
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
-    WHERE YEAR(PB.FechaUltimoPago) = YEAR(VarFecha)
-    AND PB.CodigoTipoBonificacion = 2
+    WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
     GROUP BY EM.CodigoEmpleado;
 END //
 DELIMITER ;
