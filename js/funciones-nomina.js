@@ -192,19 +192,11 @@ function exportarPagoBonificacion() {
     let bonificacionSeleccionada = document.getElementById('SelectTipoInformeBonificacion').value;
     let fechaOperacion = document.getElementById('fechaInformePagoBonificacion').value;
 
-    console.log(bonificacionSeleccionada, fechaOperacion);
-    console.log(validarExistenDatosParInforme(1, fechaOperacion));
-    console.log(validarExistenDatosParInforme(2, fechaOperacion));
     if (fechaOperacion !== "") {
-        console.log('ASQ');
         if (bonificacionSeleccionada === "1") {
-            if (validarExistenDatosParInforme(fechaOperacion, 1) === 1) {
-                window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
-            }
+            exportarInformeBono14(fechaOperacion);
         } else if (bonificacionSeleccionada === "2") {
-            if (validarExistenDatosParInforme(fechaOperacion, 2) === 1) {
-                window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
-            }
+            exportarInformeAguinaldo(fechaOperacion);
         }
     }
 }
@@ -237,31 +229,44 @@ function validarExisteReporteNomina() {
     }
 }
 
-function validarExistenDatosParInforme(fechaOperacion, opcionPago) {
+function exportarInformeBono14(fechaOperacion) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
-    var url = "";
-    if(opcionPago === 1){
-        url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(3) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
-    }else{
-        url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(4) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
-    }
+    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(3) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            return 1;
+            window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
         } else if (xhr.status === 400) {
             document.getElementById('AlertaExistenciaDatosParaInforme').removeAttribute('hidden');
-            return 0;
         }
     };
 
     xhr.send();
+}
 
-    return -1;
+function exportarInformeAguinaldo(fechaOperacion) {
+
+    document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
+    var xhr = new XMLHttpRequest();
+    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(4) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
+        } else if (xhr.status === 400) {
+            document.getElementById('AlertaExistenciaDatosParaInforme').removeAttribute('hidden');
+        }
+    };
+
+    xhr.send();
 }
 
 function borrarContenidoTabla(nombreTabla) {
