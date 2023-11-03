@@ -1461,9 +1461,9 @@ END //
 DELIMITER ;
 
 /*INFORME PAGO AGUINALDO*/
-DROP PROCEDURE IF EXISTS calcularPagoAguinaldo;
+DROP PROCEDURE IF EXISTS informePagoAguinaldo;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS calcularPagoAguinaldo(IN VarFecha DATE)
+CREATE PROCEDURE IF NOT EXISTS informePagoAguinaldo(IN VarFecha DATE)
 BEGIN
 	  SELECT CASE 
             WHEN PB.FechaUltimoPago = 0 OR PB.FechaUltimoPago IS NULL
