@@ -1461,9 +1461,9 @@ END //
 DELIMITER ;
 
 /*INFORME PAGO AGUINALDO*/
-DROP PROCEDURE IF EXISTS informePagoAguinaldo;
+DROP PROCEDURE IF EXISTS calcularPagoAguinaldo;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS informePagoAguinaldo(IN VarFecha DATE)
+CREATE PROCEDURE IF NOT EXISTS calcularPagoAguinaldo(IN VarFecha DATE)
 BEGIN
 	  SELECT CASE 
             WHEN PB.FechaUltimoPago = 0 OR PB.FechaUltimoPago IS NULL
@@ -1487,5 +1487,19 @@ BEGIN
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
     GROUP BY EM.CodigoEmpleado;
+END //
+DELIMITER ;
+
+/*INFORME PAGO AGUINALDO*/
+DROP PROCEDURE IF EXISTS informePagoAguinaldo;
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS informePagoAguinaldo(IN VarFecha DATE)
+BEGIN
+	  SELECT PB.FechaPago, CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreCompleto
+        , EM.Profesion, PB.Monto AS Bono
+    FROM PagoBonificacion AS PB
+    INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = PB.CodigoEmpleado
+    WHERE PB.CodigoTipoBonificacion = 2
+    AND YEAR(PB.FechaPago) = YEAR(VarFecha);
 END //
 DELIMITER ;

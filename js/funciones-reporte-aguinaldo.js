@@ -28,8 +28,8 @@ function calcularPagoAguinaldo() {
                         let cell4 = row.insertCell(3);
                         let cell5 = row.insertCell(4);
 
-                        cell1.innerHTML = registro.FechaUltimoPago;
-                        cell2.innerHTML = registro.NombreEmpleado;
+                        cell1.innerHTML = registro.FechaPago;
+                        cell2.innerHTML = registro.NombreCompleto;
                         cell3.innerHTML = registro.Profesion;
                         cell4.innerHTML = Number(registro.Bono).toFixed(2);
                         cell5.innerHTML = Number(registro.Bono).toFixed(2);
