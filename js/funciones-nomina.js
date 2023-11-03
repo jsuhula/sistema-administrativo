@@ -198,11 +198,11 @@ function exportarPagoBonificacion() {
     if (fechaOperacion !== "") {
         console.log('ASQ');
         if (bonificacionSeleccionada === "1") {
-            if (validarExistenDatosParInforme(1, fechaOperacion) === 1) {
+            if (validarExistenDatosParInforme(fechaOperacion, 1) === 1) {
                 window.open('../templates/reporte-pago-bono14.php?fechaOperacion=' + fechaOperacion, '_blank');
             }
         } else if (bonificacionSeleccionada === "2") {
-            if (validarExistenDatosParInforme(2, fechaOperacion) === 1) {
+            if (validarExistenDatosParInforme(fechaOperacion, 2) === 1) {
                 window.open('../templates/reporte-pago-aguinaldo.php?fechaOperacion=' + fechaOperacion, '_blank');
             }
         }
@@ -237,12 +237,16 @@ function validarExisteReporteNomina() {
     }
 }
 
-function validarExistenDatosParInforme(codigoTipoBonificacion, fechaOperacion) {
+function validarExistenDatosParInforme(fechaOperacion, opcionPago) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
-
+    var url = "";
+    if(opcionPago === 1){
+        url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(3) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+    }else{
+        url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(4) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+    }
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
