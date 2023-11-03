@@ -43,7 +43,7 @@ $fechaOperacionReporte = date("m-Y", strtotime($fechaOperacion));
 			<span>Correo Electrónico: info@empresa.com</span>
 			<section id="salarios">
 				<div class="text-center">
-					<h4>Reporte de Pago Bonificación</h4>
+					<h4>Reporte de Pago Bono 14</h4>
 				</div>
 				<div class="text-end">
 					<span>Fecha Generacion de Reporte:

@@ -1372,7 +1372,7 @@ BEGIN
         FROM (
             SELECT 1 AS dummy
         ) AS dummy
-        LEFT JOIN PagoBonificacion AS PF ON 1=1
+        LEFT JOIN PagoBonificacion AS PF ON 1=1 AND PF.CodigoTipoBonificacion = 1
         ORDER BY DATE(PF.FechaPago) DESC
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
@@ -1434,29 +1434,12 @@ DROP PROCEDURE IF EXISTS informePagoBono14;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS informePagoBono14(IN VarFecha DATE)
 BEGIN
-	  SELECT CASE 
-            WHEN PB.FechaUltimoPago = 0 OR PB.FechaUltimoPago IS NULL
-                THEN EM.FechaIngreso
-                  ELSE PB.FechaUltimoPago END AS FechaUltimoPago
-              , EM.Profesion
-              , H.CodigoEmpleado
-              , CONCAT(EM.Nombres, ' ', EM.Apellidos) NombreEmpleado
-              , (EM.SalarioBase/12) * COUNT(H.FechaPago) AS Bono
-    FROM Honorarios AS H
-    INNER JOIN (SELECT * FROM Empleado WHERE Estado = 1) AS EM ON EM.CodigoEmpleado = H.CodigoEmpleado
-    LEFT JOIN (
-      SELECT COALESCE(DATE(PF.FechaPago), 0) AS FechaUltimoPago,
-          COALESCE(PF.CodigoEmpleado, NULL) AS CodigoEmpleado,
-          COALESCE(PF.CodigoTipoBonificacion, NULL) AS CodigoTipoBonificacion
-        FROM (
-            SELECT 1 AS dummy
-        ) AS dummy
-        LEFT JOIN PagoBonificacion AS PF ON 1=1
-        ORDER BY DATE(PF.FechaPago) DESC
-    ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
-    WHERE YEAR(PB.FechaUltimoPago) = YEAR(VarFecha)
-    AND PB.CodigoTipoBonificacion = 1
-    GROUP BY EM.CodigoEmpleado;
+	  SELECT PB.FechaPago, CONCAT(EM.Nombres, ' ', EM.Apellidos) AS NombreCompleto
+        , EM.Profesion, PB.Monto AS Bono
+    FROM PagoBonificacion AS PB
+    INNER JOIN Empleado AS EM ON EM.CodigoEmpleado = PB.CodigoEmpleado
+    WHERE PB.CodigoTipoBonificacion = 1
+    AND YEAR(PB.FechaPago) = YEAR(VarFecha);
 END //
 DELIMITER ;
 
@@ -1482,7 +1465,7 @@ BEGIN
         FROM (
             SELECT 1 AS dummy
         ) AS dummy
-        LEFT JOIN PagoBonificacion AS PF ON 1=1
+        LEFT JOIN PagoBonificacion AS PF ON 1=1 AND PF.CodigoTipoBonificacion = 2
         ORDER BY DATE(PF.FechaPago) DESC
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
