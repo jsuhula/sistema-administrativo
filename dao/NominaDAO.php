@@ -56,6 +56,15 @@ class NominaDAO
         return $prpstmt;
     }
 
+    public function calcularPagoAguinaldo(string $fechaOperacion)
+    {
+        $query = "call calcularPagoAguinaldo(?)";
+        $prpstmt = $this->connection->prepare($query);
+        $prpstmt->bindParam(1, $fechaOperacion);
+        $prpstmt->execute();
+        return $prpstmt;
+    }
+
     public function guardarReportePagoBono(string $fechaOperacion, int $codigoPagoBonificacion)
     {
         $query = "call guardarReportePagoBono(?, ?)";

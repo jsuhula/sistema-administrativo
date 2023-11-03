@@ -144,7 +144,7 @@ function calcularPagoBonificacion(string $fechaOperacion, int $codigoTipoBonific
                 http_response_code(400); //
             }
         }else if ($codigoTipoBonificacion == 2){
-            $result = $nominaDao->informePagoAguinaldo($fechaOperacion);
+            $result = $nominaDao->calcularPagoAguinaldo($fechaOperacion);
 
             if ($result->rowCount() > 0) {
                 $registros = array(); // Almacena los registros en un arreglo
