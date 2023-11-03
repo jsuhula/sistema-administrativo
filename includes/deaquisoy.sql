@@ -1372,7 +1372,7 @@ BEGIN
         FROM (
             SELECT 1 AS dummy
         ) AS dummy
-        LEFT JOIN PagoBonificacion AS PF ON 1=1
+        LEFT JOIN PagoBonificacion AS PF ON 1=1 AND PF.CodigoTipoBonificacion = 1
         ORDER BY DATE(PF.FechaPago) DESC
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
@@ -1465,7 +1465,7 @@ BEGIN
         FROM (
             SELECT 1 AS dummy
         ) AS dummy
-        LEFT JOIN PagoBonificacion AS PF ON 1=1
+        LEFT JOIN PagoBonificacion AS PF ON 1=1 AND PF.CodigoTipoBonificacion = 2
         ORDER BY DATE(PF.FechaPago) DESC
     ) AS PB ON PB.CodigoEmpleado = EM.CodigoEmpleado
     WHERE H.FechaPago BETWEEN IFNULL(PB.FechaUltimoPago, 0) AND VarFecha
