@@ -285,8 +285,8 @@ $fechaOperacion = date("Y-m-d");
             <div class="row mb-3 align-items-end">
                 <h3 class="text-secondary pt-2">Pagos Prestaciones</h3>
                 <div class="col-md-6 mb-2">
-                    <label for="SelectTipInformeBonificacion" class="form-label">Tipo:</label>
-                    <select class="form-select" id="SelectTipInformeBonificacion">
+                    <label for="SelectTipoInformeBonificacion" class="form-label">Tipo:</label>
+                    <select class="form-select" id="SelectTipoInformeBonificacion">
                         <option value="1">Pago Bono 14</option>
                         <option value="2">Pago Aguinaldo</option>
                     </select>

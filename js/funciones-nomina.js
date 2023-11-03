@@ -82,6 +82,7 @@ function confirmarNominaSalario() {
 }
 
 function calcularBonificacion() {
+    
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
 
     if (bonificacionSeleccionada === "1") {
@@ -140,12 +141,13 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
 }
 
 function confirmarPagoBonificacion() {
+
     let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
 
     if (bonificacionSeleccionada === "1") {
         implConfirmarPagoBonificacion(1);
     } else if (bonificacionSeleccionada === "2") {
-        implConfirmarPagoBonificacion(2)
+        implConfirmarPagoBonificacion(2);
     }
 }
 
@@ -186,7 +188,7 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
 }
 
 function exportarPagoBonificacion() {
-    let bonificacionSeleccionada = document.getElementById('SelectTipoBonificacion').value;
+    let bonificacionSeleccionada = document.getElementById('SelectTipoInformeBonificacion').value;
     let fechaOperacion = document.getElementById('fechaInformePagoBonificacion').value;
 
     if (fechaOperacion !== "") {
