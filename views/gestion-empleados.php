@@ -36,16 +36,16 @@ function main()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Empleados</title>
     <link rel="icon" href="../resources/food.svg" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 
-<body style="background-color: #CBC6CC">
-    <header class="text-white text-center" style="background-color: #41292C">
-        <span class="display-4">Gestión Empleados</span>
+<body style="background-color: #DAEAF1">
+    <header class="text-white text-center" style="background-color: #379392">
+        <span class="display-4">Recursos Humanos</span>
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #41292C">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #379392">
         <div class="container">
             <button class="navbar-toggler" type="button" title="" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,10 +81,10 @@ function main()
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container-md">
 
         <!-- Seccion de Empleados -->
-        <section id="empleados" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="empleados" class="content-section bg-white shadow-lg p-4">
             <h2>Empleados</h2>
             <hr>
             <div class="row justify-content-center">
@@ -106,7 +106,7 @@ function main()
 
             </div>
 
-            <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
+            <div class="table-responsive" style="max-height: 40em; overflow-y: auto;">
                 <table id="tablaEmpleados" class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
@@ -124,14 +124,14 @@ function main()
                 </table>
             </div>
 
-            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#empleadoModal"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#empleadoModal"
                 onclick="btnNuevoEmpleado()">
-                Nuevo Empleado
+                NUEVO
             </button>
         </section>
 
         <!-- Seccion de Usuarios -->
-        <section id="lista-usuarios" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="lista-usuarios" class="content-section bg-white shadow-lg p-4">
             <h2>Usuarios</h2>
             <hr>
             <div class="row justify-content-center">
@@ -160,24 +160,24 @@ function main()
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#usuarioModal"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#usuarioModal"
                 onclick="btnNuevoUsuario()">
-                Nuevo Usuario
+                NUEVO
             </button>
         </section>
 
         <!-- Seccion de Departamentos -->
-        <section id="departamentos" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="departamentos" class="content-section bg-white shadow-lg p-4">
             <h2>Departamentos</h2>
             <hr>
-            <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
+            <div class="table-resposive" style="max-height: 40em; overflow-y: auto;">
                 <table id="tablaDepartamentos" class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
                             <th>Codigo</th>
                             <th>Departamento</th>
                             <th>Comisión</th>
-                            <th>Jefe</th>
+                            <th>Jefe Del Area</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -185,17 +185,17 @@ function main()
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#departamentoModal"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#departamentoModal"
                 onclick="btnNuevoDepartamento()">
-                Nuevo Departamento
+                NUEVO
             </button>
         </section>
 
         <!-- Seccion de Roles -->
-        <section id="roles" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="roles" class="content-section bg-white shadow-lg p-4">
             <h2>Roles</h2>
             <hr>
-            <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
+            <div class="table-resposive" style="max-height: 40em; overflow-y: auto;">
                 <table id="tablaRoles" class="table table-striped">
                     <thead class="sticky-top">
                         <tr>
@@ -214,37 +214,36 @@ function main()
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalRol"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalRol"
                 onclick="btnNuevoRol()">
-                Nuevo Rol
+                NUEVO
             </button>
         </section>
-    </div>
 
-    <!-- Seccion de Comisiones -->
-    <section id="comisiones" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
-        <h2>Comisiones</h2>
-        <hr>
-        <div class="table-resposive" style="max-height: 20em; overflow-y: auto;">
-            <table id="tablaComisiones" class="table table-striped">
-                <thead class="sticky-top">
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre Comisión</th>
-                        <th>Restricciones</th>
-                        <th>Bono Comision</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <button class="btn btn-success mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalComision"
-            onclick="btnNuevaComision()">
-            Nueva Comision
-        </button>
-    </section>
+        <!-- Seccion de Comisiones -->
+        <section id="comisiones" class="content-section bg-white shadow-lg p-4">
+            <h2>Comisiones</h2>
+            <hr>
+            <div class="table-resposive" style="max-height: 40em; overflow-y: auto;">
+                <table id="tablaComisiones" class="table table-striped">
+                    <thead class="sticky-top">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre Comisión</th>
+                            <th>Restricciones</th>
+                            <th>Bono Comision</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalComision"
+                onclick="btnNuevaComision()">
+                NUEVO
+            </button>
+        </section>
     </div>
 
     <!-- Modal Empleado -->
@@ -267,11 +266,11 @@ function main()
                     </div>
                     <div id="alertaNoAfectacionEmpleado" class="row m-2" hidden>
                         <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            Cambios</span>
+                            cambios</span>
                     </div>
                     <div id="alertaDuplicadoEmpleado" class="row m-2" hidden>
                         <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
-                            Empleado
+                            empleado
                             con el DPI ingresado
                         </span>
                     </div>
@@ -411,7 +410,7 @@ function main()
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnGuardarEmpleado" type="button" class="btn btn-success"
+                    <button id="btnGuardarEmpleado" type="button" class="btn btn-sm btn-primary"
                         onclick="guardarEmpleado()">Guardar</button>
                 </div>
             </div>
@@ -446,7 +445,7 @@ function main()
                     </div>
                     <div id="alertaNoAfectacionUsuario" class="row m-2" hidden>
                         <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            Cambios</span>
+                            cambios</span>
                     </div>
                     <form id="formUsuario">
                         <div class="mb-3">
@@ -470,7 +469,7 @@ function main()
                                 <option value="" selected disabled>Seleccione un rol para el usuario</option>
                             </select>
                         </div>
-                        <button id="btnGuardarUsuario" title="" type="button" class="btn btn-success"
+                        <button id="btnGuardarUsuario" title="" type="button" class="btn btn-sm btn-primary"
                             onclick="guardarUsuario()">Guardar</button>
                     </form>
                 </div>
@@ -498,11 +497,11 @@ function main()
                     </div>
                     <div id="alertaDuplicadoDepartamento" class="row m-2" hidden>
                         <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
-                            Departamento con este nombre</span>
+                            departamento con este nombre</span>
                     </div>
                     <div id="alertaNoAfectacionDepartamento" class="row m-2" hidden>
                         <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            Cambios</span>
+                            cambios</span>
                     </div>
                     <div id="alertaCompletarCamposDepartamento" class="row m-2" hidden>
                         <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
@@ -531,7 +530,7 @@ function main()
                                 <option value="" selected disabled>Seleccione un Jefe</option>
                             </select>
                         </div>
-                        <button id="btnGuardarDepartamento" title="" type="button" class="btn btn-success"
+                        <button id="btnGuardarDepartamento" title="" type="button" class="btn btn-sm btn-primary"
                             onclick="guardarDepartamento()">Guardar</button>
                     </form>
                 </div>
@@ -563,7 +562,7 @@ function main()
                     </div>
                     <div id="alertaNoAfectacionRol" class="row m-2" hidden>
                         <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            Cambios</span>
+                            cambios</span>
                     </div>
                     <div id="alertaCompletarCamposRol" class="row m-2" hidden>
                         <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
@@ -603,7 +602,7 @@ function main()
                                 <label class="form-check-label" for="gestionaPrestamos">Gestiona Prestamos</label>
                             </div>
                         </div>
-                        <button id="btnGuardarRol" title="" type="button" class="btn btn-success"
+                        <button id="btnGuardarRol" title="" type="button" class="btn btn-sm btn-primary"
                             onclick="guardarRol()">Guardar</button>
                     </form>
                 </div>
@@ -635,7 +634,7 @@ function main()
                     </div>
                     <div id="alertaNoAfectacionComision" class="row m-2" hidden>
                         <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            Cambios</span>
+                            cambios</span>
                     </div>
                     <div id="alertaDuplicadoComision" class="row m-2" hidden>
                         <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe una
@@ -662,7 +661,7 @@ function main()
                             <input type="number" class="form-control" id="bonoComision" name="bonoComision"
                                 placeholder="Q.00.00" required>
                         </div>
-                        <button id="btnGuardarComision" type="button" class="btn btn-success"
+                        <button id="btnGuardarComision" type="button" class="btn btn-sm btn-primary"
                             onclick="guardarComision()">Guardar</button>
                     </form>
                 </div>

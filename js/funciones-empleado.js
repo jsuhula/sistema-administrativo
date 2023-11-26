@@ -61,16 +61,16 @@ function cargarEmpleados(busqueda) {
                         cell3.innerHTML = empleado.Email;
                         cell4.innerHTML = empleado.Departamento;
                         cell5.innerHTML = empleado.SalarioBase;
-                        cell6.innerHTML = empleado.Estado === 1 ? "Activo" : "Inactivo";
+                        cell6.innerHTML = empleado.Estado === "1" ? "Activo" : "Inactivo";
                         cell7.innerHTML = '<td>' +
-                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-empleado" data-bs-toggle="modal" data-bs-target="#empleadoModal" ' +
+                            '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-empleado" data-bs-toggle="modal" data-bs-target="#empleadoModal" ' +
                             'data-codigo-empleado="' + empleado.CodigoEmpleado + '" data-nombres="' + empleado.Nombres + '" data-apellidos="' + empleado.Apellidos + '" data-email="' + empleado.Email + '" data-telefono="' + empleado.Telefono + '" data-salario="' + empleado.SalarioBase +
                             '" data-fecha-nacimiento="' + empleado.FechaNacimiento + '" data-fecha-ingreso="' + empleado.FechaIngreso + '" data-fecha-retiro="' + empleado.FechaRetiro + '" data-jornada="' + empleado.CodigoJornadaLaboral +
                             '" data-profesion="' + empleado.Profesion + '" data-dpi="' + empleado.DPI + '" data-nit="' + empleado.NIT + '" data-irtra="' + empleado.IRTRA + '" data-igss="' + empleado.IGSS +
                             '" data-estado="' + empleado.Estado + '" data-codigo-departamento="' + empleado.CodigoDepartamento + '" data-codigo-usuario-sistema="' + empleado.CodigoUsuarioSistema + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<a href="../templates/reporte-empleado.php?CodigoEmpleado=' + empleado.CodigoEmpleado + '" target="_blank" class="btn btn-secondary btn-sm ms-1">' +
+                            '<a href="../templates/reporte-empleado.php?CodigoEmpleado=' + empleado.CodigoEmpleado + '" target="_blank" class="btn btn-outline-secondary btn-sm ms-1">' +
                             '<i class="fas fa-print"></i>' +
                             '</a>' +
                             '</td>';
@@ -282,10 +282,10 @@ function cargarDepartamentos() {
                         cell3.innerHTML = departamento.NombreComision;
                         cell4.innerHTML = departamento.NombreJefe;
                         cell5.innerHTML = '<td>' +
-                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-departamento" data-bs-toggle="modal" data-bs-target="#departamentoModal" data-codigo-departamento="' + departamento.CodigoDepartamento + '" data-nombre-departamento="' + departamento.NombreDepartamento + '" data-codigo-comision="' + departamento.CodigoComision + '" data-codigo-empleado="' + departamento.CodigoEmpleado + '">' +
+                            '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-departamento" data-bs-toggle="modal" data-bs-target="#departamentoModal" data-codigo-departamento="' + departamento.CodigoDepartamento + '" data-nombre-departamento="' + departamento.NombreDepartamento + '" data-codigo-comision="' + departamento.CodigoComision + '" data-codigo-empleado="' + departamento.CodigoEmpleado + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-departamento" data-bs-toggle="modal" data-bs-target="#eliminarDepartamentoModal" data-codigo-departamento="' + departamento.CodigoDepartamento + '" data-nombre-departamento="' + departamento.NombreDepartamento + '">' +
+                            '<button type="button" class="btn btn-outline-danger btn-sm ms-1 delete-button-departamento" data-bs-toggle="modal" data-bs-target="#eliminarDepartamentoModal" data-codigo-departamento="' + departamento.CodigoDepartamento + '" data-nombre-departamento="' + departamento.NombreDepartamento + '">' +
                             '<i class="fas fa-trash"></i>' +
                             '</button>' +
                             '</td>';
@@ -464,10 +464,10 @@ function cargarComisiones() {
                         cell3.innerHTML = comision.Restricciones;
                         cell4.innerHTML = comision.Bono;
                         cell5.innerHTML = '<td>' +
-                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-comision" data-bs-toggle="modal" data-bs-target="#modalComision" data-codigo-comision="' + comision.CodigoComision + '" data-nombre-comision="' + comision.Nombre + '" data-restricciones-comision="' + comision.Restricciones + '" data-bono-comision="' + comision.Bono + '">' +
+                            '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-comision" data-bs-toggle="modal" data-bs-target="#modalComision" data-codigo-comision="' + comision.CodigoComision + '" data-nombre-comision="' + comision.Nombre + '" data-restricciones-comision="' + comision.Restricciones + '" data-bono-comision="' + comision.Bono + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-comision" data-bs-toggle="modal" data-bs-target="#eliminarComision" data-codigo-comision="' + comision.CodigoComision + '" data-nombre-comision="' + comision.Nombre + '">' +
+                            '<button type="button" class="btn btn-outline-danger btn-sm ms-1 delete-button-comision" data-bs-toggle="modal" data-bs-target="#eliminarComision" data-codigo-comision="' + comision.CodigoComision + '" data-nombre-comision="' + comision.Nombre + '">' +
                             '<i class="fas fa-trash"></i>' +
                             '</button>' +
                             '</td>';
@@ -648,10 +648,10 @@ function cargarUsuarios(busqueda) {
                         cell2.innerHTML = usuario.Email;
                         cell3.innerHTML = usuario.Rol;
                         cell4.innerHTML = '<td>' +
-                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-usuario" data-bs-toggle="modal" data-bs-target="#usuarioModal" data-codigo-usuario="' + usuario.Codigo + '" data-email="' + usuario.Email + '" data-rol="' + usuario.CodigoRol + '">' +
+                            '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-usuario" data-bs-toggle="modal" data-bs-target="#usuarioModal" data-codigo-usuario="' + usuario.Codigo + '" data-email="' + usuario.Email + '" data-rol="' + usuario.CodigoRol + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-usuario" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" data-codigo-usuario="' + usuario.Codigo + '" data-email="' + usuario.Email + '">' +
+                            '<button type="button" class="btn btn-outline-danger btn-sm ms-1 delete-button-usuario" data-bs-toggle="modal" data-bs-target="#eliminarUsuario" data-codigo-usuario="' + usuario.Codigo + '" data-email="' + usuario.Email + '">' +
                             '<i class="fas fa-trash"></i>' +
                             '</button>' +
                             '</td>';
@@ -834,19 +834,19 @@ function cargarRoles() {
 
                         cell1.innerHTML = rol.CodigoRol;
                         cell2.innerHTML = rol.Nombre;
-                        cell3.innerHTML = rol.GestionaNomina === 1 ?  String.fromCharCode(10003) : "X";
-                        cell4.innerHTML = rol.GestionaEmpleados === 1 ?  String.fromCharCode(10003) : "X";
-                        cell5.innerHTML = rol.GestionaMenu  === 1 ?  String.fromCharCode(10003) : "X";
-                        cell6.innerHTML = rol.GestionaReportes  === 1 ?  String.fromCharCode(10003) : "X";
-                        cell7.innerHTML = rol.GestionaCaja  === 1 ?  String.fromCharCode(10003) : "X";
-                        cell8.innerHTML = rol.GestionaPrestamos  === 1 ?  String.fromCharCode(10003) : "X";
+                        cell3.innerHTML = rol.GestionaNomina === "1" ?  String.fromCharCode(10003) : "X";
+                        cell4.innerHTML = rol.GestionaEmpleados === "1" ?  String.fromCharCode(10003) : "X";
+                        cell5.innerHTML = rol.GestionaMenu  === "1" ?  String.fromCharCode(10003) : "X";
+                        cell6.innerHTML = rol.GestionaReportes  === "1" ?  String.fromCharCode(10003) : "X";
+                        cell7.innerHTML = rol.GestionaCaja  === "1" ?  String.fromCharCode(10003) : "X";
+                        cell8.innerHTML = rol.GestionaPrestamos  === "1" ?  String.fromCharCode(10003) : "X";
                         cell9.innerHTML = '<td>' +
-                            '<button type="button" class="btn btn-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
+                            '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
                             '" data-nombre-rol="' + rol.Nombre + '" data-gestiona-nomina="' + rol.GestionaNomina + '" data-gestiona-empleados="' + rol.GestionaEmpleados +
                             '" data-gestiona-menu="' + rol.GestionaMenu + '" data-gestiona-reportes="' + rol.GestionaReportes + '" data-gestiona-caja="' + rol.GestionaCaja + '" data-gestiona-prestamos="' + rol.GestionaPrestamos + '">' +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
-                            '<button type="button" class="btn btn-danger btn-sm ms-1 delete-button-rol" data-bs-toggle="modal" data-bs-target="#eliminarRol" data-codigo-rol="' + rol.CodigoRol + '" data-nombre-rol="' + rol.Nombre + '">' +
+                            '<button type="button" class="btn btn-outline-danger btn-sm ms-1 delete-button-rol" data-bs-toggle="modal" data-bs-target="#eliminarRol" data-codigo-rol="' + rol.CodigoRol + '" data-nombre-rol="' + rol.Nombre + '">' +
                             '<i class="fas fa-trash"></i>' +
                             '</button>' +
                             '</td>';

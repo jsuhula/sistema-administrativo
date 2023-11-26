@@ -1,0 +1,15 @@
+{
+  "name": "sistema-dw-r",
+  "version": "1.0.0",
+  "description": "Sistema Administrativo para Restaurante\r # Universidad Mariano Galvez\r 2023",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  }
+}

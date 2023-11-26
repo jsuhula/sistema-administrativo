@@ -31,18 +31,18 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración</title>
     <link rel="icon" href="resources/food.svg" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="src/main.css">
 </head>
 
-<body style="background-color: #CBC6CC">
+<body style="background-color: #DAEAF1">
 
-    <header class="text-white text-center" style="background-color: #41292C">
+    <header class="text-white text-center" style="background-color: #379392">
         <span class="display-4">Administración Restaurante</span>
     </header>
 
     <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #41292C">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #379392">
         <div class="container">
             <button class="navbar-toggler" type="button" title="" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                         if ($permisos->GestionaEmpleados != 0) { ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i>
-                                    Empleados</a>
+                                    RRHH</a>
                             </li>
                         <?php }
                         if ($permisos->GestionaMenu != 0) { ?>
@@ -109,18 +109,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
         </div>
     </nav>
 
-    <div class="container shadow-lg mt-5 mb-5 p-md-5 rounded-4 bg-light">
-        <h2 class="text-center pt-3">Estadisticas del Mes</h2>
-        <div class="row mt-4 justify-content-center">
-            <div class="col-md-10 pb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title">Gráfica de Ventas Mensuales</h2>
-                        <canvas id="ventasMensuales"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container-md shadow-lg p-md-5 bg-light">
         <div class="row mt-4">
             <div class="col-md-6 p-2">
                 <div class="card h-100">
@@ -160,18 +149,6 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
             </div>
         </div>
     </div>
-    <footer class="text-white text-center" style="background-color: #41292C">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 pt-2">
-                    <p>Correo electrónico: ejemplo@correo.com</p>
-                </div>
-                <div class="col-md-6 pt-2">
-                    <p>© 2023 Todos los derechos reservados</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Modal para Entrada -->
     <div class="modal fade" id="marcajeAsistenciaModal" tabindex="-1" aria-labelledby="marcajeAsistenciaModal"
@@ -191,7 +168,7 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                                 <input id="asistenciaEntrada" type="datetime" class="form-control" name="asistenciaEntrada"
                                     readonly required value="<?php echo date("d-m-Y H:i:s"); ?>">
                             </div>
-                            <button type="submit" title="" class="btn btn-success">Registrar
+                            <button type="submit" title="" class="btn btn-primary text-white">Registrar
                                 Entrada</button>
                         <?php } else if ($asistencia->ExisteSalida == 0) { ?>
                                 <div class="mb-3">
@@ -218,27 +195,6 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
     <script src="js/funciones-index.js"></script>
 
     <script>
-        var ctx = document.getElementById('ventasMensuales').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                datasets: [{
-                    label: 'Ventas Mensuales',
-                    data: [1200, 1400, 1600, 1800, 2000, 2200],
-                    fill: false,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
         document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.querySelector('.navbar');
             const header = document.querySelector('header');

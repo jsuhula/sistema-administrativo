@@ -30,15 +30,15 @@ function main(){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Préstamos</title>
     <link rel="icon" href="../resources/food.svg" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/main.css">
 </head>
 
-<body style="background-color: #CBC6CC">
-    <header class="text-white text-center" style="background-color: #41292C">
+<body style="background-color: #DAEAF1">
+    <header class="text-white text-center" style="background-color: #379392">
         <span class="display-4">Gestión de Préstamos</span>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #41292C">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #379392">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,9 +59,9 @@ function main(){
         </div>
     </nav>
 
-    <main class="container mt-4">
+    <main class="container-md">
         <!-- Ver Préstamos -->
-        <section id="ver-prestamos" class="content-section container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="ver-prestamos" class="content-section container bg-white shadow-lg p-4">
             <h2>Préstamos</h2>
             <hr>
             <div class="row justify-content-center">
@@ -77,7 +77,7 @@ function main(){
                 </div>
 
             </div>
-            <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
+            <div class="table-responsive" style="max-height: 40em; overflow-y: auto;">
                 <table id="tablaPrestamos" class="table table-striped">
                     <thead class="sticky-top">
                         <tr class="text-center">
@@ -95,13 +95,13 @@ function main(){
                 </table>
             </div>
             <hr>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoPrestamoModal"
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoPrestamoModal"
                 onclick="btnNuevoPrestamo()">
-                Nuevo Préstamo
+                NUEVO
             </button>
-            <button type="button" class="btn btn btn-outline-secondary" data-bs-toggle="modal"
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
                 data-bs-target="#realizarAbonosModal" onclick="btnNuevoAbono()">
-                Registrar Abono
+                ABONAR
             </button>
         </section>
 
@@ -169,7 +169,7 @@ function main(){
                                     <option value="6">6</option>
                                 </select>
                             </div>
-                            <button id="btnGuardarPrestamo" type="button" class="btn btn-success"
+                            <button id="btnGuardarPrestamo" type="button" class="btn btn-sm btn-outline-success"
                                 onclick="guardarPrestamo()">Guardar</button>
                         </form>
                     </div>
@@ -243,9 +243,9 @@ function main(){
                                         class="text-right text-white bg-dark bg-opacity-50"></td>
                                 </tr>
                             </table>
-                            <button id="btnGuardarAbono" type="button" class="btn btn-success" name="btnRealizarAbono"
+                            <button id="btnGuardarAbono" type="button" class="btn btn-sm btn-outline-success" name="btnRealizarAbono"
                                 onclick="guardarAbono()">Realizado</button>
-                            <button id="btnValidarPrestamo" type="button" class="btn btn-outline-secondary"
+                            <button id="btnValidarPrestamo" type="button" class="btn btn-sm btn-outline-secondary"
                                 name="btnValidar" onclick="cargarPrestamoValidacion()">Validar</button>
                         </form>
                     </div>

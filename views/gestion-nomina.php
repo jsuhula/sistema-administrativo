@@ -35,15 +35,15 @@ $fechaOperacion = date("Y-m-d");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Nómina</title>
     <link rel="icon" href="../resources/food.svg" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/main.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body style="background-color: #CBC6CC">
-    <header class="text-white text-center" style="background-color: #41292C">
+<body style="background-color: #DAEAF1">
+    <header class="text-white text-center" style="background-color: #379392">
         <span class="display-4">Gestión de Nómina</span>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #41292C">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #379392">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,23 +56,23 @@ $fechaOperacion = date("Y-m-d");
                             Regresar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#salarios" data-section="salarios"><i class="fa-solid fa-wallet"></i>
+                        <a class="nav-link" href="#" data-section="salarios"><i class="fa-solid fa-wallet"></i>
                             Pago Salarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bonificaciones" data-section="bonificaciones"><i
+                        <a class="nav-link" href="#" data-section="bonificaciones"><i
                                 class="fa-solid fa-wallet"></i> Pago Bonificacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#liquidacion" data-section="liquidacion"><i
+                        <a class="nav-link" href="#" data-section="liquidacion"><i
                                 class="fa-solid fa-file-contract"></i> Liquidacion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#informes" data-section="informes"><i
+                        <a class="nav-link" href="#" data-section="informes"><i
                                 class="fa-solid fa-chart-simple"></i> Informes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#resumen" data-section="resumen"><i class="fa-solid fa-list"></i>
+                        <a class="nav-link" href="#" data-section="resumen"><i class="fa-solid fa-list"></i>
                             Resumen</a>
                     </li>
                 </ul>
@@ -80,10 +80,10 @@ $fechaOperacion = date("Y-m-d");
         </div>
     </nav>
 
-    <main class="container mt-4">
+    <main class="container-md">
 
         <!-- Cálculo de Salarios -->
-        <section id="salarios" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4">
+        <section id="salarios" class="container content-section bg-white shadow-lg p-4">
             <h2>Cálculo de Salarios</h2>
             <form>
                 <div class="row align-items-center justify-content-between">
@@ -92,13 +92,13 @@ $fechaOperacion = date("Y-m-d");
                         <input type="date" class="form-control" id="fechaNominaSalario">
                     </div>
                     <div class="col-md-3 p-2">
-                        <button type="button" class="btn btn-secondary"
-                            onclick="calcularNominaSalario()">Calcular</button>
+                        <button type="button" class="btn btn-sm btn-primary text-white"
+                            onclick="calcularNominaSalario()">CALCULAR</button>
                     </div>
                 </div>
             </form>
             <!-- Resultado del cálculo de salarios -->
-            <h3 class="text-secondary pt-4">Resultado del Cálculo:</h3>
+            <h3 class="text-secondary pt-4">Resultados:</h3>
             <div class="table-responsive" style="max-height: 20em; overflow-y: auto;">
                 <table id="tablaNominaSalario" class="table table-striped text-end">
                     <thead class="sticky-top">
@@ -122,13 +122,13 @@ $fechaOperacion = date("Y-m-d");
                 hidden>
                 <span class="text-center text-white">Ya existe un reporte de nómina en el periodo seleccionado</span>
             </div>
-            <button id="confirmarOperacionNominaSalario" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarNominaSalario()">
-                CONFIRMAR OPERACION
+            <button id="confirmarOperacionNominaSalario" class="btn btn-sm btn-outline-danger bg-opacity-50 mt-3" disabled onclick="confirmarNominaSalario()">
+                CONFIRMAR OPERACIÓN
             </button>
         </section>
 
         <!-- Cálculo de Bonificaciones -->
-        <section id="bonificaciones" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+        <section id="bonificaciones" class="container content-section bg-white shadow-lg p-4">
             <h2>Cálculo de Bonificaciones</h2>
             <form>
                 <div class="row align-items-center justify-content-between">
@@ -143,8 +143,8 @@ $fechaOperacion = date("Y-m-d");
                     <input type="date" class="form-control" id="fechaPagoBonificacion">
                     </div>
                     <div class="col-sm-3 p-2">
-                        <button type="button" class="btn btn-secondary"
-                            onclick="calcularBonificacion()">Calcular</button>
+                        <button type="button" class="btn btn-sm btn-primary"
+                            onclick="calcularBonificacion()">CALCULAR</button>
                     </div>
                 </div>
             </form>
@@ -170,26 +170,26 @@ $fechaOperacion = date("Y-m-d");
                 hidden>
                 <span class="text-center text-white">Ya existe un reporte de pago para la bonificación seleccionada</span>
             </div>
-            <button id="confirmarOperacionPagoBonificacion" class="btn btn-danger bg-opacity-50 mt-3" disabled onclick="confirmarPagoBonificacion()">
-                CONFIRMAR OPERACION
+            <button id="confirmarOperacionPagoBonificacion" class="btn btn-sm btn-outline-danger bg-opacity-50 mt-3" disabled onclick="confirmarPagoBonificacion()">
+                CONFIRMAR OPERACIÓN
             </button>
         </section>
 
         <!-- Calculo de liquidacion -->
-        <section id="liquidacion" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+        <section id="liquidacion" class="container content-section bg-white shadow-lg p-4">
             <h2>Cálculo de Liquidación</h2>
 
             <form>
                 <div class="row align-items-center justify-content-between">
                     <label for="empleado_liquidacion" class="form-label">Nombre de Empleado:</label>
-                    <div class="col-md-6">
+                    <div class="col-md-6 p-2">
                         <select class="form-select" id="empleado_liquidacion">
                             <option value="1">Empleado 1</option>
                             <option value="2">Empleado 2</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-secondary">Calcular</button>
+                    <div class="col-md-3 p-2">
+                        <button type="submit" class="btn btn-sm btn-primary">CALCULAR</button>
                     </div>
                 </div>
             </form>
@@ -252,11 +252,11 @@ $fechaOperacion = date("Y-m-d");
                     </tr>
                 </tfoot>
             </table>
-            <button class="btn btn-success" id="generar-liquidacion">Generar Liquidación</button>
+            <button class="btn btn-sm btn-outline-primary" id="generar-liquidacion">Generar Liquidación</button>
         </section>
 
         <!-- Generación de Informes -->
-        <section id="informes" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+        <section id="informes" class="container content-section bg-white shadow-lg p-4">
             <h2>Generación de Informes</h2>
             <span id="AlertaExistenciaDatosParaInforme" class="text-center text-danger" hidden>No existen datos para el informe</span>
             <br />
@@ -275,7 +275,7 @@ $fechaOperacion = date("Y-m-d");
                     <input type="date" class="form-control" id="fechaInformeNominaSalario">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success" onclick="validarExisteReporteNomina()">Generar
+                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="validarExisteReporteNomina()">Generar
                         Informe</button>
                 </div>
             </div>
@@ -296,7 +296,7 @@ $fechaOperacion = date("Y-m-d");
                     <input type="date" class="form-control" id="fechaInformePagoBonificacion">
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success" onclick="exportarPagoBonificacion()">Generar
+                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="exportarPagoBonificacion()">Generar
                         Informe</button>
                 </div>
             </div>
@@ -317,13 +317,13 @@ $fechaOperacion = date("Y-m-d");
                     </select>
                 </div>
                 <div class="col-md-3 mb-2">
-                    <button type="submit" class="btn btn-success">Generar Informe</button>
+                    <button type="submit" class="btn btn-sm btn-primary text-white">Generar Informe</button>
                 </div>
             </div>
         </section>
 
         <!-- Seccion de Resumen -->
-        <section id="resumen" class="container bg-white shadow-lg mt-5 mb-5 p-4 rounded-4" hidden>
+        <section id="resumen" class="container content-section bg-white shadow-lg p-4">
             <h2>Resumen por Conceptos</h2>
             <table class="table table-striped">
                 <thead class="sticky-top">
@@ -369,62 +369,37 @@ $fechaOperacion = date("Y-m-d");
     <script src="../js/funciones-nomina.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const header = document.querySelector('header');
-            const headerHeight = header.offsetHeight;
-            const salarios = document.getElementById('salarios');
-            const bonificaciones = document.getElementById('bonificaciones');
-            const informes = document.getElementById('informes');
-            const liquidaciones = document.getElementById('liquidacion');
-            const resumen = document.getElementById('resumen');
+            const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
             const regresarLink = document.getElementById('regresar');
 
-            const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
+            // Función para ocultar todas las secciones excepto la lista de usuarios
+            function hideAllSectionsExcept() {
+                contentSections.forEach(section => {
+                    if (section.id === 'salarios') {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+
+            hideAllSectionsExcept();
 
             navLinks.forEach(link => {
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
 
-                    if (targetId === 'salarios') {
-                        salarios.removeAttribute('hidden');
+                    // Oculta todas las secciones
+                    contentSections.forEach(section => {
+                        section.style.display = 'none';
+                    });
 
-                        informes.setAttribute('hidden', 'true');
-                        liquidaciones.setAttribute('hidden', 'true');
-                        resumen.setAttribute('hidden', 'true');
-                        bonificaciones.setAttribute('hidden', true);
-
-                    } else if (targetId === 'bonificaciones') {
-                        bonificaciones.removeAttribute('hidden');
-
-                        informes.setAttribute('hidden', 'true');
-                        liquidaciones.setAttribute('hidden', 'true');
-                        resumen.setAttribute('hidden', 'true');
-                        salarios.setAttribute('hidden', 'true');
-
-                    } else if (targetId === 'informes') {
-                        informes.removeAttribute('hidden');
-
-                        liquidaciones.setAttribute('hidden', 'true');
-                        resumen.setAttribute('hidden', 'true');
-                        salarios.setAttribute('hidden', 'true');
-                        bonificaciones.setAttribute('hidden', true);
-
-                    } else if (targetId === 'liquidacion') {
-                        liquidaciones.removeAttribute('hidden');
-
-                        informes.setAttribute('hidden', 'true');
-                        resumen.setAttribute('hidden', 'true');
-                        salarios.setAttribute('hidden', 'true');
-                        bonificaciones.setAttribute('hidden', true);
-
-                    } else if (targetId === 'resumen') {
-                        resumen.removeAttribute('hidden');
-
-                        informes.setAttribute('hidden', 'true');
-                        liquidaciones.setAttribute('hidden', 'true');
-                        salarios.setAttribute('hidden', 'true');
-                        bonificaciones.setAttribute('hidden', true);
-
+                    // Muestra la sección correspondiente a la opción seleccionada
+                    const targetSectionId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetSectionId);
+                    if (targetSection) {
+                        targetSection.style.display = 'block';
                     }
                 });
             });
