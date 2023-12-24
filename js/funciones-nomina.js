@@ -4,7 +4,7 @@ function calcularNominaSalario() {
     if (fecha !== "") {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(1) + "&fechaOperacion=" + encodeURIComponent(fecha);
+        var url = "../controllers/administracion.nomina-controller.php?option=" + encodeURIComponent(1) + "&fechaOperacion=" + encodeURIComponent(fecha);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -60,7 +60,7 @@ function confirmarNominaSalario() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/nomina-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.nomina-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -100,7 +100,7 @@ function implCalcularPagoBonificacion(codigoTipoBonificacion) {
     if (fecha !== "") {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
+        var url = "../controllers/administracion.nomina-controller.php?option=" + encodeURIComponent(2) + "&codigoTipoBonificacion=" + encodeURIComponent(codigoTipoBonificacion) + "&fechaOperacion=" + encodeURIComponent(fecha);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -164,7 +164,7 @@ function implConfirmarPagoBonificacion(codigoTipoBonificacion) {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/nomina-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.nomina-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -211,7 +211,7 @@ function validarExisteReporteNomina() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/nomina-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.nomina-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -233,7 +233,7 @@ function exportarInformeBono14(fechaOperacion) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(3) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+    var url = "../controllers/administracion.nomina-controller.php?option=" + encodeURIComponent(3) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -253,7 +253,7 @@ function exportarInformeAguinaldo(fechaOperacion) {
 
     document.getElementById('AlertaExistenciaDatosParaInforme').setAttribute('hidden', true);
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(4) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
+    var url = "../controllers/administracion.nomina-controller.php?option=" + encodeURIComponent(4) + "&fechaOperacion=" + encodeURIComponent(fechaOperacion);
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");

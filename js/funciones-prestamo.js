@@ -14,7 +14,7 @@ function buscarPrestamo() {
 function cargarPrestamos(empleadoBusqueda) {
 
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/prestamo-controller.php?option=" + encodeURIComponent(1)+"&nombreEmpleado="+encodeURIComponent(empleadoBusqueda);
+    var url = "../controllers/administracion.prestamo-controller.php?option=" + encodeURIComponent(1)+"&nombreEmpleado="+encodeURIComponent(empleadoBusqueda);
 
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -80,7 +80,7 @@ function guardarPrestamo() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/prestamo-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.prestamo-controller.php", true);
         xhr.setRequestHeader("Content-type", "application/json");
 
         xhr.onreadystatechange = function () {
@@ -109,7 +109,7 @@ function guardarPrestamo() {
 function cargarEmpleados() {
 
     var xhr = new XMLHttpRequest();
-    var url = "../controllers/empleado-controller.php?option=" + encodeURIComponent(1);
+    var url = "../controllers/administracion.recursos-humanos-controller.php?option=" + encodeURIComponent(1);
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -145,7 +145,7 @@ function cargarPrestamoValidacion() {
     } else {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/prestamo-controller.php?option=" + encodeURIComponent(2) + "&codigoPrestamo=" + encodeURIComponent(codigoPrestamo);
+        var url = "../controllers/administracion.prestamo-controller.php?option=" + encodeURIComponent(2) + "&codigoPrestamo=" + encodeURIComponent(codigoPrestamo);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -200,7 +200,7 @@ function guardarAbono() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/prestamo-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.prestamo-controller.php", true);
         xhr.setRequestHeader("Content-type", "application/json");
 
         xhr.onreadystatechange = function () {

@@ -22,7 +22,7 @@ function cargarEmpleados(busqueda) {
 
     selectIds.forEach(function (selectId) {
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/empleado-controller.php?option=" + encodeURIComponent(1) + "&busqueda=" + encodeURIComponent(busqueda)+"&estado="+encodeURIComponent(estado);
+        var url = "../controllers/administracion.recursos-humanos-controller.php?option=" + encodeURIComponent(1) + "&busqueda=" + encodeURIComponent(busqueda)+"&estado="+encodeURIComponent(estado);
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -213,7 +213,7 @@ function guardarEmpleado() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/empleado-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.recursos-humanos-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -246,7 +246,7 @@ function cargarDepartamentos() {
 
     selectIds.forEach(function (selectId) {
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/departamento-controller.php?option=" + encodeURIComponent(1);
+        var url = "../controllers/administracion.departamento-controller.php?option=" + encodeURIComponent(1);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -376,7 +376,7 @@ function guardarDepartamento() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/departamento-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.departamento-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -406,7 +406,7 @@ function eliminarDepartamento() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../controllers/departamento-controller.php", true);
+    xhr.open("POST", "../controllers/administracion.departamento-controller.php", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     xhr.onload = function () {
@@ -427,7 +427,7 @@ function cargarComisiones() {
 
     selectIds.forEach(function (selectId) {
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/departamento-controller.php?option=" + encodeURIComponent(2);
+        var url = "../controllers/administracion.departamento-controller.php?option=" + encodeURIComponent(2);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -556,7 +556,7 @@ function guardarComision() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/departamento-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.departamento-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -586,7 +586,7 @@ function eliminarComision() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../controllers/departamento-controller.php", true);
+    xhr.open("POST", "../controllers/administracion.departamento-controller.php", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     xhr.onload = function () {
@@ -613,7 +613,7 @@ function cargarUsuarios(busqueda) {
     selectIds.forEach(function (selectId) {
 
         var xhr = new XMLHttpRequest();
-        url = "../controllers/usuario-controller.php?option=" + encodeURIComponent(1) + "&busqueda=" + encodeURIComponent(busqueda);
+        url = "../controllers/administracion.usuario-controller.php?option=" + encodeURIComponent(1) + "&busqueda=" + encodeURIComponent(busqueda);
         
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -747,7 +747,7 @@ function guardarUsuario() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/usuario-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.usuario-controller.php", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
@@ -778,7 +778,7 @@ function eliminarUsuario() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../controllers/usuario-controller.php", true);
+    xhr.open("POST", "../controllers/administracion.usuario-controller.php", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     xhr.onload = function () {
@@ -798,7 +798,7 @@ function cargarRoles() {
 
     selectIds.forEach(function (selectId) {
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/usuario-controller.php?option=" + encodeURIComponent(2);
+        var url = "../controllers/administracion.usuario-controller.php?option=" + encodeURIComponent(2);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -952,7 +952,7 @@ function guardarRol() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controllers/usuario-controller.php", true);
+        xhr.open("POST", "../controllers/administracion.usuario-controller.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function () {
@@ -983,7 +983,7 @@ function eliminarRol() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../controllers/usuario-controller.php", true);
+    xhr.open("POST", "../controllers/administracion.usuario-controller.php", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     xhr.onload = function () {

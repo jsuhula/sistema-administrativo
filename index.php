@@ -58,36 +58,36 @@ $nombreUsuarioActual = empty($usuarioSesion->NombreUsuarioSesion) ? $usuarioSesi
                     <?php if ($permisos->Existe != 0) {
                         if ($permisos->GestionaNomina != 0) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="views/gestion-nomina.php"><i class="fa-regular fa-folder-open"></i>
+                                <a class="nav-link" href="views/administracion.nomina.php"><i class="fa-regular fa-folder-open"></i>
                                     Nómina</a>
                             </li>
                         <?php }
                         if ($permisos->GestionaPrestamos != 0) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="views/gestion-prestamos.php"><i class="fa-solid fa-wallet"></i>
+                                <a class="nav-link" href="views/administracion.prestamos.php"><i class="fa-solid fa-wallet"></i>
                                     Préstamos</a>
                             </li>
                         <?php }
                         if ($permisos->GestionaEmpleados != 0) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="views/gestion-empleados.php"><i class="fa-solid fa-users"></i>
+                                <a class="nav-link" href="views/administracion.recursos-humanos.php"><i class="fa-solid fa-users"></i>
                                     RRHH</a>
                             </li>
                         <?php }
                         if ($permisos->GestionaMenu != 0) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="views/gestion-menu.php"><i class="fa-solid fa-drumstick-bite"></i>
+                                <a class="nav-link" href="views/administracion.menu.php"><i class="fa-solid fa-drumstick-bite"></i>
                                     Menú</a>
                             </li>
                         <?php }
                         if ($permisos->GestionaReportes != 0) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="views/reportes.php"><i class="fa-solid fa-chart-simple"></i>
+                                <a class="nav-link" href="views/administracion.reportes.php"><i class="fa-solid fa-chart-simple"></i>
                                     Reportes</a>
                             </li>
                         <?php } ?>
                         <li class="nav-item text-white">
-                            <a class="nav-link" href="views/menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver
+                            <a class="nav-link" href="views/cliente.menu.php" target="_blank"><i class="fa-regular fa-eye"></i> Ver
                                 Menú</a>
                         </li>
                         <?php if ($asistencia->ExisteEmpleado != 0) { ?>

@@ -8,7 +8,7 @@ function calcularNominaSalario() {
     if (fecha !== "") {
 
         var xhr = new XMLHttpRequest();
-        var url = "../controllers/nomina-controller.php?option=" + encodeURIComponent(1) + "&fechaOperacion=" + encodeURIComponent(fecha);
+        var url = "../controllers/administracion.nomina-controller.php?option=" + encodeURIComponent(1) + "&fechaOperacion=" + encodeURIComponent(fecha);
 
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
