@@ -834,12 +834,12 @@ function cargarRoles() {
 
                         cell1.innerHTML = rol.CodigoRol;
                         cell2.innerHTML = rol.Nombre;
-                        cell3.innerHTML = rol.GestionaNomina === "1" ?  String.fromCharCode(10003) : "X";
-                        cell4.innerHTML = rol.GestionaEmpleados === "1" ?  String.fromCharCode(10003) : "X";
-                        cell5.innerHTML = rol.GestionaMenu  === "1" ?  String.fromCharCode(10003) : "X";
-                        cell6.innerHTML = rol.GestionaReportes  === "1" ?  String.fromCharCode(10003) : "X";
-                        cell7.innerHTML = rol.GestionaCaja  === "1" ?  String.fromCharCode(10003) : "X";
-                        cell8.innerHTML = rol.GestionaPrestamos  === "1" ?  String.fromCharCode(10003) : "X";
+                        cell3.innerHTML = rol.GestionaNomina.toString() === "1" ?  "X" : "";
+                        cell4.innerHTML = rol.GestionaEmpleados.toString() === "1" ?  "X" : "";
+                        cell5.innerHTML = rol.GestionaMenu.toString()  === "1" ?  "X" : "";
+                        cell6.innerHTML = rol.GestionaReportes.toString()  === "1" ?  "X" : "";
+                        cell7.innerHTML = rol.GestionaCaja  === "1" ?  "X" : "";
+                        cell8.innerHTML = rol.GestionaPrestamos.toString()  === "1" ?  "X" : "";
                         cell9.innerHTML = '<td>' +
                             '<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-rol" data-bs-toggle="modal" data-bs-target="#modalRol" data-codigo-rol="' + rol.CodigoRol +
                             '" data-nombre-rol="' + rol.Nombre + '" data-gestiona-nomina="' + rol.GestionaNomina + '" data-gestiona-empleados="' + rol.GestionaEmpleados +
