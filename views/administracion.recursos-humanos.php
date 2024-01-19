@@ -124,7 +124,7 @@ function main()
                 </table>
             </div>
 
-            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#empleadoModal"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalEmpleado"
                 onclick="btnNuevoEmpleado()">
                 NUEVO
             </button>
@@ -160,7 +160,7 @@ function main()
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#usuarioModal"
+            <button class="btn btn-sm btn-primary mt-3" title="" data-bs-toggle="modal" data-bs-target="#modalUsuario"
                 onclick="btnNuevoUsuario()">
                 NUEVO
             </button>
@@ -247,7 +247,7 @@ function main()
     </div>
 
     <!-- Modal Empleado -->
-    <div class="modal fade" id="empleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel">
+    <div class="modal fade" id="modalEmpleado" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -394,7 +394,7 @@ function main()
     </div>
 
     <!-- Modal de Usuario -->
-    <div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModal">
+    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -687,17 +687,30 @@ function main()
     </div>
 
     <div class="modal fade" id="modalEliminacionExitosa" tabindex="-1" aria-labelledby="modalEliminacionExitosa">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-info">
-            <div class="modal-body align-self-center text-center">
-                <span class="display-6 text-white">Eliminación Exitosa</span>
-                <br>
-                <br>
-                <button type="button" class="btn bg-white text-black" data-bs-dismiss="modal" aria-label="" onclick="cerrarModal('modalEliminacionExitosa')">OK</button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-danger">
+                <div class="modal-body align-self-center text-center">
+                    <span class="display-6 text-white"><i class="fas fa-done"></i>Eliminación Exitosa</span>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="" onclick="cerrarModal('modalEliminacionExitosa')">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="modalGuardarExitoso" tabindex="-1" aria-labelledby="modalGuardarExitoso">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-info">
+                <div class="modal-body align-self-center text-center">
+                    <span class="display-6 text-white"><i class="fas fa-done"></i>Guardado Exitoso</span>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="" onclick="cerrarModal('modalGuardarExitoso')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../js/funciones-recursos-humanos.js"></script>
