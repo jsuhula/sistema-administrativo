@@ -256,32 +256,8 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExitoEmpleado" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
-                            correctamente</span>
-                    </div>
-                    <div id="alertaErrorEmpleado" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
-                            comuniquese con soporte</span>
-                    </div>
-                    <div id="alertaNoAfectacionEmpleado" class="row m-2" hidden>
-                        <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            cambios</span>
-                    </div>
-                    <div id="alertaDuplicadoEmpleado" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
-                            empleado
-                            con el DPI ingresado
-                        </span>
-                    </div>
-                    <div id="alertaAsignacionUsuario" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">El usuario que se
-                            desea asignar, ya está en uso
-                        </span>
-                    </div>
-                    <div id="alertaCompletarCamposEmpleado" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
-                            campos</span>
+                    <div id="alertaEmpleado" class="row m-2" hidden>
+                        <span id="mensajeAlertaEmpleado" class="p-2 text-center text-white rounded-4"></span>
                     </div>
                     <form id="formEmpleado">
                         <div class="row mb-3">
@@ -297,13 +273,13 @@ function main()
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="NombresEmpleado" class="form-label">*Nombres:</label>
-                                <input type="text" class="form-control" id="NombresEmpleado" name="NombresEmpleado"
+                                <label for="Nombres" class="form-label">*Nombres:</label>
+                                <input type="text" class="form-control" id="Nombres" name="Nombres"
                                     placeholder="Nombre" maxlength="45" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="ApellidosEmpleado" class="form-label">*Apellidos:</label>
-                                <input type="text" class="form-control" id="ApellidosEmpleado" name="ApellidosEmpleado"
+                                <label for="Apellidos" class="form-label">*Apellidos:</label>
+                                <input type="text" class="form-control" id="Apellidos" name="Apellidos"
                                     placeholder="Apellidos" maxlength="45" required>
                             </div>
                         </div>
@@ -321,8 +297,8 @@ function main()
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="EmailEmpleado" class="form-label">*Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="EmailEmpleado" name="EmailEmpleado"
+                                <label for="Email" class="form-label">*Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="Email" name="Email"
                                     placeholder="ejemplo@email.com" max-length="50" required>
                             </div>
 
@@ -340,9 +316,9 @@ function main()
                                     placeholder="Profesion/Puesto" maxlength="45" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="SelectEmpleadoDepartamento" class="form-label">*Departamento:</label>
-                                <select class="form-select" id="SelectEmpleadoDepartamento"
-                                    name="SelectEmpleadoDepartamento">
+                                <label for="CodigoDepartamento" class="form-label">*Departamento:</label>
+                                <select class="form-select" id="CodigoDepartamento"
+                                    name="CodigoDepartamento">
                                     <option value="" selected disabled>Seleccione un Departamento</option>
                                 </select>
                             </div>
@@ -390,8 +366,8 @@ function main()
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="SelectEmpleadoJornada" class="form-label">*Jornada:</label>
-                                <select class="form-select" id="SelectEmpleadoJornada" name="SelectEmpleadoJornada">
+                                <label for="CodigoJornadaLaboral" class="form-label">*Jornada:</label>
+                                <select class="form-select" id="CodigoJornadaLaboral" name="CodigoJornadaLaboral">
                                     <option value="" selected disabled>Seleccione una Jornada Laboral</option>
                                     <option value="1">Lunes a Viernes</option>
                                     <option value="2">Lunes a Sabado</option>
@@ -400,9 +376,9 @@ function main()
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="SelectEmpleadoUsuarioSistema" class="form-label">*Usuario Sistema:</label>
-                                <select class="form-select" id="SelectEmpleadoUsuarioSistema"
-                                    name="SelectEmpleadoUsuarioSistema">
+                                <label for="CodigoUsuarioSistema" class="form-label">*Usuario Sistema:</label>
+                                <select class="form-select" id="CodigoUsuarioSistema"
+                                    name="CodigoUsuarioSistema">
                                     <option value="" selected disabled>Seleccione un Usuario de Sistema</option>
                                 </select>
                             </div>
@@ -427,25 +403,8 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExitoUsuario" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
-                            correctamente</span>
-                    </div>
-                    <div id="alertaErrorUsuario" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
-                            comuniquese con soporte</span>
-                    </div>
-                    <div id="alertaDuplicadoUsuario" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un Usuario
-                            con el mismo E-mail, intente con otro</span>
-                    </div>
-                    <div id="alertaCompletarCamposUsuario" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
-                            campos</span>
-                    </div>
-                    <div id="alertaNoAfectacionUsuario" class="row m-2" hidden>
-                        <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            cambios</span>
+                    <div id="alertaUsuario" class="row m-2" hidden>
+                        <span id="mensajeAlertaUsuario" class="p-2 text-center text-white rounded-4"></span>
                     </div>
                     <form id="formUsuario">
                         <div class="mb-3">
@@ -487,25 +446,8 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExitoDepartamento" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
-                            correctamente</span>
-                    </div>
-                    <div id="alertaErrorDepartamento" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
-                            comuniquese con soporte</span>
-                    </div>
-                    <div id="alertaDuplicadoDepartamento" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un
-                            departamento con este nombre</span>
-                    </div>
-                    <div id="alertaNoAfectacionDepartamento" class="row m-2" hidden>
-                        <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            cambios</span>
-                    </div>
-                    <div id="alertaCompletarCamposDepartamento" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
-                            campos</span>
+                    <div id="alertaDepartamento" class="row m-2" hidden>
+                        <span id="mensajeAlertaDepartamento" class="p-2 text-center text-white rounded-4"></span>
                     </div>
                     <form id="formDepartamento">
                         <div class="mb-3">
@@ -548,25 +490,8 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExitoRol" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
-                            correctamente</span>
-                    </div>
-                    <div id="alertaErrorRol" class="row m-2" hidden>
-                        <span class="bg-danger bg-opacity-75 p-2 text-center text-white rounded-4">Ocurrio un error,
-                            comuniquese con soporte</span>
-                    </div>
-                    <div id="alertaDuplicadoRol" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe un Rol
-                            con el nombre actual</span>
-                    </div>
-                    <div id="alertaNoAfectacionRol" class="row m-2" hidden>
-                        <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            cambios</span>
-                    </div>
-                    <div id="alertaCompletarCamposRol" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
-                            campos</span>
+                    <div id="alertaRol" class="row m-2" hidden>
+                        <span id="mensajeAlertaRol" class="p-2 text-center text-white rounded-4"></span>
                     </div>
                     <form id="formRol">
                         <div class="mb-3">
@@ -620,25 +545,8 @@ function main()
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertaExitoComision" class="row m-2" hidden>
-                        <span class="bg-success bg-opacity-75 p-2 text-center text-white rounded-4">Se guardó
-                            correctamente</span>
-                    </div>
-                    <div id="alertaErrorComision" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Ocurrio un error,
-                            comuniquese con soporte</span>
-                    </div>
-                    <div id="alertaCompletarCamposComision" class="row m-2" hidden>
-                        <span class="bg-danger p-2 text-center text-white rounded-4">Llene todos los
-                            campos</span>
-                    </div>
-                    <div id="alertaNoAfectacionComision" class="row m-2" hidden>
-                        <span class="bg-info bg-opacity-75 p-2 text-center text-white rounded-4">No se realizaron
-                            cambios</span>
-                    </div>
-                    <div id="alertaDuplicadoComision" class="row m-2" hidden>
-                        <span class="bg-warning p-2 text-center text-white rounded-4">Ya existe una
-                            comision con este nombre</span>
+                    <div id="alertaComision" class="row m-2" hidden>
+                        <span id="mensajeAlertaComision" class="p-2 text-center text-white rounded-4"></span>
                     </div>
                     <form id="formComision">
                         <div class="mb-3">
@@ -670,7 +578,7 @@ function main()
     </div>
 
     <!-- Modal de Eliminar Usuario -->
-    <div class="modal fade" id="eliminarUsuario" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel">
+    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -682,11 +590,9 @@ function main()
                     <p><span id="codigoEliminarUsuario" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
                         <span id="descripcionEliminarUsuario"></span>?
                     </p>
-                    <span id="lblErrorEliminarUsuario" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarUsuario" class="text-success" hidden>La operacion se realizo con
-                        exito</span>
+                    <div id="alertaEliminarUsuario" class="row m-2" hidden>
+                        <span id="mensajeAlertaEliminarUsuario" class="p-2 text-center text-white rounded-4"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="cancelarEliminarUsuario" title="" type="button" class="btn btn-secondary"
@@ -699,7 +605,7 @@ function main()
     </div>
 
     <!-- Modal de Eliminación Rol -->
-    <div class="modal fade" id="eliminarRol" tabindex="-1" aria-labelledby="eliminarRol">
+    <div class="modal fade" id="eliminarRolModal" tabindex="-1" aria-labelledby="eliminarRol">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -711,10 +617,9 @@ function main()
                     <p><span id="codigoEliminarRol" hidden></span> ¿Estás seguro de que deseas eliminar el registro:
                         <span id="descripcionEliminarRol"></span>?
                     </p>
-                    <span id="lblErrorEliminarRol" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarRol" class="text-success" hidden>La operacion se realizo con exito</span>
+                    <div id="alertaEliminarRol" class="row m-2" hidden>
+                        <span id="mensajeAlertaEliminarRol" class="p-2 text-center text-white rounded-4"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="cancelarEliminarRol" title="" type="button" class="btn btn-secondary"
@@ -727,7 +632,7 @@ function main()
     </div>
 
     <!-- Modal de Eliminación Comision  -->
-    <div class="modal fade" id="eliminarComision" tabindex="-1" aria-labelledby="eliminarComision">
+    <div class="modal fade" id="eliminarComisionModal" tabindex="-1" aria-labelledby="eliminarComision">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -739,11 +644,9 @@ function main()
                         registro:
                         <span id="descripcionEliminarComision"></span>?
                     </p>
-                    <span id="lblErrorEliminarComision" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarComision" class="text-success" hidden>La operacion se realizo con
-                        exito</span>
+                    <div id="alertaEliminarComision" class="row m-2" hidden>
+                        <span id="mensajeAlertaEliminarComision" class="p-2 text-center text-white rounded-4"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="cancelarEliminarComision" title="" type="button" class="btn btn-secondary"
@@ -769,11 +672,9 @@ function main()
                         Departamento: 
                         <span id="descripcionEliminarDepartamento"></span>?</span>
                     </p>
-                    <span id="lblErrorEliminarDepartamento" class="text-danger" hidden>No se pudo realizar la operacion,
-                        comuniquese
-                        con soporte</span>
-                    <span id="lblExitoEliminarDepartamento" class="text-success" hidden>La operacion se realizo con
-                        exito</span>
+                    <div id="alertaEliminarDepartamento" class="row m-2" hidden>
+                        <span id="mensajeAlertaEliminarDepartamento" class="p-2 text-center text-white rounded-4"></span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="cancelarEliminarDepartamento" title="" type="button" class="btn btn-secondary"
@@ -784,6 +685,19 @@ function main()
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalEliminacionExitosa" tabindex="-1" aria-labelledby="modalEliminacionExitosa">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-info">
+            <div class="modal-body align-self-center text-center">
+                <span class="display-6 text-white">Eliminación Exitosa</span>
+                <br>
+                <br>
+                <button type="button" class="btn bg-white text-black" data-bs-dismiss="modal" aria-label="" onclick="cerrarModal('modalEliminacionExitosa')">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="../js/funciones-recursos-humanos.js"></script>
