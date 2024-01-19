@@ -84,7 +84,7 @@ function cargarTablaEmpleados(data) {
                 case 6:
                     cell.innerHTML = `<td>
                         <button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-empleado" 
-                            data-bs-toggle="modal" data-bs-target="#empleadoModal" ${crearAtributosDatosEmpleado(empleado)}>
+                            data-bs-toggle="modal" data-bs-target="#modalEmpleado" ${crearAtributosDatosEmpleado(empleado)}>
                             <i class="fas fa-edit"></i>
                         </button>
                         <a href="../templates/reporte-empleado.php?CodigoEmpleado=${empleado.CodigoEmpleado}" 
@@ -206,11 +206,12 @@ function guardarEmpleado() {
             case 200:
                 cargarEmpleados("");
                 limpiarCamposModal("formEmpleado");
-                mostrarAlerta('Empleado', 'Se guardó correctamente', 'exito');
-                (async function iniciarPausa() {
-                    await pausarPorSegundosAsync(2);
-                    window.location.reload();
-                })();
+                cerrarModal("modalEmpleado");
+                mostrarModalExitoso("modalGuardarExitoso");
+                // (async function iniciarPausa() {
+                //     await pausarPorSegundosAsync(2);
+                //     window.location.reload();
+                // })();
                 break;
             case 409:
                 mostrarAlerta('Empleado', 'Ya se encuentra el registro en el sistema', 'advertencia');
@@ -382,7 +383,8 @@ function guardarDepartamento() {
                 case 200:
                     cargarDepartamentos();
                     limpiarCamposModal("formDepartamento");
-                    mostrarAlerta('Departamento', 'Se guardó correctamente el registro', 'exito');
+                    cerrarModal("departamentoModal");
+                    mostrarModalExitoso("modalGuardarExitoso");
                     break;
                 case 409:
                     mostrarAlerta('Departamento', 'Ya se encuentra el registro en el sistema', 'advertencia');
@@ -417,7 +419,7 @@ function eliminarDepartamento() {
         if (xhr.status === 200) {
             cargarDepartamentos();
             cerrarModal('eliminarDepartamentoModal');
-            mostrarModalEliminacionExitosa();
+            mostrarModalExitoso("modalEliminacionExitosa");
         } else {
             mostrarAlerta('EliminarDepartamento', 'Ocurrio un error inesperado', 'error')
         }
@@ -570,7 +572,8 @@ function guardarComision() {
                 case 200:
                     cargarComisiones();
                     limpiarCamposModal("formComision");
-                    mostrarAlerta('Comision', 'Se guardó correctamente el registro', 'exito');
+                    cerrarModal("modalComision");
+                    mostrarModalExitoso("modalGuardarExitoso");
                     break;
                 case 409:
                     mostrarAlerta('Comision', 'Ya se encuentra el registro en el sistema', 'advertencia');
@@ -603,7 +606,7 @@ function eliminarComision() {
         if (xhr.status === 200) {
             cargarComisiones();
             cerrarModal("eliminarComisionModal");
-            mostrarModalEliminacionExitosa();
+            mostrarModalExitoso("modalEliminacionExitosa");
         } else {
             mostrarAlerta('EliminarComision', 'Ocurrio un error inesperado', 'error');
 
@@ -650,7 +653,7 @@ function cargarUsuarios(busqueda) {
 
                         const cell4 = row.insertCell(4);
                         cell4.innerHTML = '<td>' +
-                            `<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-usuario" data-bs-toggle="modal" data-bs-target="#usuarioModal" data-codigo-usuario="${usuario.Codigo}" data-email="${usuario.Email}" data-rol="${usuario.CodigoRol}">` +
+                            `<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-usuario" data-bs-toggle="modal" data-bs-target="#modalUsuario" data-codigo-usuario="${usuario.Codigo}" data-email="${usuario.Email}" data-rol="${usuario.CodigoRol}">` +
                             '<i class="fas fa-edit"></i>' +
                             '</button>' +
                             `<button type="button" class="btn btn-outline-danger btn-sm ms-1 delete-button-usuario" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal" data-codigo-usuario="${usuario.Codigo}" data-email="${usuario.Email}">` +
@@ -735,7 +738,7 @@ function guardarUsuario() {
         mostrarAlerta('Usuario', 'Por favor complete los campos necesarios', 'advertencia');
     } else {
 
-        const option = codigoComision === "" ? 1 : 2;
+        const option = codigo === "" ? 1 : 2;
 
         let datos = {
             codigoUsuario: codigo,
@@ -754,7 +757,8 @@ function guardarUsuario() {
                 case 200:
                     cargarUsuarios("");
                     limpiarCamposUsuarioModal();
-                    mostrarAlerta('Usuario', 'Se guardó correctamente el registro', 'exito');
+                    cerrarModal("modalUsuario");
+                    mostrarModalExitoso("modalGuardarExitoso");
                     break;
                 case 409:
                     mostrarAlerta('Usuario', 'Ya se encuentra el registro en el sistema', 'advertencia');
@@ -788,7 +792,7 @@ function eliminarUsuario() {
         if (xhr.status === 200) {
             cargarUsuarios("");
             cerrarModal("eliminarUsuarioModal");
-            mostrarModalEliminacionExitosa();
+            mostrarModalExitoso("modalEliminacionExitosa");
         } else {
             mostrarAlerta('EliminarUsuario', 'Ocurrio un error inesperado', 'error');
         }
@@ -977,8 +981,9 @@ function guardarRol() {
         if (xhr.readyState === 4) {
             switch (xhr.status) {
                 case 200:
-                    mostrarAlerta('Rol', 'Se guardo correctamente el registro', 'exito');
                     cargarRoles();
+                    cerrarModal("modalRol");
+                    mostrarModalExitoso("modalGuardarExitoso");
                     limpiarCamposModal("formRol");
                     break;
                 case 409:
@@ -1013,7 +1018,7 @@ function eliminarRol() {
         if (xhr.status === 200) {
             cargarRoles();
             cerrarModal('eliminarRolModal');
-            mostrarModalEliminacionExitosa();
+            mostrarModalExitoso("modalEliminacionExitosa");
         } else {
             mostrarAlerta('EliminarRol', 'Ocurrio un error inesperado', 'error');
         }
@@ -1106,7 +1111,7 @@ function cerrarModal(modalId) {
     }
 }
 
-function mostrarModalEliminacionExitosa() {
-    var modal = new bootstrap.Modal(document.getElementById('modalEliminacionExitosa'));
+function mostrarModalExitoso(modalId) {
+    var modal = new bootstrap.Modal(document.getElementById(modalId));
     modal.show();
 }
