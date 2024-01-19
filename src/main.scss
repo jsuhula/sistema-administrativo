@@ -3,8 +3,77 @@
 
 // Include any default variable overrides here (though functions won't be available)
 $primary: #379392;
-$success: #176B87;
-$info: #C08261;
+
+$success: rgb(91, 215, 176);
+
+$info: #70c3dd;
+$warning: #bcb61c;
+
 @import "../scss/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here
+
+.btn {
+    color: #fff; // Establece el color del texto en blanco
+}
+
+.btn:hover{
+    color: #fff;
+}
+
+.btn-primary{
+    color: #ffffff;
+}
+
+.btn-secondary{
+    color: #ffffff;
+}
+
+.btn-success{
+    color: #ffffff;
+}
+
+.btn-danger{
+    color: #ffffff;
+}
+
+
+.btn-outline-primary{
+    color: #379392;
+    border-color: #379392;
+}
+
+.btn-outline-secondary{
+    color: #626262;
+    border-color: #626262;
+}
+
+.btn-outline-success{
+    color: #176B87;
+    border-color: #176B87;
+}
+
+.btn-outline-danger{
+    color: #bb0000;
+    border-color: #bb0000;
+}
+
+.btn-outline-primary:hover{
+    background-color: #379392;
+    border-color: #379392;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #626262;
+    border-color: #626262;
+}
+
+.btn-outline-success:hover{
+    background-color: #176B87;
+    border-color: #176B87;
+}
+
+.btn-outline-danger:hover{
+    background-color: #bb0000;
+    border-color: #bb0000;
+}
