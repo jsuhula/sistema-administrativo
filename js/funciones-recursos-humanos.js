@@ -646,12 +646,12 @@ function cargarUsuarios(busqueda) {
 
                     data.forEach(function (usuario) {
                         const row = tabla.insertRow();
-                        for (let i = 0; i < 4; i++) {
+                        for (let i = 0; i < 3; i++) {
                             const cell = row.insertCell(i);
                             cell.innerHTML = (i === 0) ? usuario.Codigo : (i === 1) ? usuario.Email : (i === 2) ? usuario.Rol : '';
                         }
 
-                        const cell4 = row.insertCell(4);
+                        const cell4 = row.insertCell(3);
                         cell4.innerHTML = '<td>' +
                             `<button type="button" class="btn btn-outline-success btn-sm ms-1 edit-button-usuario" data-bs-toggle="modal" data-bs-target="#modalUsuario" data-codigo-usuario="${usuario.Codigo}" data-email="${usuario.Email}" data-rol="${usuario.CodigoRol}">` +
                             '<i class="fas fa-edit"></i>' +
@@ -858,7 +858,7 @@ function cargarTablaRoles(data) {
                     cell.innerHTML = rol.Nombre;
                     break;
                 default:
-                    cell.innerHTML = rol[`Gestiona${NOMBRES_PERMISOS[i - 2]}`] === 1 ? "X" : "";
+                    cell.innerHTML = rol[`Gestiona${NOMBRES_PERMISOS[i - 2]}`].toString() === "1" ? "X" : "";
             }
         }
 
