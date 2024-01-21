@@ -2,7 +2,7 @@
 
 session_start();
 if ($_SESSION) {
-  header('location: index');
+  header('location: index.php');
 }
 
 ?>
