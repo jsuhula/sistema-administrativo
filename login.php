@@ -2,7 +2,7 @@
 
 session_start();
 if ($_SESSION) {
-  header('location: index.php');
+  header('location: index');
 }
 
 ?>
@@ -13,7 +13,7 @@ if ($_SESSION) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="resources/food.svg" type="image/svg+xml">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="src/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <title>Ingresar</title>
 </head>
@@ -28,7 +28,7 @@ if ($_SESSION) {
       <div class="container container-fluid">
         <div class="vh-100 h-auto row row-cols-auto justify-content-center align-items-center">
           <div class="col-md-auto">
-            <div class="card px-5 py-5 bg-white bg-opacity-75 shadow-sm rounded-4 border-0">
+            <div class="card px-5 py-5 bg-light bg-opacity-100 shadow-sm rounded-2 border-0">
               <form id="formCredenciales" method="POST" autocomplete="off">
                 <div>
                   <h2 class="fs-3 text-center text-black">Sistema Administrativo </br>¡De Aqui Soy!</h2>
@@ -36,7 +36,7 @@ if ($_SESSION) {
                 </div>
                 <div class="form-outline mb-4 input-group">
                   <label for="email"
-                    class="input-group-text text-black bg-transparent border border-dark border-opacity-50 rounded-5"><i
+                    class="input-group-text text-primary bg-transparent border border-dark border-opacity-50 rounded-5"><i
                       class="fas fa-envelope"></i></label>
                   <input id="email" required
                     class="form-control bg-transparent border border-dark border-start-0 border-top-0 border-end-0 rounded-0 border-opacity-25"
@@ -45,12 +45,12 @@ if ($_SESSION) {
 
                 <div class="form-outline mb-4 input-group">
                   <label for="clave"
-                    class="input-group-text bg-transparent text-black border border-dark border-opacity-50 rounded-5"><i
+                    class="input-group-text bg-transparent text-primary border border-dark border-opacity-50 rounded-5"><i
                       class="fas fa-key"></i></label>
                   <input id="clave" required
                     class="form-control bg-transparent border border-dark  border-start-0 border-top-0 border-end-0 rounded-0 border-opacity-25"
                     type="password" name="pass" preview="true" placeholder="Contraseña" maxlength="13">
-                    <button id="showPassword" type="button" class="btn btn-secondary">
+                  <button id="showPassword" type="button" class="btn btn-primary">
                     <i class="fas fa-eye"></i>
                   </button>
                 </div>
@@ -66,8 +66,8 @@ if ($_SESSION) {
                 </div>
                 <div>
                   <input id="btnIniciarSesion"
-                    class="text-center btn btn-outline-dark form-control opacity-75 rounded-5 mt-3 mb-3" type="submit"
-                    value="INGRESAR">
+                    class="text-center btn btn-outline-primary form-control opacity-75 rounded-5 mt-3 mb-3"
+                    type="submit" value="INGRESAR">
                 </div>
               </form>
             </div>
