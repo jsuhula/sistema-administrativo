@@ -79,7 +79,7 @@ function cargarTablaEmpleados(data) {
                     cell.innerHTML = empleado.SalarioBase;
                     break;
                 case 5:
-                    cell.innerHTML = empleado.Estado === 1 ? "Activo" : "Inactivo";
+                    cell.innerHTML = empleado.Estado.toString() === "1" ? "Activo" : "Inactivo";
                     break;
                 case 6:
                     cell.innerHTML = `<td>
